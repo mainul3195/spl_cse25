@@ -1,6 +1,6 @@
 {
   "course": "Structured Programming Language — C",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "last_updated": "2026-07-20",
   "maintainer": "Mainul Hasan",
   "primary_reference": {
@@ -159,7 +159,12 @@
           "Why scanf needs a destination address",
           "Why printf normally receives values rather than destination addresses"
         ],
-        "slug": "basic-formatted-input-and-output"
+        "slug": "basic-formatted-input-and-output",
+        "tutorial": {
+          "title": "Formatted Input & Output in C",
+          "href": "tutorials/formatted-input-output.html#mental-model",
+          "covered_topics": ["printf", "scanf", "Basic conversion and format specifiers", "Printing variables, constants, and expression results", "Reading values into variables", "Reading more than one value", "Why scanf needs a destination address", "Why printf normally receives values rather than destination addresses"]
+        }
       },
       {
         "n": 9,
@@ -404,7 +409,12 @@
           "Return values of input functions",
           "Checking input success and handling invalid input"
         ],
-        "slug": "input-and-output-beyond-the-basics"
+        "slug": "input-and-output-beyond-the-basics",
+        "tutorial": {
+          "title": "Formatted Input & Output in C",
+          "href": "tutorials/formatted-input-output.html#width-precision",
+          "covered_topics": ["Formatted output field width", "Precision control", "Output flags", "Formatted input field width", "Character input with getchar", "Character output with putchar", "Line-oriented input", "fgets", "puts and fputs for string-oriented output", "Whitespace behavior in formatted input", "Input-buffer and leftover-newline problems", "Return values of input functions", "Checking input success and handling invalid input"]
+        }
       },
       {
         "n": 5,

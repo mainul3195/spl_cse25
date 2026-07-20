@@ -17,11 +17,11 @@ A single-page curriculum reference for teaching and learning C.
 
 Open `index.html` in a web browser. The Tutorials navigation opens the tutorial library, where learners can choose a lesson. Click any major curriculum topic to expand its granular topic list and Schaum reference; linked topic names and practice questions still open the relevant section directly.
 
-The first included tutorial covers nested logic, loops, loop control, pattern printing, and practice questions using the grid method.
+The tutorial library currently includes lessons on nested logic and loop-based pattern printing, plus formatted input and output with `printf`, `scanf`, scansets, `sscanf`, and `snprintf`.
 
 ## Versioning
 
-The current public release is `1.0.0`, maintained by Mainul Hasan. Update `site-meta.js` whenever a release is published, then add the matching entry to `updates.html` so students can see what changed.
+The current public release is `1.1.0`, maintained by Mainul Hasan. Update `site-meta.js` whenever a release is published, then add the matching entry to `updates.html` so students can see what changed.
 
 - Major version — course-structure changes
 - Minor version — new topics or tutorials
