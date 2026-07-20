@@ -278,8 +278,6 @@
           "do-while loop",
           "for loop",
           "Initialization, condition, and update components of a loop",
-          "Prefix versus postfix increment semantics",
-          "Prefix versus postfix decrement semantics",
           "Entry-controlled and exit-controlled loop behavior",
           "Choosing an appropriate loop form",
           "Nested loops",
@@ -292,7 +290,7 @@
         "tutorial": {
           "title": "Nested Logic, Loops & the Grid Method",
           "href": "tutorials/nested-logic-loops-grid-method.html#s3",
-          "covered_topics": ["while loop", "do-while loop", "for loop", "Prefix versus postfix increment semantics", "Prefix versus postfix decrement semantics", "Nested loops", "break in loops", "continue", "Pattern printing with nested loops (grid method)", "Practice questions: nested logic, loops, and patterns"]
+          "covered_topics": ["while loop", "do-while loop", "for loop", "Nested loops", "break in loops", "continue", "Pattern printing with nested loops (grid method)", "Practice questions: nested logic, loops, and patterns"]
         }
       },
       {
@@ -336,6 +334,8 @@
         "topics": [
           "Complete classification of C operators by purpose and arity",
           "Compound assignment operators",
+          "Prefix versus postfix increment semantics",
+          "Prefix versus postfix decrement semantics",
           "Conditional operator",
           "Comma operator",
           "sizeof operator",

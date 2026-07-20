@@ -305,30 +305,6 @@
     <div class="out">1 2 3 4 5</div>
     <p>Read the header as three parts separated by semicolons. The <strong>initialization</strong> <code>int i = 1</code> runs once at the very start. Before every pass the <strong>condition</strong> <code>i &lt;= 5</code> is tested — if it is true the body runs, if false the loop ends. After each pass the <strong>update</strong> <code>i++</code> runs, then the condition is tested again. So the loop stops the instant <code>i</code> reaches 6.</p>
 
-    <h4 id="increment-decrement">prefix versus postfix increment and decrement</h4>
-    <p>Both <code>++</code> forms add 1, and both <code>--</code> forms subtract 1. The difference is the value produced when the operation is used inside a larger expression: <strong>prefix changes first</strong>, while <strong>postfix yields the old value first</strong> and then changes the variable.</p>
-    <div class="code" data-label="c"><pre><span class="k">int</span> i = <span class="s">5</span>;
-<span class="k">int</span> a = i++;    <span class="c">// postfix: a gets 5, then i becomes 6</span>
-
-i = <span class="s">5</span>;
-<span class="k">int</span> b = ++i;    <span class="c">// prefix: i becomes 6, then b gets 6</span>
-
-i = <span class="s">5</span>;
-<span class="k">int</span> c = i--;    <span class="c">// postfix: c gets 5, then i becomes 4</span>
-
-i = <span class="s">5</span>;
-<span class="k">int</span> d = --i;    <span class="c">// prefix: i becomes 4, then d gets 4</span></pre></div>
-    <table>
-      <thead><tr><th>Form</th><th>Meaning inside an expression</th></tr></thead>
-      <tbody>
-        <tr><td><code class="mono-cell">++i</code></td><td>Increment first, then produce the new value</td></tr>
-        <tr><td><code class="mono-cell">i++</code></td><td>Produce the old value, then increment</td></tr>
-        <tr><td><code class="mono-cell">--i</code></td><td>Decrement first, then produce the new value</td></tr>
-        <tr><td><code class="mono-cell">i--</code></td><td>Produce the old value, then decrement</td></tr>
-      </tbody>
-    </table>
-    <div class="callout"><span class="lbl">In a loop update</span><p>When used alone as the update in <code>for (...; ...; i++)</code> or as a statement such as <code>i++;</code>, prefix and postfix have the same effect on <code>i</code>. Prefer the form that matches your course convention, and avoid changing the same variable more than once in one expression.</p></div>
-
     <h4>while — checked before the body (may run 0 times)</h4>
     <div class="code" data-label="c"><pre><span class="k">int</span> i = <span class="s">1</span>;
 <span class="k">while</span> (i &lt;= <span class="s">5</span>) {
