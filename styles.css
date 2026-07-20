@@ -292,12 +292,17 @@ footer {
   .pipeline-content { padding-left: 22px; }
   .summary-copy small { font-size: .82rem; }
   .tutorial-grid { grid-template-columns: 1fr; }
+  .library-intro { display: block; }
 }
 @media (max-width: 520px) {
-  .header-inner, .hero-inner, main.home { padding-left: 16px; padding-right: 16px; }
+  .header-inner, .hero-inner, main.home, .tutorial-library { padding-left: 16px; padding-right: 16px; }
   .brand small { display: none; }
+  .brand strong { font-size: .92rem; }
   .pipeline-item summary { grid-template-columns: auto minmax(0,1fr) auto; gap: 10px; padding: 15px; }
   .summary-copy strong { font-size: .98rem; }
   .topic-list { columns: 1; }
   .toolbar-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .tutorial-library { padding-top: 30px; padding-bottom: 64px; }
+  .tutorial-card { min-height: 0; padding: 21px; }
+  .tutorial-card h3 { font-size: 1.28rem; }
 }
