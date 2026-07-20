@@ -1,5 +1,8 @@
 {
   "course": "Structured Programming Language — C",
+  "version": "1.0.0",
+  "last_updated": "2026-07-20",
+  "maintainer": "Mainul Hasan",
   "primary_reference": {
     "title": "Schaum's Outline of Programming with C",
     "author": "Byron S. Gottfried",

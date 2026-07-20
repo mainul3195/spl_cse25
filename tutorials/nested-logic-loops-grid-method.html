@@ -55,6 +55,8 @@
   h1{font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:clamp(2.3rem,5.5vw,3.9rem);line-height:1.02;margin:.35em 0 .3em;letter-spacing:-.04em}
   .lede{font-size:1.12rem;color:var(--ink-soft);max-width:640px;margin:0}
   .hero-plot{margin-top:34px}
+  .release-badge{display:inline-flex;align-items:center;gap:7px;margin-top:18px;padding:7px 11px;border:1px solid #b7d6cf;border-radius:999px;background:rgba(255,255,255,.82);color:var(--teal);font-size:.82rem;font-weight:750;text-decoration:none}
+  .release-badge:hover{background:#fff}
 
   /* ---------- SIDEBAR NAV ---------- */
   nav.toc{position:sticky;top:88px;align-self:start;height:max-content;font-size:.9rem;padding-top:36px}
@@ -130,6 +132,9 @@
   ol.practice{padding-left:22px}
   ol.practice li{margin:8px 0}
   footer{grid-column:1 / -1;border-top:1px solid var(--line);margin-top:46px;padding:26px 0 60px;font-size:.9rem;color:var(--ink-soft)}
+  footer p{max-width:850px;margin:0 auto 15px;text-align:center}
+  .release-footer{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
+  .release-footer a{font-weight:800}.signature-name{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:1.08rem;color:var(--ink)}
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:900px){
@@ -170,6 +175,7 @@
     <nav class="header-nav" aria-label="Main navigation">
       <a href="../index.html#foundation">Learning Path</a>
       <a href="index.html">All Tutorials</a>
+      <a href="../updates.html">Updates</a>
       <a href="../index.html#reference">Book Map</a>
     </nav>
   </div>
@@ -180,6 +186,7 @@
     <div class="kicker">C Programming · Reference Handbook</div>
     <h1>Nested Logic, Loops &amp;<br>the Grid Method</h1>
     <p class="lede">A hands-on guide to nested <code>if</code>, all three loop types, <code>break</code> and <code>continue</code>, and pattern printing — where every pattern is first <em>plotted on a grid</em> so the formula falls out on its own.</p>
+    <a class="release-badge" href="../updates.html">Version <span data-release-version>1.0.0</span> · See course updates</a>
     <div class="hero-plot" id="hero-plot"></div>
   </header>
 
@@ -744,7 +751,11 @@ printf(<span class="s">"%c\n"</span>, letter);</pre></div>
   </main>
 
   <footer>
-    Compile every example, then change the numbers and conditions and watch the output shift — editing code and observing the result is the fastest way to build real intuition. Draw the grid before you write the loops, and pattern printing stops being guesswork.
+    <p>Compile every example, then change the numbers and conditions and watch the output shift — editing code and observing the result is the fastest way to build real intuition. Draw the grid before you write the loops, and pattern printing stops being guesswork.</p>
+    <div class="release-footer">
+      <span><a href="../updates.html">Version <span data-release-version>1.0.0</span></a> · Updated <time data-release-date datetime="2026-07-20">20 July 2026</time></span>
+      <span>Signed — <span class="signature-name" data-release-author>Mainul Hasan</span></span>
+    </div>
   </footer>
 </div>
 
@@ -873,5 +884,6 @@ printf(<span class="s">"%c\n"</span>, letter);</pre></div>
   });
 })();
 </script>
+<script src="../site-meta.js"></script>
 </body>
 </html>

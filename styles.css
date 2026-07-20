@@ -82,6 +82,20 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 14px;
 }
+.release-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+  padding: 7px 11px;
+  border: 1px solid #b7d6cf;
+  border-radius: 999px;
+  background: rgba(255,255,255,.82);
+  color: var(--accent);
+  font-size: .82rem;
+  font-weight: 750;
+}
+.release-badge:hover { background: white; text-decoration: none; }
 main.home { max-width: var(--max); margin: auto; padding: 34px 24px 80px; }
 .tutorial-library { max-width: var(--max); margin: auto; padding: 42px 24px 90px; }
 .library-intro {
@@ -137,6 +151,28 @@ main.home { max-width: var(--max); margin: auto; padding: 34px 24px 80px; }
   font-weight: 650;
 }
 .card-action { margin-top: auto; color: var(--accent); font-weight: 800; }
+.updates-page { max-width: 900px; margin: auto; padding: 42px 24px 90px; }
+.release-card {
+  padding: 28px;
+  border: 1px solid #b7d6cf;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f2faf7, #ffffff);
+  box-shadow: var(--shadow);
+}
+.release-card + .release-card { margin-top: 18px; }
+.release-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.release-head h2 { margin: 4px 0 0; font-size: 1.65rem; }
+.release-date { color: var(--muted); font-size: .9rem; white-space: nowrap; }
+.change-groups { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; margin-top: 22px; }
+.change-group { padding: 17px; border: 1px solid var(--line); border-radius: 13px; background: white; }
+.change-group h3 { margin: 0 0 8px; font-size: 1rem; }
+.change-group ul { margin: 0; padding-left: 19px; color: var(--muted); }
+.change-group li { margin: 5px 0; }
+.version-guide { margin-top: 30px; padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: white; }
+.version-guide h2 { margin: 0 0 8px; }
+.version-guide p { color: var(--muted); }
+.version-guide code { color: var(--accent); background: var(--accent-soft); padding: 2px 6px; border-radius: 5px; }
+.signature-name { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: 1.08rem; color: var(--text); }
 .toolbar {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -284,6 +320,9 @@ footer {
   text-align: center;
   background: white;
 }
+.site-footer { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.site-footer .release-line { font-size: .88rem; }
+.site-footer .release-line a { font-weight: 800; }
 @media (max-width: 780px) {
   .header-nav { display: none; }
   .toolbar { grid-template-columns: 1fr; }
@@ -293,9 +332,12 @@ footer {
   .summary-copy small { font-size: .82rem; }
   .tutorial-grid { grid-template-columns: 1fr; }
   .library-intro { display: block; }
+  .change-groups { grid-template-columns: 1fr; }
+  .release-head { display: block; }
+  .release-date { display: block; margin-top: 6px; }
 }
 @media (max-width: 520px) {
-  .header-inner, .hero-inner, main.home, .tutorial-library { padding-left: 16px; padding-right: 16px; }
+  .header-inner, .hero-inner, main.home, .tutorial-library, .updates-page { padding-left: 16px; padding-right: 16px; }
   .brand small { display: none; }
   .brand strong { font-size: .92rem; }
   .pipeline-item summary { grid-template-columns: auto minmax(0,1fr) auto; gap: 10px; padding: 15px; }
@@ -305,4 +347,5 @@ footer {
   .tutorial-library { padding-top: 30px; padding-bottom: 64px; }
   .tutorial-card { min-height: 0; padding: 21px; }
   .tutorial-card h3 { font-size: 1.28rem; }
+  .release-card { padding: 21px; }
 }
