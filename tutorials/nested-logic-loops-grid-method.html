@@ -95,6 +95,9 @@
   .callout.trap .lbl{color:#a12b4d}
   .callout p:first-of-type{margin-top:2px}
   .callout p:last-child{margin-bottom:0}
+  .trap-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+  .trap-list .callout{margin:0}
+  .trap-list .callout:last-child{grid-column:1 / -1}
 
   /* ---------- TABLE ---------- */
   table{border-collapse:collapse;width:100%;margin:16px 0;font-size:.94rem;background:var(--card);border-radius:10px;overflow:hidden}
@@ -150,6 +153,10 @@
     .code,.out,.plot-fig{max-width:100%;border-radius:10px}
     footer{margin-top:0;padding:26px 16px 44px}
   }
+  @media (max-width:600px){
+    .trap-list{grid-template-columns:1fr}
+    .trap-list .callout:last-child{grid-column:auto}
+  }
   a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
 </style>
 </head>
@@ -185,7 +192,7 @@
     <a href="#s5"><span class="n">05</span>break &amp; continue</a>
     <a href="#s6"><span class="n">06</span>The grid method</a>
     <a href="#s7"><span class="n">07</span>Pattern gallery</a>
-    <a href="#s8"><span class="n">08</span>Pro tip: " \n"[c==r]</a>
+    <a href="#s8"><span class="n">08</span>Subscripting a string literal</a>
     <a href="#s9"><span class="n">09</span>Common traps</a>
     <a href="#s10"><span class="n">10</span>Practice</a>
   </nav>
@@ -672,8 +679,13 @@ printf(<span class="s">"%c "</span>, <span class="s">'A'</span> + j - <span clas
 
   <!-- 8 -->
   <section id="s8">
-    <h2><span class="sec-n">08</span>Pro tip: the <code>" \n"[c==r]</code> idiom</h2>
-    <p>Once you are comfortable, here is a compact trick that prints a separator between items and a newline at the end of each row — <strong>without</strong> a separate <code>printf("\n")</code> after the inner loop.</p>
+    <h2><span class="sec-n">08</span>Subscripting a string literal</h2>
+    <p>A string literal can be subscripted just like any other character array. Since indexing starts at zero, <code>"asdfg"[3]</code> produces the character <code>'f'</code>: index 0 is <code>'a'</code>, index 1 is <code>'s'</code>, index 2 is <code>'d'</code>, and index 3 is <code>'f'</code>.</p>
+    <div class="code" data-label="c"><pre><span class="k">char</span> letter = <span class="s">"asdfg"</span>[<span class="s">3</span>];
+printf(<span class="s">"%c\n"</span>, letter);</pre></div>
+    <div class="out">f</div>
+    <h3>Using a comparison as the subscript</h3>
+    <p>The same mechanism creates a compact trick that prints a separator between items and a newline at the end of each row — <strong>without</strong> a separate <code>printf("\n")</code> after the inner loop.</p>
     <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> r = <span class="s">1</span>; r &lt;= n; r++) {
     <span class="k">for</span> (<span class="k">int</span> c = <span class="s">1</span>; c &lt;= r; c++) {
         printf(<span class="s">"*%c"</span>, <span class="s">" \n"</span>[c == r]);
@@ -704,7 +716,14 @@ printf(<span class="s">"%c "</span>, <span class="s">'A'</span> + j - <span clas
   <!-- 9 -->
   <section id="s9">
     <h2><span class="sec-n">09</span>Common traps</h2>
-    <p><strong>Forgetting to reset the inner counter</strong> in nested <code>while</code>/<code>do-while</code> loops — reset it inside the outer loop, or use <code>for</code>. <strong>Expecting <code>break</code> to exit every loop</strong> — it exits only one level; use a flag. <strong>Off-by-one in patterns</strong> — check whether the bound is <code>j &lt;= i</code> or <code>j &lt; i</code>, and whether spaces are <code>n - i</code> or <code>n - i + 1</code>; drawing the grid settles it instantly. <strong>Infinite loops</strong> — every <code>while</code>/<code>do-while</code> needs an update that eventually makes the condition false. <strong>Assignment vs. comparison</strong> — <code>if (x = 5)</code> assigns and is always true; you meant <code>if (x == 5)</code>. Compile with <code>gcc -Wall</code> to catch it.</p>
+    <p>Watch for these recurring mistakes while writing and debugging loop-based programs.</p>
+    <div class="trap-list">
+      <div class="callout trap"><span class="lbl">Reset the inner counter</span><p>In nested <code>while</code>/<code>do-while</code> loops, reset the inner counter inside the outer loop—or use <code>for</code>.</p></div>
+      <div class="callout trap"><span class="lbl">break exits one level</span><p><code>break</code> exits only the innermost loop. Use a flag when the outer loop must stop too.</p></div>
+      <div class="callout trap"><span class="lbl">Check for off-by-one errors</span><p>Confirm whether the bound is <code>j &lt;= i</code> or <code>j &lt; i</code>, and whether spaces are <code>n - i</code> or <code>n - i + 1</code>. Drawing the grid settles it quickly.</p></div>
+      <div class="callout trap"><span class="lbl">Avoid infinite loops</span><p>Every <code>while</code>/<code>do-while</code> loop needs an update that eventually makes its condition false.</p></div>
+      <div class="callout trap"><span class="lbl">Assignment is not comparison</span><p><code>if (x = 5)</code> assigns 5 and evaluates as true; comparison requires <code>if (x == 5)</code>. Compile with <code>gcc -Wall</code> to catch this mistake.</p></div>
+    </div>
   </section>
 
   <!-- 10 -->
