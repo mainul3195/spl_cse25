@@ -6,6 +6,7 @@
   <meta name="description" content="Version history and course updates for the Structured Programming Language C learning path.">
   <title>Course Updates — Structured Programming Language C</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="mobile-nav.css">
 </head>
 <body>
 <header class="site-header">
@@ -20,6 +21,10 @@
       <a href="updates.html" aria-current="page">Updates</a>
       <a href="index.html#reference">Book Map</a>
     </nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open navigation">
+      <span class="nav-toggle-label">Open navigation</span>
+      <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+    </button>
   </div>
 </header>
 
@@ -28,15 +33,62 @@
     <p class="eyebrow">Course history</p>
     <h1>See what changed and when.</h1>
     <p class="hero-copy">Use the version number to check whether topic lists, tutorials, or course materials have changed since your last visit.</p>
-    <a class="release-badge" href="#v1-1-0">Current version <span data-release-version>1.1.0</span> · Updated <time data-release-date datetime="2026-07-20">20 July 2026</time></a>
+    <a class="release-badge" href="#v1-1-2">Current version <span data-release-version>1.1.2</span> · Updated <time data-release-date datetime="2026-07-20">20 July 2026</time></a>
   </div>
 </section>
 
 <main class="updates-page">
-  <article class="release-card" id="v1-1-0">
+  <article class="release-card" id="v1-1-2">
     <div class="release-head">
       <div>
         <p class="eyebrow">Current release</p>
+        <h2>Version 1.1.2</h2>
+      </div>
+      <time class="release-date" datetime="2026-07-20">20 July 2026</time>
+    </div>
+    <div class="change-groups">
+      <section class="change-group">
+        <h3>Mobile tutorial layout</h3>
+        <ul>
+          <li>Prevented long tutorial content from widening the mobile viewport.</li>
+          <li>Made tables, code/output samples, format diagrams, and grid plots scroll safely inside the page.</li>
+          <li>Allowed long release and verification badges to wrap on narrow screens.</li>
+        </ul>
+      </section>
+    </div>
+  </article>
+
+  <article class="release-card" id="v1-1-1">
+    <div class="release-head">
+      <div>
+        <p class="eyebrow">Previous release</p>
+        <h2>Version 1.1.1</h2>
+      </div>
+      <time class="release-date" datetime="2026-07-20">20 July 2026</time>
+    </div>
+    <div class="change-groups">
+      <section class="change-group">
+        <h3>Mobile navigation</h3>
+        <ul>
+          <li>Added a three-bar menu button to every page at mobile widths.</li>
+          <li>Added a right-side navigation drawer with the same options as the desktop navbar.</li>
+          <li>Added outside-click, link-click, and Escape-key closing behavior.</li>
+        </ul>
+      </section>
+      <section class="change-group">
+        <h3>Accessibility and behavior</h3>
+        <ul>
+          <li>Added accessible menu labels and expanded-state reporting.</li>
+          <li>Locked background scrolling while the drawer is open and restored focus when it closes.</li>
+        </ul>
+      </section>
+    </div>
+  </article>
+
+  <article class="release-card" id="v1-1-0">
+    <div class="release-head">
+      <div>
+        <p class="eyebrow">Previous release</p>
         <h2>Version 1.1.0</h2>
       </div>
       <time class="release-date" datetime="2026-07-20">20 July 2026</time>
@@ -113,9 +165,10 @@
 
 <footer class="site-footer">
   <span>Structured Programming Language · C · Course update history</span>
-  <span class="release-line"><a href="updates.html">Version <span data-release-version>1.1.0</span></a> · Updated <time data-release-date datetime="2026-07-20">20 July 2026</time></span>
+  <span class="release-line"><a href="updates.html">Version <span data-release-version>1.1.2</span></a> · Updated <time data-release-date datetime="2026-07-20">20 July 2026</time></span>
   <span>Signed — <span class="signature-name" data-release-author>Mainul Hasan</span></span>
 </footer>
-<script src="site-meta.js?v=1.1.0"></script>
+<script src="site-meta.js?v=1.1.2"></script>
+<script src="site-nav.js?v=1.1.2"></script>
 </body>
 </html>

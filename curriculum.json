@@ -1,6 +1,6 @@
 {
   "course": "Structured Programming Language — C",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "last_updated": "2026-07-20",
   "maintainer": "Mainul Hasan",
   "primary_reference": {
@@ -163,7 +163,7 @@
         "tutorial": {
           "title": "Formatted Input & Output in C",
           "href": "tutorials/formatted-input-output.html#mental-model",
-          "covered_topics": ["printf", "scanf", "Basic conversion and format specifiers", "Printing variables, constants, and expression results", "Reading values into variables", "Reading more than one value"]
+          "covered_topics": ["printf", "scanf", "Basic conversion and format specifiers", "Printing variables, constants, and expression results"]
         }
       },
       {

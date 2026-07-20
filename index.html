@@ -6,6 +6,7 @@
   <meta name="description" content="A structured learning path and detailed topic reference for learning the C programming language, organized into foundation and systematic study stages.">
   <title>Structured Programming Language — C Learning Path</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="mobile-nav.css">
 </head>
 <body>
 <header class="site-header">
@@ -21,6 +22,10 @@
       <a href="updates.html">Updates</a>
       <a href="#reference">Book Map</a>
     </nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open navigation">
+      <span class="nav-toggle-label">Open navigation</span>
+      <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+    </button>
   </div>
 </header>
 
@@ -30,7 +35,7 @@
     <h1>First, know how to learn, learn to understand. Then, learn to build.</h1>
     <p class="hero-copy">A complete curriculum pipeline for learning C. The first part removes topic dependencies so students can start programming independently; the second part revisits the language in a deeper, systematic order.</p>
     <div class="hero-note"><strong>How to use this reference:</strong> click any major topic to expand its granular topic list. Linked topic names and practice questions open the matching tutorial section.</div>
-    <a class="release-badge" href="updates.html">Version <span data-release-version>1.1.0</span> · See course updates</a>
+    <a class="release-badge" href="updates.html">Version <span data-release-version>1.1.2</span> · See course updates</a>
   </div>
 </section>
 
@@ -231,8 +236,8 @@
 <li><a href="tutorials/formatted-input-output.html#scanf">scanf</a></li>
 <li><a href="tutorials/formatted-input-output.html#specifiers">Basic conversion and format specifiers</a></li>
 <li><a href="tutorials/formatted-input-output.html#mental-model">Printing variables, constants, and expression results</a></li>
-<li><a href="tutorials/formatted-input-output.html#scanf">Reading values into variables</a></li>
-<li><a href="tutorials/formatted-input-output.html#scanf">Reading more than one value</a></li>
+<li>Reading values into variables</li>
+<li>Reading more than one value</li>
 <li>Why scanf needs a destination address</li>
 <li>Why printf normally receives values rather than destination addresses</li></ul>
         <a class="tutorial-link" href="tutorials/formatted-input-output.html#mental-model"><span>Open tutorial</span> Formatted Input &amp; Output in C <span aria-hidden="true">→</span></a>
@@ -994,10 +999,11 @@
 
 <footer class="site-footer">
   <span>Structured Programming Language · C · Curriculum and topic reference</span>
-  <span class="release-line"><a href="updates.html">Version <span data-release-version>1.1.0</span></a> · Updated <time data-release-date datetime="2026-07-20">20 July 2026</time></span>
+  <span class="release-line"><a href="updates.html">Version <span data-release-version>1.1.2</span></a> · Updated <time data-release-date datetime="2026-07-20">20 July 2026</time></span>
   <span>Signed — <span class="signature-name" data-release-author>Mainul Hasan</span></span>
 </footer>
 <script src="script.js"></script>
-<script src="site-meta.js?v=1.1.0"></script>
+<script src="site-meta.js?v=1.1.2"></script>
+<script src="site-nav.js?v=1.1.2"></script>
 </body>
 </html>

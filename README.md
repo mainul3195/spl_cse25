@@ -21,7 +21,7 @@ The tutorial library currently includes lessons on nested logic and loop-based p
 
 ## Versioning
 
-The current public release is `1.1.0`, maintained by Mainul Hasan. Update `site-meta.js` whenever a release is published, then add the matching entry to `updates.html` so students can see what changed.
+The current public release is `1.1.2`, maintained by Mainul Hasan. Update `site-meta.js` whenever a release is published, then add the matching entry to `updates.html` so students can see what changed.
 
 - Major version — course-structure changes
 - Minor version — new topics or tutorials
