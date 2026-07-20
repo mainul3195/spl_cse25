@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A structured learning path and detailed topic reference for learning the C programming language, organized into foundation and systematic study stages.">
+  <title>Structured Programming Language — C Learning Path</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#top" aria-label="Structured Programming Language C">
+      <span class="brand-mark">C</span>
+      <span><strong>Structured Programming Language</strong><small>C learning path and topic reference</small></span>
+    </a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a href="#foundation">Foundation</a>
+      <a href="#detailed">Detailed Study</a>
+      <a href="tutorials/index.html">Tutorials</a>
+      <a href="#reference">Book Map</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <p class="eyebrow">Structured Programming Language · C</p>
+    <h1>Learn enough to become independent. Then study the language systematically.</h1>
+    <p class="hero-copy">A complete curriculum pipeline for learning C. The first part removes topic dependencies so students can start programming independently; the second part revisits the language in a deeper, systematic order.</p>
+    <div class="hero-note"><strong>How to use this reference:</strong> click any major topic to expand its granular topic list. Linked topic names and practice questions open the matching tutorial section.</div>
+  </div>
+</section>
+
+<main class="home">
+  <div class="toolbar">
+    <div class="search-wrap">
+      <label class="sr-only" for="topicSearch">Search the curriculum</label>
+      <input id="topicSearch" type="search" placeholder="Search topics: pointers, arrays, errors, scanf, files…" autocomplete="off">
+    </div>
+    <div class="toolbar-actions">
+      <button type="button" id="expandAll">Expand all</button>
+      <button type="button" id="collapseAll">Collapse all</button>
+    </div>
+  </div>
+  <p class="search-status" id="searchStatus" aria-live="polite"></p>
+
+  <section class="part" id="foundation">
+    <div class="part-head">
+      <div>
+        <p class="eyebrow">Part I</p>
+        <h2>Foundation and Dependency Removal</h2>
+        <p>The connected first pass through C: enough language knowledge to read, write, and solve introductory programming problems without being blocked by a missing prerequisite.</p>
+      </div>
+    </div>
+    <div class="pipeline-list"><details class="pipeline-item" data-search="programming, programs, and why learn one language thoroughly schaum ch. 1 — introductory concepts what a program is what programming is input–process–output as a basic model of program behavior why a first programming language should be learned from fundamentals to advanced features programming concepts as transferable tools across languages learning the available tools of one language before moving to another problem solving through available language tools">
+      <summary>
+        <span class="num">F01</span>
+        <span class="summary-copy">
+          <strong>Programming, Programs, and Why Learn One Language Thoroughly</strong>
+          <small>Schaum Ch. 1 — Introductory Concepts</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>What a program is</li>
+<li>What programming is</li>
+<li>Input–process–output as a basic model of program behavior</li>
+<li>Why a first programming language should be learned from fundamentals to advanced features</li>
+<li>Programming concepts as transferable tools across languages</li>
+<li>Learning the available tools of one language before moving to another</li>
+<li>Problem solving through available language tools</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 1 — Introductory Concepts</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="evolution and levels of programming languages schaum ch. 1 — introductory concepts historical evolution of programming languages machine language assembly language low-level and high-level language classification relationship between human readability and machine execution need for language translators assembler, compiler, and interpreter working difference between compilers and interpreters general performance and memory trade-offs of compilation and interpretation compiler-based translation model used for c">
+      <summary>
+        <span class="num">F02</span>
+        <span class="summary-copy">
+          <strong>Evolution and Levels of Programming Languages</strong>
+          <small>Schaum Ch. 1 — Introductory Concepts</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Historical evolution of programming languages</li>
+<li>Machine language</li>
+<li>Assembly language</li>
+<li>Low-level and high-level language classification</li>
+<li>Relationship between human readability and machine execution</li>
+<li>Need for language translators</li>
+<li>Assembler, compiler, and interpreter</li>
+<li>Working difference between compilers and interpreters</li>
+<li>General performance and memory trade-offs of compilation and interpretation</li>
+<li>Compiler-based translation model used for C</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 1 — Introductory Concepts</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="first c program and program anatomy schaum ch. 1 and ch. 5 — introductory concepts; preparing and running a complete c program hello world program c source files and the basic structure of a c program preprocessor directives at the beginning of a source file the main function as the program entry function function as a unit that receives input, performs work, and may return a result program termination status and return 0 statements, semicolons, braces, and blocks — introductory use comments — introductory use basic escape sequence use such as newline library functions and user-defined functions header files and function declarations using #include to make library declarations available">
+      <summary>
+        <span class="num">F03</span>
+        <span class="summary-copy">
+          <strong>First C Program and Program Anatomy</strong>
+          <small>Schaum Ch. 1 and Ch. 5 — Introductory Concepts; Preparing and Running a Complete C Program</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Hello World program</li>
+<li>C source files and the basic structure of a C program</li>
+<li>Preprocessor directives at the beginning of a source file</li>
+<li>The main function as the program entry function</li>
+<li>Function as a unit that receives input, performs work, and may return a result</li>
+<li>Program termination status and return 0</li>
+<li>Statements, semicolons, braces, and blocks — introductory use</li>
+<li>Comments — introductory use</li>
+<li>Basic escape sequence use such as newline</li>
+<li>Library functions and user-defined functions</li>
+<li>Header files and function declarations</li>
+<li>Using #include to make library declarations available</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 1 and Ch. 5 — Introductory Concepts; Preparing and Running a Complete C Program</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="from source code to executable schaum ch. 5 — preparing and running a complete c program source code preprocessing stage compilation stage assembly stage object code linking stage executable program how library code is connected during the build process translation errors and the idea of correcting code before successful execution">
+      <summary>
+        <span class="num">F04</span>
+        <span class="summary-copy">
+          <strong>From Source Code to Executable</strong>
+          <small>Schaum Ch. 5 — Preparing and Running a Complete C Program</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Source code</li>
+<li>Preprocessing stage</li>
+<li>Compilation stage</li>
+<li>Assembly stage</li>
+<li>Object code</li>
+<li>Linking stage</li>
+<li>Executable program</li>
+<li>How library code is connected during the build process</li>
+<li>Translation errors and the idea of correcting code before successful execution</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 5 — Preparing and Running a Complete C Program</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="data and the fundamental c data types schaum ch. 2 — c fundamentals concept of data and data type fundamental and derived type categories — introductory view int char float double typical size and range of fundamental types choosing a type according to the kind and range of data">
+      <summary>
+        <span class="num">F05</span>
+        <span class="summary-copy">
+          <strong>Data and the Fundamental C Data Types</strong>
+          <small>Schaum Ch. 2 — C Fundamentals</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Concept of data and data type</li>
+<li>Fundamental and derived type categories — introductory view</li>
+<li>int</li>
+<li>char</li>
+<li>float</li>
+<li>double</li>
+<li>Typical size and range of fundamental types</li>
+<li>Choosing a type according to the kind and range of data</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 2 — C Fundamentals</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="variables, identifiers, keywords, initialization, and assignment schaum ch. 2 — c fundamentals variable as named storage variable declaration variable initialization initialization versus later assignment assignment as changing the stored value of an object uninitialized local variables and the danger of using indeterminate values how a variable occupies memory identifiers keywords and reserved words identifier formation rules variable naming rules and conventions">
+      <summary>
+        <span class="num">F06</span>
+        <span class="summary-copy">
+          <strong>Variables, Identifiers, Keywords, Initialization, and Assignment</strong>
+          <small>Schaum Ch. 2 — C Fundamentals</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Variable as named storage</li>
+<li>Variable declaration</li>
+<li>Variable initialization</li>
+<li>Initialization versus later assignment</li>
+<li>Assignment as changing the stored value of an object</li>
+<li>Uninitialized local variables and the danger of using indeterminate values</li>
+<li>How a variable occupies memory</li>
+<li>Identifiers</li>
+<li>Keywords and reserved words</li>
+<li>Identifier formation rules</li>
+<li>Variable naming rules and conventions</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 2 — C Fundamentals</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="integer type modifiers and basic range control schaum ch. 2 — c fundamentals signed unsigned short long using type modifiers to change integer range and representation matching basic format specifiers to data types">
+      <summary>
+        <span class="num">F07</span>
+        <span class="summary-copy">
+          <strong>Integer Type Modifiers and Basic Range Control</strong>
+          <small>Schaum Ch. 2 — C Fundamentals</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>signed</li>
+<li>unsigned</li>
+<li>short</li>
+<li>long</li>
+<li>Using type modifiers to change integer range and representation</li>
+<li>Matching basic format specifiers to data types</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 2 — C Fundamentals</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="basic formatted input and output schaum ch. 4 — data input and output printf scanf basic conversion and format specifiers printing variables, constants, and expression results reading values into variables reading more than one value why scanf needs a destination address why printf normally receives values rather than destination addresses">
+      <summary>
+        <span class="num">F08</span>
+        <span class="summary-copy">
+          <strong>Basic Formatted Input and Output</strong>
+          <small>Schaum Ch. 4 — Data Input and Output</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>printf</li>
+<li>scanf</li>
+<li>Basic conversion and format specifiers</li>
+<li>Printing variables, constants, and expression results</li>
+<li>Reading values into variables</li>
+<li>Reading more than one value</li>
+<li>Why scanf needs a destination address</li>
+<li>Why printf normally receives values rather than destination addresses</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 4 — Data Input and Output</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="basic operators and expression building schaum ch. 3 — operators and expressions basic arithmetic operators used in calculations division and remainder in simple integer expressions assignment operator in simple expressions basic relational operators used for comparisons basic logical operators used to combine or negate conditions equality comparison versus assignment: == and = basic increment and decrement use, especially in loop updates combining variables, constants, and operators to form simple expressions">
+      <summary>
+        <span class="num">F09</span>
+        <span class="summary-copy">
+          <strong>Basic Operators and Expression Building</strong>
+          <small>Schaum Ch. 3 — Operators and Expressions</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Basic arithmetic operators used in calculations</li>
+<li>Division and remainder in simple integer expressions</li>
+<li>Assignment operator in simple expressions</li>
+<li>Basic relational operators used for comparisons</li>
+<li>Basic logical operators used to combine or negate conditions</li>
+<li>Equality comparison versus assignment: == and =</li>
+<li>Basic increment and decrement use, especially in loop updates</li>
+<li>Combining variables, constants, and operators to form simple expressions</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 3 — Operators and Expressions</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="types of errors in c programs schaum ch. 5 — preparing and running a complete c program syntax errors translation and compilation errors linker errors runtime errors logical errors difference between an error message and a warning reading compiler diagnostics at a beginner level why a program can compile successfully and still be wrong">
+      <summary>
+        <span class="num">F10</span>
+        <span class="summary-copy">
+          <strong>Types of Errors in C Programs</strong>
+          <small>Schaum Ch. 5 — Preparing and Running a Complete C Program</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Syntax errors</li>
+<li>Translation and compilation errors</li>
+<li>Linker errors</li>
+<li>Runtime errors</li>
+<li>Logical errors</li>
+<li>Difference between an error message and a warning</li>
+<li>Reading compiler diagnostics at a beginner level</li>
+<li>Why a program can compile successfully and still be wrong</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 5 — Preparing and Running a Complete C Program</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="type conversion and explicit casting schaum ch. 2 and ch. 3 — c fundamentals; operators and expressions implicit type conversion conversion of operands to compatible arithmetic types type widening explicit type cast programmer-forced conversion type narrowing and possible information loss using casting to control arithmetic results when operand types differ">
+      <summary>
+        <span class="num">F11</span>
+        <span class="summary-copy">
+          <strong>Type Conversion and Explicit Casting</strong>
+          <small>Schaum Ch. 2 and Ch. 3 — C Fundamentals; Operators and Expressions</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Implicit type conversion</li>
+<li>Conversion of operands to compatible arithmetic types</li>
+<li>Type widening</li>
+<li>Explicit type cast</li>
+<li>Programmer-forced conversion</li>
+<li>Type narrowing and possible information loss</li>
+<li>Using casting to control arithmetic results when operand types differ</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 2 and Ch. 3 — C Fundamentals; Operators and Expressions</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="symbolic constants and the preprocessor — first use schaum ch. 2 and ch. 14 — c fundamentals; some additional features of c symbolic constants with #define purpose of symbolic names instead of repeated literal values preprocessor directives — introductory idea position of preprocessing in the translation process">
+      <summary>
+        <span class="num">F12</span>
+        <span class="summary-copy">
+          <strong>Symbolic Constants and the Preprocessor — First Use</strong>
+          <small>Schaum Ch. 2 and Ch. 14 — C Fundamentals; Some Additional Features of C</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Symbolic constants with #define</li>
+<li>Purpose of symbolic names instead of repeated literal values</li>
+<li>Preprocessor directives — introductory idea</li>
+<li>Position of preprocessing in the translation process</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 2 and Ch. 14 — C Fundamentals; Some Additional Features of C</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="how basic data is represented in memory schaum ch. 2 and ch. 13 — c fundamentals; low-level programming binary representation of integers two&#x27;s complement representation of negative integers — the model used in class character values as integer codes character-code mapping, with ascii as the teaching model floating-point sign, exponent, and significand/mantissa model floating-point precision">
+      <summary>
+        <span class="num">F13</span>
+        <span class="summary-copy">
+          <strong>How Basic Data Is Represented in Memory</strong>
+          <small>Schaum Ch. 2 and Ch. 13 — C Fundamentals; Low-Level Programming</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Binary representation of integers</li>
+<li>Two&#x27;s complement representation of negative integers — the model used in class</li>
+<li>Character values as integer codes</li>
+<li>Character-code mapping, with ASCII as the teaching model</li>
+<li>Floating-point sign, exponent, and significand/mantissa model</li>
+<li>Floating-point precision</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 2 and Ch. 13 — C Fundamentals; Low-Level Programming</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="expressions, statements, blocks, and control-flow categories schaum ch. 2, ch. 3, and ch. 6 — c fundamentals; operators and expressions; control statements expression statement expression statement compound statement or block control statement branching or selection category looping or iteration category">
+      <summary>
+        <span class="num">F14</span>
+        <span class="summary-copy">
+          <strong>Expressions, Statements, Blocks, and Control-Flow Categories</strong>
+          <small>Schaum Ch. 2, Ch. 3, and Ch. 6 — C Fundamentals; Operators and Expressions; Control Statements</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Expression</li>
+<li>Statement</li>
+<li>Expression statement</li>
+<li>Compound statement or block</li>
+<li>Control statement</li>
+<li>Branching or selection category</li>
+<li>Looping or iteration category</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 2, Ch. 3, and Ch. 6 — C Fundamentals; Operators and Expressions; Control Statements</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="selection statements schaum ch. 6 — control statements truth in c: zero as false and nonzero as true if if-else else-if ladder nested if switch case labels default label break in switch choosing among alternative execution paths">
+      <summary>
+        <span class="num">F15</span>
+        <span class="summary-copy">
+          <strong>Selection Statements</strong>
+          <small>Schaum Ch. 6 — Control Statements</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Truth in C: zero as false and nonzero as true</li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s2">if</a></li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s2">if-else</a></li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s2">else-if ladder</a></li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s2">Nested if</a></li>
+<li>switch</li>
+<li>case labels</li>
+<li>default label</li>
+<li>break in switch</li>
+<li>Choosing among alternative execution paths</li></ul>
+        <a class="tutorial-link" href="tutorials/nested-logic-loops-grid-method.html#s2"><span>Open tutorial</span> Nested Logic, Loops &amp; the Grid Method <span aria-hidden="true">→</span></a>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 6 — Control Statements</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="iteration statements and loop control schaum ch. 6 — control statements while loop do-while loop for loop initialization, condition, and update components of a loop entry-controlled and exit-controlled loop behavior choosing an appropriate loop form nested loops break in loops continue pattern printing grid method practice questions nested logic loops patterns">
+      <summary>
+        <span class="num">F16</span>
+        <span class="summary-copy">
+          <strong>Iteration Statements and Loop Control</strong>
+          <small>Schaum Ch. 6 — Control Statements</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li><a href="tutorials/nested-logic-loops-grid-method.html#s3">while loop</a></li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s3">do-while loop</a></li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s3">for loop</a></li>
+<li>Initialization, condition, and update components of a loop</li>
+<li>Entry-controlled and exit-controlled loop behavior</li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s3">Choosing an appropriate loop form</a></li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s4">Nested loops</a></li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s5">break in loops</a></li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s5">continue</a></li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s6">Pattern printing with nested loops (grid method)</a></li>
+<li><a href="tutorials/nested-logic-loops-grid-method.html#s10">Practice questions: nested logic, loops, and patterns</a></li></ul>
+        <a class="tutorial-link" href="tutorials/nested-logic-loops-grid-method.html#s3"><span>Open tutorial</span> Nested Logic, Loops &amp; the Grid Method <span aria-hidden="true">→</span></a>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 6 — Control Statements</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="arrays — dependency-level foundation schaum ch. 9 — arrays why arrays are needed concept of storing multiple values of one element type array declaration zero-based array indexing indexed element access valid index range out-of-bounds access as invalid and dangerous basic traversal basic array input and output">
+      <summary>
+        <span class="num">F17</span>
+        <span class="summary-copy">
+          <strong>Arrays — Dependency-Level Foundation</strong>
+          <small>Schaum Ch. 9 — Arrays</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Why arrays are needed</li>
+<li>Concept of storing multiple values of one element type</li>
+<li>Array declaration</li>
+<li>Zero-based array indexing</li>
+<li>Indexed element access</li>
+<li>Valid index range</li>
+<li>Out-of-bounds access as invalid and dangerous</li>
+<li>Basic traversal</li>
+<li>Basic array input and output</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 9 — Arrays</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="strings — dependency-level foundation schaum ch. 9 — arrays concept of a string in c relationship between strings and character arrays the null character &#x27;\0&#x27; a c string as a null-terminated sequence of characters difference between a character constant and a string literal basic string declaration and use basic string input and output">
+      <summary>
+        <span class="num">F18</span>
+        <span class="summary-copy">
+          <strong>Strings — Dependency-Level Foundation</strong>
+          <small>Schaum Ch. 9 — Arrays</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Concept of a string in C</li>
+<li>Relationship between strings and character arrays</li>
+<li>The null character &#x27;\0&#x27;</li>
+<li>A C string as a null-terminated sequence of characters</li>
+<li>Difference between a character constant and a string literal</li>
+<li>Basic string declaration and use</li>
+<li>Basic string input and output</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 9 — Arrays</div>
+      </div>
+    </details></div>
+  </section>
+
+  <section class="part" id="detailed">
+    <div class="part-head">
+      <div>
+        <p class="eyebrow">Part II</p>
+        <h2>Detailed and Systematic Study</h2>
+        <p>The deeper learning path after the initial dependency barrier is removed, moving through expressions, functions, arrays, pointers, program structure, data structures, files, and lower-level C.</p>
+      </div>
+    </div>
+    <div class="pipeline-list"><details class="pipeline-item" data-search="operator system and expression evaluation in detail schaum ch. 3 — operators and expressions complete classification of c operators by purpose and arity compound assignment operators prefix versus postfix increment semantics prefix versus postfix decrement semantics conditional operator comma operator sizeof operator operator precedence operator associativity parentheses and explicit grouping compound conditions built from multiple logical expressions short-circuit evaluation side effects inside expressions order-of-evaluation pitfalls and writing unambiguous expressions">
+      <summary>
+        <span class="num">D01</span>
+        <span class="summary-copy">
+          <strong>Operator System and Expression Evaluation in Detail</strong>
+          <small>Schaum Ch. 3 — Operators and Expressions</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Complete classification of C operators by purpose and arity</li>
+<li>Compound assignment operators</li>
+<li>Prefix versus postfix increment semantics</li>
+<li>Prefix versus postfix decrement semantics</li>
+<li>Conditional operator</li>
+<li>Comma operator</li>
+<li>sizeof operator</li>
+<li>Operator precedence</li>
+<li>Operator associativity</li>
+<li>Parentheses and explicit grouping</li>
+<li>Compound conditions built from multiple logical expressions</li>
+<li>Short-circuit evaluation</li>
+<li>Side effects inside expressions</li>
+<li>Order-of-evaluation pitfalls and writing unambiguous expressions</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 3 — Operators and Expressions</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="constants and literal forms in detail schaum ch. 2 — c fundamentals decimal, octal, and hexadecimal integer constant forms integer constant suffixes how the type of an integer literal is selected from its value, base, and suffix floating-point constants in decimal notation floating-point constants in exponential notation floating constant suffixes and resulting type escape-sequence notation beyond the basic newline case adjacent string-literal concatenation literal range, representation, and precision implications">
+      <summary>
+        <span class="num">D02</span>
+        <span class="summary-copy">
+          <strong>Constants and Literal Forms in Detail</strong>
+          <small>Schaum Ch. 2 — C Fundamentals</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Decimal, octal, and hexadecimal integer constant forms</li>
+<li>Integer constant suffixes</li>
+<li>How the type of an integer literal is selected from its value, base, and suffix</li>
+<li>Floating-point constants in decimal notation</li>
+<li>Floating-point constants in exponential notation</li>
+<li>Floating constant suffixes and resulting type</li>
+<li>Escape-sequence notation beyond the basic newline case</li>
+<li>Adjacent string-literal concatenation</li>
+<li>Literal range, representation, and precision implications</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 2 — C Fundamentals</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="remaining c fundamentals and type-system concepts schaum ch. 2 — c fundamentals; supplementary modern c coverage punctuators and delimiters not yet formalized as part of c lexical structure void as a non-value type and its role in function interfaces const-qualified objects difference between a const-qualified object and a preprocessor symbolic constant boolean data in standard c using _bool and the conventional bool interface limits.h for implementation limits of integer types float.h for floating-point characteristics implementation-dependent nature of type sizes and ranges">
+      <summary>
+        <span class="num">D03</span>
+        <span class="summary-copy">
+          <strong>Remaining C Fundamentals and Type-System Concepts</strong>
+          <small>Schaum Ch. 2 — C Fundamentals; supplementary modern C coverage</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Punctuators and delimiters not yet formalized as part of C lexical structure</li>
+<li>void as a non-value type and its role in function interfaces</li>
+<li>const-qualified objects</li>
+<li>Difference between a const-qualified object and a preprocessor symbolic constant</li>
+<li>Boolean data in standard C using _Bool and the conventional bool interface</li>
+<li>limits.h for implementation limits of integer types</li>
+<li>float.h for floating-point characteristics</li>
+<li>Implementation-dependent nature of type sizes and ranges</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 2 — C Fundamentals; supplementary modern C coverage</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="input and output beyond the basics schaum ch. 4 — data input and output formatted output field width precision control output flags formatted input field width character input with getchar character output with putchar line-oriented input fgets puts and fputs for string-oriented output whitespace behavior in formatted input input-buffer and leftover-newline problems return values of input functions checking input success and handling invalid input">
+      <summary>
+        <span class="num">D04</span>
+        <span class="summary-copy">
+          <strong>Input and Output Beyond the Basics</strong>
+          <small>Schaum Ch. 4 — Data Input and Output</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Formatted output field width</li>
+<li>Precision control</li>
+<li>Output flags</li>
+<li>Formatted input field width</li>
+<li>Character input with getchar</li>
+<li>Character output with putchar</li>
+<li>Line-oriented input</li>
+<li>fgets</li>
+<li>puts and fputs for string-oriented output</li>
+<li>Whitespace behavior in formatted input</li>
+<li>Input-buffer and leftover-newline problems</li>
+<li>Return values of input functions</li>
+<li>Checking input success and handling invalid input</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 4 — Data Input and Output</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="functions — complete treatment schaum ch. 7 — functions function declaration and prototype function definition function call return type and return statement functions that return no value formal parameters and actual arguments argument type matching and prototype checking call by value designing single-purpose functions functions calling other functions passing one-dimensional arrays to functions passing character arrays to functions recursion base case and recursive case call stack intuition direct and indirect recursion recursion versus iteration">
+      <summary>
+        <span class="num">D05</span>
+        <span class="summary-copy">
+          <strong>Functions — Complete Treatment</strong>
+          <small>Schaum Ch. 7 — Functions</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Function declaration and prototype</li>
+<li>Function definition</li>
+<li>Function call</li>
+<li>Return type and return statement</li>
+<li>Functions that return no value</li>
+<li>Formal parameters and actual arguments</li>
+<li>Argument type matching and prototype checking</li>
+<li>Call by value</li>
+<li>Designing single-purpose functions</li>
+<li>Functions calling other functions</li>
+<li>Passing one-dimensional arrays to functions</li>
+<li>Passing character arrays to functions</li>
+<li>Recursion</li>
+<li>Base case and recursive case</li>
+<li>Call stack intuition</li>
+<li>Direct and indirect recursion</li>
+<li>Recursion versus iteration</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 7 — Functions</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="arrays in depth and multidimensional arrays schaum ch. 9 — arrays array initialization rules and partial initialization contiguous memory layout of array elements determining whole-array storage with sizeof deriving element count from array storage where the array object is available one-dimensional array processing patterns frequency counting array reversal, copying, and merging linear search binary search bubble sort selection sort insertion sort two-dimensional arrays row-major storage matrix traversal matrix addition and subtraction matrix multiplication transpose and diagonal processing three-dimensional and higher-dimensional arrays passing multidimensional arrays to functions">
+      <summary>
+        <span class="num">D06</span>
+        <span class="summary-copy">
+          <strong>Arrays in Depth and Multidimensional Arrays</strong>
+          <small>Schaum Ch. 9 — Arrays</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Array initialization rules and partial initialization</li>
+<li>Contiguous memory layout of array elements</li>
+<li>Determining whole-array storage with sizeof</li>
+<li>Deriving element count from array storage where the array object is available</li>
+<li>One-dimensional array processing patterns</li>
+<li>Frequency counting</li>
+<li>Array reversal, copying, and merging</li>
+<li>Linear search</li>
+<li>Binary search</li>
+<li>Bubble sort</li>
+<li>Selection sort</li>
+<li>Insertion sort</li>
+<li>Two-dimensional arrays</li>
+<li>Row-major storage</li>
+<li>Matrix traversal</li>
+<li>Matrix addition and subtraction</li>
+<li>Matrix multiplication</li>
+<li>Transpose and diagonal processing</li>
+<li>Three-dimensional and higher-dimensional arrays</li>
+<li>Passing multidimensional arrays to functions</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 9 — Arrays</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="pointers schaum ch. 10 — pointers pointer objects and stored addresses pointer declaration and initialization dereference operator null pointers and null pointer constants pointer type compatibility pointer arithmetic array-to-pointer conversion in expressions pointer-based array traversal pointers as function parameters modifying caller-owned objects through pointer parameters character pointers pointer to pointer array of pointers pointer to an array void pointers pointers to const data and const pointer objects restrict-qualified pointer concept — optional modern c topic functions returning pointers function pointers common invalid-pointer situations">
+      <summary>
+        <span class="num">D07</span>
+        <span class="summary-copy">
+          <strong>Pointers</strong>
+          <small>Schaum Ch. 10 — Pointers</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Pointer objects and stored addresses</li>
+<li>Pointer declaration and initialization</li>
+<li>Dereference operator</li>
+<li>Null pointers and null pointer constants</li>
+<li>Pointer type compatibility</li>
+<li>Pointer arithmetic</li>
+<li>Array-to-pointer conversion in expressions</li>
+<li>Pointer-based array traversal</li>
+<li>Pointers as function parameters</li>
+<li>Modifying caller-owned objects through pointer parameters</li>
+<li>Character pointers</li>
+<li>Pointer to pointer</li>
+<li>Array of pointers</li>
+<li>Pointer to an array</li>
+<li>void pointers</li>
+<li>Pointers to const data and const pointer objects</li>
+<li>restrict-qualified pointer concept — optional modern C topic</li>
+<li>Functions returning pointers</li>
+<li>Function pointers</li>
+<li>Common invalid-pointer situations</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 10 — Pointers</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="strings and text processing in depth schaum ch. 9 and ch. 10 — arrays; pointers string length versus character-array capacity safe line input for text removing or handling the newline retained by line input manual string traversal manual implementation of length, copy, concatenation, comparison, and search operations strlen strcpy and strncpy strcat and strncat strcmp and strncmp strchr and strstr tokenization with strtok arrays of strings using two-dimensional character arrays collections of strings using arrays of character pointers string literals and modification restrictions text-processing patterns">
+      <summary>
+        <span class="num">D08</span>
+        <span class="summary-copy">
+          <strong>Strings and Text Processing in Depth</strong>
+          <small>Schaum Ch. 9 and Ch. 10 — Arrays; Pointers</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>String length versus character-array capacity</li>
+<li>Safe line input for text</li>
+<li>Removing or handling the newline retained by line input</li>
+<li>Manual string traversal</li>
+<li>Manual implementation of length, copy, concatenation, comparison, and search operations</li>
+<li>strlen</li>
+<li>strcpy and strncpy</li>
+<li>strcat and strncat</li>
+<li>strcmp and strncmp</li>
+<li>strchr and strstr</li>
+<li>Tokenization with strtok</li>
+<li>Arrays of strings using two-dimensional character arrays</li>
+<li>Collections of strings using arrays of character pointers</li>
+<li>String literals and modification restrictions</li>
+<li>Text-processing patterns</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 9 and Ch. 10 — Arrays; Pointers</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="program structure, scope, storage, and separate compilation schaum ch. 8 — program structure block scope function scope file scope local and external objects storage duration auto storage class register storage class static storage duration extern declarations internal and external linkage organizing a program across multiple source files user-defined header files declarations versus definitions across files separate compilation and linking header guards">
+      <summary>
+        <span class="num">D09</span>
+        <span class="summary-copy">
+          <strong>Program Structure, Scope, Storage, and Separate Compilation</strong>
+          <small>Schaum Ch. 8 — Program Structure</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Block scope</li>
+<li>Function scope</li>
+<li>File scope</li>
+<li>Local and external objects</li>
+<li>Storage duration</li>
+<li>auto storage class</li>
+<li>register storage class</li>
+<li>static storage duration</li>
+<li>extern declarations</li>
+<li>Internal and external linkage</li>
+<li>Organizing a program across multiple source files</li>
+<li>User-defined header files</li>
+<li>Declarations versus definitions across files</li>
+<li>Separate compilation and linking</li>
+<li>Header guards</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 8 — Program Structure</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="structures, unions, enumerations, and type aliases schaum ch. 11 — structures and unions; supplementary enum coverage structure type definition structure objects member access with the dot operator structure initialization arrays of structures nested structures structures as function arguments and return values pointers to structures member access through the arrow operator self-referential structures unions and shared storage structure versus union enumerated types typedef and type aliases">
+      <summary>
+        <span class="num">D10</span>
+        <span class="summary-copy">
+          <strong>Structures, Unions, Enumerations, and Type Aliases</strong>
+          <small>Schaum Ch. 11 — Structures and Unions; supplementary enum coverage</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Structure type definition</li>
+<li>Structure objects</li>
+<li>Member access with the dot operator</li>
+<li>Structure initialization</li>
+<li>Arrays of structures</li>
+<li>Nested structures</li>
+<li>Structures as function arguments and return values</li>
+<li>Pointers to structures</li>
+<li>Member access through the arrow operator</li>
+<li>Self-referential structures</li>
+<li>Unions and shared storage</li>
+<li>Structure versus union</li>
+<li>Enumerated types</li>
+<li>typedef and type aliases</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 11 — Structures and Unions; supplementary enum coverage</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="dynamic memory management schaum ch. 10 and ch. 11 — pointers; structures and unions automatic and static storage versus dynamically allocated storage malloc calloc realloc free checking allocation failure dynamically allocated one-dimensional arrays dynamically allocated strings dynamic multidimensional storage models memory leaks dangling pointers use after free double free ownership and lifetime discipline">
+      <summary>
+        <span class="num">D11</span>
+        <span class="summary-copy">
+          <strong>Dynamic Memory Management</strong>
+          <small>Schaum Ch. 10 and Ch. 11 — Pointers; Structures and Unions</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Automatic and static storage versus dynamically allocated storage</li>
+<li>malloc</li>
+<li>calloc</li>
+<li>realloc</li>
+<li>free</li>
+<li>Checking allocation failure</li>
+<li>Dynamically allocated one-dimensional arrays</li>
+<li>Dynamically allocated strings</li>
+<li>Dynamic multidimensional storage models</li>
+<li>Memory leaks</li>
+<li>Dangling pointers</li>
+<li>Use after free</li>
+<li>Double free</li>
+<li>Ownership and lifetime discipline</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 10 and Ch. 11 — Pointers; Structures and Unions</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="linked data structures schaum ch. 11 — structures and unions node design with self-referential structures singly linked list traversal insertion at beginning, end, and position deletion from beginning, end, and by key or position searching and updating nodes counting nodes reversing a linked list doubly linked list — introduction circular linked list — introduction">
+      <summary>
+        <span class="num">D12</span>
+        <span class="summary-copy">
+          <strong>Linked Data Structures</strong>
+          <small>Schaum Ch. 11 — Structures and Unions</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Node design with self-referential structures</li>
+<li>Singly linked list traversal</li>
+<li>Insertion at beginning, end, and position</li>
+<li>Deletion from beginning, end, and by key or position</li>
+<li>Searching and updating nodes</li>
+<li>Counting nodes</li>
+<li>Reversing a linked list</li>
+<li>Doubly linked list — introduction</li>
+<li>Circular linked list — introduction</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 11 — Structures and Unions</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="data files and persistent storage schaum ch. 12 — data files file pointers opening and closing files file modes text-file character i/o text-file line i/o formatted file i/o eof and end-of-file handling file error detection binary file i/o reading and writing records sequential file processing random-access file positioning fseek, ftell, and rewind">
+      <summary>
+        <span class="num">D13</span>
+        <span class="summary-copy">
+          <strong>Data Files and Persistent Storage</strong>
+          <small>Schaum Ch. 12 — Data Files</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>FILE pointers</li>
+<li>Opening and closing files</li>
+<li>File modes</li>
+<li>Text-file character I/O</li>
+<li>Text-file line I/O</li>
+<li>Formatted file I/O</li>
+<li>EOF and end-of-file handling</li>
+<li>File error detection</li>
+<li>Binary file I/O</li>
+<li>Reading and writing records</li>
+<li>Sequential file processing</li>
+<li>Random-access file positioning</li>
+<li>fseek, ftell, and rewind</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 12 — Data Files</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="low-level programming and bit manipulation schaum ch. 13 — low-level programming bitwise and bitwise or bitwise xor bitwise complement left shift right shift bit masks testing, setting, clearing, and toggling bits flags and packed state bit fields byte-level object representation awareness volatile-qualified objects in hardware- or externally-changing contexts">
+      <summary>
+        <span class="num">D14</span>
+        <span class="summary-copy">
+          <strong>Low-Level Programming and Bit Manipulation</strong>
+          <small>Schaum Ch. 13 — Low-Level Programming</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Bitwise AND</li>
+<li>Bitwise OR</li>
+<li>Bitwise XOR</li>
+<li>Bitwise complement</li>
+<li>Left shift</li>
+<li>Right shift</li>
+<li>Bit masks</li>
+<li>Testing, setting, clearing, and toggling bits</li>
+<li>Flags and packed state</li>
+<li>Bit fields</li>
+<li>Byte-level object representation awareness</li>
+<li>volatile-qualified objects in hardware- or externally-changing contexts</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 13 — Low-Level Programming</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="preprocessor and additional language facilities schaum ch. 14 — some additional features of c object-like macros beyond simple symbolic constants function-like macros macro arguments and parenthesization macro side-effect pitfalls stringizing with # in macro replacement lists token pasting with ## variadic macros — supplementary modern c topic conditional compilation #if, #ifdef, #ifndef, #elif, #else, #endif #undef predefined macros command-line arguments: argc and argv variadic functions with stdarg.h — supplementary topic">
+      <summary>
+        <span class="num">D15</span>
+        <span class="summary-copy">
+          <strong>Preprocessor and Additional Language Facilities</strong>
+          <small>Schaum Ch. 14 — Some Additional Features of C</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Object-like macros beyond simple symbolic constants</li>
+<li>Function-like macros</li>
+<li>Macro arguments and parenthesization</li>
+<li>Macro side-effect pitfalls</li>
+<li>Stringizing with # in macro replacement lists</li>
+<li>Token pasting with ##</li>
+<li>Variadic macros — supplementary modern C topic</li>
+<li>Conditional compilation</li>
+<li>#if, #ifdef, #ifndef, #elif, #else, #endif</li>
+<li>#undef</li>
+<li>Predefined macros</li>
+<li>Command-line arguments: argc and argv</li>
+<li>Variadic functions with stdarg.h — supplementary topic</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 14 — Some Additional Features of C</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="c standard library map across schaum chapters; supplementary consolidated reference stdio.h stdlib.h string.h ctype.h math.h assert.h time.h limits.h float.h stddef.h stdint.h stdbool.h and boolean support across c versions errno.h stdarg.h common standard-library categories and how to locate an existing library facility before reimplementing it">
+      <summary>
+        <span class="num">D16</span>
+        <span class="summary-copy">
+          <strong>C Standard Library Map</strong>
+          <small>Across Schaum chapters; supplementary consolidated reference</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>stdio.h</li>
+<li>stdlib.h</li>
+<li>string.h</li>
+<li>ctype.h</li>
+<li>math.h</li>
+<li>assert.h</li>
+<li>time.h</li>
+<li>limits.h</li>
+<li>float.h</li>
+<li>stddef.h</li>
+<li>stdint.h</li>
+<li>stdbool.h and Boolean support across C versions</li>
+<li>errno.h</li>
+<li>stdarg.h</li>
+<li>Common standard-library categories and how to locate an existing library facility before reimplementing it</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Across Schaum chapters; supplementary consolidated reference</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="debugging, diagnostics, and undefined behavior schaum ch. 5 plus supplementary modern debugging practice compiler warnings and why warnings should be treated seriously building with strong warning options debugging by tracing and inspection interactive debugger concepts breakpoints, stepping, variable inspection, and stack traces assertions and defensive checks invalid pointer dereference out-of-bounds memory access and buffer overflow division by zero signed integer overflow awareness incorrect format-specifier usage use after free and double free undefined, unspecified, and implementation-defined behavior — conceptual distinction writing small reproducible test cases for debugging">
+      <summary>
+        <span class="num">D17</span>
+        <span class="summary-copy">
+          <strong>Debugging, Diagnostics, and Undefined Behavior</strong>
+          <small>Schaum Ch. 5 plus supplementary modern debugging practice</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>Compiler warnings and why warnings should be treated seriously</li>
+<li>Building with strong warning options</li>
+<li>Debugging by tracing and inspection</li>
+<li>Interactive debugger concepts</li>
+<li>Breakpoints, stepping, variable inspection, and stack traces</li>
+<li>Assertions and defensive checks</li>
+<li>Invalid pointer dereference</li>
+<li>Out-of-bounds memory access and buffer overflow</li>
+<li>Division by zero</li>
+<li>Signed integer overflow awareness</li>
+<li>Incorrect format-specifier usage</li>
+<li>Use after free and double free</li>
+<li>Undefined, unspecified, and implementation-defined behavior — conceptual distinction</li>
+<li>Writing small reproducible test cases for debugging</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 5 plus supplementary modern debugging practice</div>
+      </div>
+    </details>
+<details class="pipeline-item" data-search="structured program design and c programming practice schaum ch. 5, ch. 6, ch. 7, and ch. 8 — complete programs; control statements; functions; program structure goto and labeled statements as c control-flow features when structured alternatives are preferable to goto top-down design stepwise refinement functional decomposition modular design separation of concerns consistent formatting and indentation comment quality and documenting intent rather than restating code avoiding magic values in program design input validation defensive programming designing maintainable complete programs">
+      <summary>
+        <span class="num">D18</span>
+        <span class="summary-copy">
+          <strong>Structured Program Design and C Programming Practice</strong>
+          <small>Schaum Ch. 5, Ch. 6, Ch. 7, and Ch. 8 — Complete Programs; Control Statements; Functions; Program Structure</small>
+        </span>
+        <span class="chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="pipeline-content">
+        <h4>What this topic covers</h4>
+        <ul class="topic-list"><li>goto and labeled statements as C control-flow features</li>
+<li>When structured alternatives are preferable to goto</li>
+<li>Top-down design</li>
+<li>Stepwise refinement</li>
+<li>Functional decomposition</li>
+<li>Modular design</li>
+<li>Separation of concerns</li>
+<li>Consistent formatting and indentation</li>
+<li>Comment quality and documenting intent rather than restating code</li>
+<li>Avoiding magic values in program design</li>
+<li>Input validation</li>
+<li>Defensive programming</li>
+<li>Designing maintainable complete programs</li></ul>
+        <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 5, Ch. 6, Ch. 7, and Ch. 8 — Complete Programs; Control Statements; Functions; Program Structure</div>
+      </div>
+    </details></div>
+  </section>
+
+  <section class="reference-box" id="reference">
+    <p class="eyebrow">Primary textbook backbone</p>
+    <h2>Schaum chapter map</h2>
+    <p>The curriculum is organized pedagogically rather than following the book chapter by chapter. The references point to the closest corresponding material in Byron S. Gottfried's <em>Schaum's Outline of Programming with C</em>, 2nd edition.</p>
+    <div class="chapter-grid"><div>Chapter 1 — Introductory Concepts</div>
+<div>Chapter 2 — C Fundamentals</div>
+<div>Chapter 3 — Operators and Expressions</div>
+<div>Chapter 4 — Data Input and Output</div>
+<div>Chapter 5 — Preparing and Running a Complete C Program</div>
+<div>Chapter 6 — Control Statements</div>
+<div>Chapter 7 — Functions</div>
+<div>Chapter 8 — Program Structure</div>
+<div>Chapter 9 — Arrays</div>
+<div>Chapter 10 — Pointers</div>
+<div>Chapter 11 — Structures and Unions</div>
+<div>Chapter 12 — Data Files</div>
+<div>Chapter 13 — Low-Level Programming</div>
+<div>Chapter 14 — Some Additional Features of C</div></div>
+  </section>
+</main>
+
+<footer>Structured Programming Language · C · Curriculum and topic reference</footer>
+<script src="script.js"></script>
+</body>
+</html>

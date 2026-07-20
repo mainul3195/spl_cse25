@@ -1,0 +1,724 @@
+{
+  "course": "Structured Programming Language — C",
+  "primary_reference": {
+    "title": "Schaum's Outline of Programming with C",
+    "author": "Byron S. Gottfried",
+    "edition": "2nd edition",
+    "chapters": [
+      "Chapter 1 — Introductory Concepts",
+      "Chapter 2 — C Fundamentals",
+      "Chapter 3 — Operators and Expressions",
+      "Chapter 4 — Data Input and Output",
+      "Chapter 5 — Preparing and Running a Complete C Program",
+      "Chapter 6 — Control Statements",
+      "Chapter 7 — Functions",
+      "Chapter 8 — Program Structure",
+      "Chapter 9 — Arrays",
+      "Chapter 10 — Pointers",
+      "Chapter 11 — Structures and Unions",
+      "Chapter 12 — Data Files",
+      "Chapter 13 — Low-Level Programming",
+      "Chapter 14 — Some Additional Features of C"
+    ]
+  },
+  "parts": {
+    "foundation": [
+      {
+        "n": 1,
+        "title": "Programming, Programs, and Why Learn One Language Thoroughly",
+        "ref": "Schaum Ch. 1 — Introductory Concepts",
+        "topics": [
+          "What a program is",
+          "What programming is",
+          "Input–process–output as a basic model of program behavior",
+          "Why a first programming language should be learned from fundamentals to advanced features",
+          "Programming concepts as transferable tools across languages",
+          "Learning the available tools of one language before moving to another",
+          "Problem solving through available language tools"
+        ],
+        "slug": "programming-programs-and-why-learn-one-language-thoroughly"
+      },
+      {
+        "n": 2,
+        "title": "Evolution and Levels of Programming Languages",
+        "ref": "Schaum Ch. 1 — Introductory Concepts",
+        "topics": [
+          "Historical evolution of programming languages",
+          "Machine language",
+          "Assembly language",
+          "Low-level and high-level language classification",
+          "Relationship between human readability and machine execution",
+          "Need for language translators",
+          "Assembler, compiler, and interpreter",
+          "Working difference between compilers and interpreters",
+          "General performance and memory trade-offs of compilation and interpretation",
+          "Compiler-based translation model used for C"
+        ],
+        "slug": "evolution-and-levels-of-programming-languages"
+      },
+      {
+        "n": 3,
+        "title": "First C Program and Program Anatomy",
+        "ref": "Schaum Ch. 1 and Ch. 5 — Introductory Concepts; Preparing and Running a Complete C Program",
+        "topics": [
+          "Hello World program",
+          "C source files and the basic structure of a C program",
+          "Preprocessor directives at the beginning of a source file",
+          "The main function as the program entry function",
+          "Function as a unit that receives input, performs work, and may return a result",
+          "Program termination status and return 0",
+          "Statements, semicolons, braces, and blocks — introductory use",
+          "Comments — introductory use",
+          "Basic escape sequence use such as newline",
+          "Library functions and user-defined functions",
+          "Header files and function declarations",
+          "Using #include to make library declarations available"
+        ],
+        "slug": "first-c-program-and-program-anatomy"
+      },
+      {
+        "n": 4,
+        "title": "From Source Code to Executable",
+        "ref": "Schaum Ch. 5 — Preparing and Running a Complete C Program",
+        "topics": [
+          "Source code",
+          "Preprocessing stage",
+          "Compilation stage",
+          "Assembly stage",
+          "Object code",
+          "Linking stage",
+          "Executable program",
+          "How library code is connected during the build process",
+          "Translation errors and the idea of correcting code before successful execution"
+        ],
+        "slug": "from-source-code-to-executable"
+      },
+      {
+        "n": 5,
+        "title": "Data and the Fundamental C Data Types",
+        "ref": "Schaum Ch. 2 — C Fundamentals",
+        "topics": [
+          "Concept of data and data type",
+          "Fundamental and derived type categories — introductory view",
+          "int",
+          "char",
+          "float",
+          "double",
+          "Typical size and range of fundamental types",
+          "Choosing a type according to the kind and range of data"
+        ],
+        "slug": "data-and-the-fundamental-c-data-types"
+      },
+      {
+        "n": 6,
+        "title": "Variables, Identifiers, Keywords, Initialization, and Assignment",
+        "ref": "Schaum Ch. 2 — C Fundamentals",
+        "topics": [
+          "Variable as named storage",
+          "Variable declaration",
+          "Variable initialization",
+          "Initialization versus later assignment",
+          "Assignment as changing the stored value of an object",
+          "Uninitialized local variables and the danger of using indeterminate values",
+          "How a variable occupies memory",
+          "Identifiers",
+          "Keywords and reserved words",
+          "Identifier formation rules",
+          "Variable naming rules and conventions"
+        ],
+        "slug": "variables-identifiers-keywords-initialization-and-assignment"
+      },
+      {
+        "n": 7,
+        "title": "Integer Type Modifiers and Basic Range Control",
+        "ref": "Schaum Ch. 2 — C Fundamentals",
+        "topics": [
+          "signed",
+          "unsigned",
+          "short",
+          "long",
+          "Using type modifiers to change integer range and representation",
+          "Matching basic format specifiers to data types"
+        ],
+        "slug": "integer-type-modifiers-and-basic-range-control"
+      },
+      {
+        "n": 8,
+        "title": "Basic Formatted Input and Output",
+        "ref": "Schaum Ch. 4 — Data Input and Output",
+        "topics": [
+          "printf",
+          "scanf",
+          "Basic conversion and format specifiers",
+          "Printing variables, constants, and expression results",
+          "Reading values into variables",
+          "Reading more than one value",
+          "Why scanf needs a destination address",
+          "Why printf normally receives values rather than destination addresses"
+        ],
+        "slug": "basic-formatted-input-and-output"
+      },
+      {
+        "n": 9,
+        "title": "Basic Operators and Expression Building",
+        "ref": "Schaum Ch. 3 — Operators and Expressions",
+        "topics": [
+          "Basic arithmetic operators used in calculations",
+          "Division and remainder in simple integer expressions",
+          "Assignment operator in simple expressions",
+          "Basic relational operators used for comparisons",
+          "Basic logical operators used to combine or negate conditions",
+          "Equality comparison versus assignment: == and =",
+          "Basic increment and decrement use, especially in loop updates",
+          "Combining variables, constants, and operators to form simple expressions"
+        ],
+        "slug": "basic-operators-and-expression-building"
+      },
+      {
+        "n": 10,
+        "title": "Types of Errors in C Programs",
+        "ref": "Schaum Ch. 5 — Preparing and Running a Complete C Program",
+        "topics": [
+          "Syntax errors",
+          "Translation and compilation errors",
+          "Linker errors",
+          "Runtime errors",
+          "Logical errors",
+          "Difference between an error message and a warning",
+          "Reading compiler diagnostics at a beginner level",
+          "Why a program can compile successfully and still be wrong"
+        ],
+        "slug": "types-of-errors-in-c-programs"
+      },
+      {
+        "n": 11,
+        "title": "Type Conversion and Explicit Casting",
+        "ref": "Schaum Ch. 2 and Ch. 3 — C Fundamentals; Operators and Expressions",
+        "topics": [
+          "Implicit type conversion",
+          "Conversion of operands to compatible arithmetic types",
+          "Type widening",
+          "Explicit type cast",
+          "Programmer-forced conversion",
+          "Type narrowing and possible information loss",
+          "Using casting to control arithmetic results when operand types differ"
+        ],
+        "slug": "type-conversion-and-explicit-casting"
+      },
+      {
+        "n": 12,
+        "title": "Symbolic Constants and the Preprocessor — First Use",
+        "ref": "Schaum Ch. 2 and Ch. 14 — C Fundamentals; Some Additional Features of C",
+        "topics": [
+          "Symbolic constants with #define",
+          "Purpose of symbolic names instead of repeated literal values",
+          "Preprocessor directives — introductory idea",
+          "Position of preprocessing in the translation process"
+        ],
+        "slug": "symbolic-constants-and-the-preprocessor-first-use"
+      },
+      {
+        "n": 13,
+        "title": "How Basic Data Is Represented in Memory",
+        "ref": "Schaum Ch. 2 and Ch. 13 — C Fundamentals; Low-Level Programming",
+        "topics": [
+          "Binary representation of integers",
+          "Two's complement representation of negative integers — the model used in class",
+          "Character values as integer codes",
+          "Character-code mapping, with ASCII as the teaching model",
+          "Floating-point sign, exponent, and significand/mantissa model",
+          "Floating-point precision"
+        ],
+        "slug": "how-basic-data-is-represented-in-memory"
+      },
+      {
+        "n": 14,
+        "title": "Expressions, Statements, Blocks, and Control-Flow Categories",
+        "ref": "Schaum Ch. 2, Ch. 3, and Ch. 6 — C Fundamentals; Operators and Expressions; Control Statements",
+        "topics": [
+          "Expression",
+          "Statement",
+          "Expression statement",
+          "Compound statement or block",
+          "Control statement",
+          "Branching or selection category",
+          "Looping or iteration category"
+        ],
+        "slug": "expressions-statements-blocks-and-control-flow-categories"
+      },
+      {
+        "n": 15,
+        "title": "Selection Statements",
+        "ref": "Schaum Ch. 6 — Control Statements",
+        "topics": [
+          "Truth in C: zero as false and nonzero as true",
+          "if",
+          "if-else",
+          "else-if ladder",
+          "Nested if",
+          "switch",
+          "case labels",
+          "default label",
+          "break in switch",
+          "Choosing among alternative execution paths"
+        ],
+        "slug": "selection-statements",
+        "tutorial": {
+          "title": "Nested Logic, Loops & the Grid Method",
+          "href": "tutorials/nested-logic-loops-grid-method.html#s2",
+          "covered_topics": ["if", "if-else", "else-if ladder", "Nested if"]
+        }
+      },
+      {
+        "n": 16,
+        "title": "Iteration Statements and Loop Control",
+        "ref": "Schaum Ch. 6 — Control Statements",
+        "topics": [
+          "while loop",
+          "do-while loop",
+          "for loop",
+          "Initialization, condition, and update components of a loop",
+          "Entry-controlled and exit-controlled loop behavior",
+          "Choosing an appropriate loop form",
+          "Nested loops",
+          "break in loops",
+          "continue",
+          "Pattern printing with nested loops (grid method)",
+          "Practice questions: nested logic, loops, and patterns"
+        ],
+        "slug": "iteration-statements-and-loop-control",
+        "tutorial": {
+          "title": "Nested Logic, Loops & the Grid Method",
+          "href": "tutorials/nested-logic-loops-grid-method.html#s3",
+          "covered_topics": ["while loop", "do-while loop", "for loop", "Nested loops", "break in loops", "continue", "Pattern printing with nested loops (grid method)", "Practice questions: nested logic, loops, and patterns"]
+        }
+      },
+      {
+        "n": 17,
+        "title": "Arrays — Dependency-Level Foundation",
+        "ref": "Schaum Ch. 9 — Arrays",
+        "topics": [
+          "Why arrays are needed",
+          "Concept of storing multiple values of one element type",
+          "Array declaration",
+          "Zero-based array indexing",
+          "Indexed element access",
+          "Valid index range",
+          "Out-of-bounds access as invalid and dangerous",
+          "Basic traversal",
+          "Basic array input and output"
+        ],
+        "slug": "arrays-dependency-level-foundation"
+      },
+      {
+        "n": 18,
+        "title": "Strings — Dependency-Level Foundation",
+        "ref": "Schaum Ch. 9 — Arrays",
+        "topics": [
+          "Concept of a string in C",
+          "Relationship between strings and character arrays",
+          "The null character '\\0'",
+          "A C string as a null-terminated sequence of characters",
+          "Difference between a character constant and a string literal",
+          "Basic string declaration and use",
+          "Basic string input and output"
+        ],
+        "slug": "strings-dependency-level-foundation"
+      }
+    ],
+    "detailed": [
+      {
+        "n": 1,
+        "title": "Operator System and Expression Evaluation in Detail",
+        "ref": "Schaum Ch. 3 — Operators and Expressions",
+        "topics": [
+          "Complete classification of C operators by purpose and arity",
+          "Compound assignment operators",
+          "Prefix versus postfix increment semantics",
+          "Prefix versus postfix decrement semantics",
+          "Conditional operator",
+          "Comma operator",
+          "sizeof operator",
+          "Operator precedence",
+          "Operator associativity",
+          "Parentheses and explicit grouping",
+          "Compound conditions built from multiple logical expressions",
+          "Short-circuit evaluation",
+          "Side effects inside expressions",
+          "Order-of-evaluation pitfalls and writing unambiguous expressions"
+        ],
+        "slug": "operator-system-and-expression-evaluation-in-detail"
+      },
+      {
+        "n": 2,
+        "title": "Constants and Literal Forms in Detail",
+        "ref": "Schaum Ch. 2 — C Fundamentals",
+        "topics": [
+          "Decimal, octal, and hexadecimal integer constant forms",
+          "Integer constant suffixes",
+          "How the type of an integer literal is selected from its value, base, and suffix",
+          "Floating-point constants in decimal notation",
+          "Floating-point constants in exponential notation",
+          "Floating constant suffixes and resulting type",
+          "Escape-sequence notation beyond the basic newline case",
+          "Adjacent string-literal concatenation",
+          "Literal range, representation, and precision implications"
+        ],
+        "slug": "constants-and-literal-forms-in-detail"
+      },
+      {
+        "n": 3,
+        "title": "Remaining C Fundamentals and Type-System Concepts",
+        "ref": "Schaum Ch. 2 — C Fundamentals; supplementary modern C coverage",
+        "topics": [
+          "Punctuators and delimiters not yet formalized as part of C lexical structure",
+          "void as a non-value type and its role in function interfaces",
+          "const-qualified objects",
+          "Difference between a const-qualified object and a preprocessor symbolic constant",
+          "Boolean data in standard C using _Bool and the conventional bool interface",
+          "limits.h for implementation limits of integer types",
+          "float.h for floating-point characteristics",
+          "Implementation-dependent nature of type sizes and ranges"
+        ],
+        "slug": "remaining-c-fundamentals-and-type-system-concepts"
+      },
+      {
+        "n": 4,
+        "title": "Input and Output Beyond the Basics",
+        "ref": "Schaum Ch. 4 — Data Input and Output",
+        "topics": [
+          "Formatted output field width",
+          "Precision control",
+          "Output flags",
+          "Formatted input field width",
+          "Character input with getchar",
+          "Character output with putchar",
+          "Line-oriented input",
+          "fgets",
+          "puts and fputs for string-oriented output",
+          "Whitespace behavior in formatted input",
+          "Input-buffer and leftover-newline problems",
+          "Return values of input functions",
+          "Checking input success and handling invalid input"
+        ],
+        "slug": "input-and-output-beyond-the-basics"
+      },
+      {
+        "n": 5,
+        "title": "Functions — Complete Treatment",
+        "ref": "Schaum Ch. 7 — Functions",
+        "topics": [
+          "Function declaration and prototype",
+          "Function definition",
+          "Function call",
+          "Return type and return statement",
+          "Functions that return no value",
+          "Formal parameters and actual arguments",
+          "Argument type matching and prototype checking",
+          "Call by value",
+          "Designing single-purpose functions",
+          "Functions calling other functions",
+          "Passing one-dimensional arrays to functions",
+          "Passing character arrays to functions",
+          "Recursion",
+          "Base case and recursive case",
+          "Call stack intuition",
+          "Direct and indirect recursion",
+          "Recursion versus iteration"
+        ],
+        "slug": "functions-complete-treatment"
+      },
+      {
+        "n": 6,
+        "title": "Arrays in Depth and Multidimensional Arrays",
+        "ref": "Schaum Ch. 9 — Arrays",
+        "topics": [
+          "Array initialization rules and partial initialization",
+          "Contiguous memory layout of array elements",
+          "Determining whole-array storage with sizeof",
+          "Deriving element count from array storage where the array object is available",
+          "One-dimensional array processing patterns",
+          "Frequency counting",
+          "Array reversal, copying, and merging",
+          "Linear search",
+          "Binary search",
+          "Bubble sort",
+          "Selection sort",
+          "Insertion sort",
+          "Two-dimensional arrays",
+          "Row-major storage",
+          "Matrix traversal",
+          "Matrix addition and subtraction",
+          "Matrix multiplication",
+          "Transpose and diagonal processing",
+          "Three-dimensional and higher-dimensional arrays",
+          "Passing multidimensional arrays to functions"
+        ],
+        "slug": "arrays-in-depth-and-multidimensional-arrays"
+      },
+      {
+        "n": 7,
+        "title": "Pointers",
+        "ref": "Schaum Ch. 10 — Pointers",
+        "topics": [
+          "Pointer objects and stored addresses",
+          "Pointer declaration and initialization",
+          "Dereference operator",
+          "Null pointers and null pointer constants",
+          "Pointer type compatibility",
+          "Pointer arithmetic",
+          "Array-to-pointer conversion in expressions",
+          "Pointer-based array traversal",
+          "Pointers as function parameters",
+          "Modifying caller-owned objects through pointer parameters",
+          "Character pointers",
+          "Pointer to pointer",
+          "Array of pointers",
+          "Pointer to an array",
+          "void pointers",
+          "Pointers to const data and const pointer objects",
+          "restrict-qualified pointer concept — optional modern C topic",
+          "Functions returning pointers",
+          "Function pointers",
+          "Common invalid-pointer situations"
+        ],
+        "slug": "pointers"
+      },
+      {
+        "n": 8,
+        "title": "Strings and Text Processing in Depth",
+        "ref": "Schaum Ch. 9 and Ch. 10 — Arrays; Pointers",
+        "topics": [
+          "String length versus character-array capacity",
+          "Safe line input for text",
+          "Removing or handling the newline retained by line input",
+          "Manual string traversal",
+          "Manual implementation of length, copy, concatenation, comparison, and search operations",
+          "strlen",
+          "strcpy and strncpy",
+          "strcat and strncat",
+          "strcmp and strncmp",
+          "strchr and strstr",
+          "Tokenization with strtok",
+          "Arrays of strings using two-dimensional character arrays",
+          "Collections of strings using arrays of character pointers",
+          "String literals and modification restrictions",
+          "Text-processing patterns"
+        ],
+        "slug": "strings-and-text-processing-in-depth"
+      },
+      {
+        "n": 9,
+        "title": "Program Structure, Scope, Storage, and Separate Compilation",
+        "ref": "Schaum Ch. 8 — Program Structure",
+        "topics": [
+          "Block scope",
+          "Function scope",
+          "File scope",
+          "Local and external objects",
+          "Storage duration",
+          "auto storage class",
+          "register storage class",
+          "static storage duration",
+          "extern declarations",
+          "Internal and external linkage",
+          "Organizing a program across multiple source files",
+          "User-defined header files",
+          "Declarations versus definitions across files",
+          "Separate compilation and linking",
+          "Header guards"
+        ],
+        "slug": "program-structure-scope-storage-and-separate-compilation"
+      },
+      {
+        "n": 10,
+        "title": "Structures, Unions, Enumerations, and Type Aliases",
+        "ref": "Schaum Ch. 11 — Structures and Unions; supplementary enum coverage",
+        "topics": [
+          "Structure type definition",
+          "Structure objects",
+          "Member access with the dot operator",
+          "Structure initialization",
+          "Arrays of structures",
+          "Nested structures",
+          "Structures as function arguments and return values",
+          "Pointers to structures",
+          "Member access through the arrow operator",
+          "Self-referential structures",
+          "Unions and shared storage",
+          "Structure versus union",
+          "Enumerated types",
+          "typedef and type aliases"
+        ],
+        "slug": "structures-unions-enumerations-and-type-aliases"
+      },
+      {
+        "n": 11,
+        "title": "Dynamic Memory Management",
+        "ref": "Schaum Ch. 10 and Ch. 11 — Pointers; Structures and Unions",
+        "topics": [
+          "Automatic and static storage versus dynamically allocated storage",
+          "malloc",
+          "calloc",
+          "realloc",
+          "free",
+          "Checking allocation failure",
+          "Dynamically allocated one-dimensional arrays",
+          "Dynamically allocated strings",
+          "Dynamic multidimensional storage models",
+          "Memory leaks",
+          "Dangling pointers",
+          "Use after free",
+          "Double free",
+          "Ownership and lifetime discipline"
+        ],
+        "slug": "dynamic-memory-management"
+      },
+      {
+        "n": 12,
+        "title": "Linked Data Structures",
+        "ref": "Schaum Ch. 11 — Structures and Unions",
+        "topics": [
+          "Node design with self-referential structures",
+          "Singly linked list traversal",
+          "Insertion at beginning, end, and position",
+          "Deletion from beginning, end, and by key or position",
+          "Searching and updating nodes",
+          "Counting nodes",
+          "Reversing a linked list",
+          "Doubly linked list — introduction",
+          "Circular linked list — introduction"
+        ],
+        "slug": "linked-data-structures"
+      },
+      {
+        "n": 13,
+        "title": "Data Files and Persistent Storage",
+        "ref": "Schaum Ch. 12 — Data Files",
+        "topics": [
+          "FILE pointers",
+          "Opening and closing files",
+          "File modes",
+          "Text-file character I/O",
+          "Text-file line I/O",
+          "Formatted file I/O",
+          "EOF and end-of-file handling",
+          "File error detection",
+          "Binary file I/O",
+          "Reading and writing records",
+          "Sequential file processing",
+          "Random-access file positioning",
+          "fseek, ftell, and rewind"
+        ],
+        "slug": "data-files-and-persistent-storage"
+      },
+      {
+        "n": 14,
+        "title": "Low-Level Programming and Bit Manipulation",
+        "ref": "Schaum Ch. 13 — Low-Level Programming",
+        "topics": [
+          "Bitwise AND",
+          "Bitwise OR",
+          "Bitwise XOR",
+          "Bitwise complement",
+          "Left shift",
+          "Right shift",
+          "Bit masks",
+          "Testing, setting, clearing, and toggling bits",
+          "Flags and packed state",
+          "Bit fields",
+          "Byte-level object representation awareness",
+          "volatile-qualified objects in hardware- or externally-changing contexts"
+        ],
+        "slug": "low-level-programming-and-bit-manipulation"
+      },
+      {
+        "n": 15,
+        "title": "Preprocessor and Additional Language Facilities",
+        "ref": "Schaum Ch. 14 — Some Additional Features of C",
+        "topics": [
+          "Object-like macros beyond simple symbolic constants",
+          "Function-like macros",
+          "Macro arguments and parenthesization",
+          "Macro side-effect pitfalls",
+          "Stringizing with # in macro replacement lists",
+          "Token pasting with ##",
+          "Variadic macros — supplementary modern C topic",
+          "Conditional compilation",
+          "#if, #ifdef, #ifndef, #elif, #else, #endif",
+          "#undef",
+          "Predefined macros",
+          "Command-line arguments: argc and argv",
+          "Variadic functions with stdarg.h — supplementary topic"
+        ],
+        "slug": "preprocessor-and-additional-language-facilities"
+      },
+      {
+        "n": 16,
+        "title": "C Standard Library Map",
+        "ref": "Across Schaum chapters; supplementary consolidated reference",
+        "topics": [
+          "stdio.h",
+          "stdlib.h",
+          "string.h",
+          "ctype.h",
+          "math.h",
+          "assert.h",
+          "time.h",
+          "limits.h",
+          "float.h",
+          "stddef.h",
+          "stdint.h",
+          "stdbool.h and Boolean support across C versions",
+          "errno.h",
+          "stdarg.h",
+          "Common standard-library categories and how to locate an existing library facility before reimplementing it"
+        ],
+        "slug": "c-standard-library-map"
+      },
+      {
+        "n": 17,
+        "title": "Debugging, Diagnostics, and Undefined Behavior",
+        "ref": "Schaum Ch. 5 plus supplementary modern debugging practice",
+        "topics": [
+          "Compiler warnings and why warnings should be treated seriously",
+          "Building with strong warning options",
+          "Debugging by tracing and inspection",
+          "Interactive debugger concepts",
+          "Breakpoints, stepping, variable inspection, and stack traces",
+          "Assertions and defensive checks",
+          "Invalid pointer dereference",
+          "Out-of-bounds memory access and buffer overflow",
+          "Division by zero",
+          "Signed integer overflow awareness",
+          "Incorrect format-specifier usage",
+          "Use after free and double free",
+          "Undefined, unspecified, and implementation-defined behavior — conceptual distinction",
+          "Writing small reproducible test cases for debugging"
+        ],
+        "slug": "debugging-diagnostics-and-undefined-behavior"
+      },
+      {
+        "n": 18,
+        "title": "Structured Program Design and C Programming Practice",
+        "ref": "Schaum Ch. 5, Ch. 6, Ch. 7, and Ch. 8 — Complete Programs; Control Statements; Functions; Program Structure",
+        "topics": [
+          "goto and labeled statements as C control-flow features",
+          "When structured alternatives are preferable to goto",
+          "Top-down design",
+          "Stepwise refinement",
+          "Functional decomposition",
+          "Modular design",
+          "Separation of concerns",
+          "Consistent formatting and indentation",
+          "Comment quality and documenting intent rather than restating code",
+          "Avoiding magic values in program design",
+          "Input validation",
+          "Defensive programming",
+          "Designing maintainable complete programs"
+        ],
+        "slug": "structured-program-design-and-c-programming-practice"
+      }
+    ]
+  }
+}

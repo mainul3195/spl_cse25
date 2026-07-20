@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nested Logic &amp; Loops in C — A Grid-Method Handbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F8FB;
+    --paper-2:#FCFDFD;
+    --card:#FFFFFF;
+    --ink:#172033;
+    --ink-soft:#5F6B7D;
+    --line:#E2E7EF;
+    --line-strong:#CCD5E1;
+    --star:#E39518;         /* lit cell / printed char */
+    --star-soft:#FBEBCB;
+    --teal:#0F6B5B;         /* course accent */
+    --teal-soft:#E9F5F2;
+    --rose:#C64268;         /* break/continue accent */
+    --code-bg:#152232;
+    --code-ink:#E7ECF2;
+    --code-dim:#8fa0b3;
+    --code-key:#E39518;
+    --code-str:#7FD1A6;
+    --radius:14px;
+    --maxw:820px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
+  body{
+    margin:0;
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);
+    background-color:var(--paper);
+    line-height:1.6;
+    font-size:17px;
+  }
+  .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+  .header-inner{max-width:1120px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;gap:12px;align-items:center;color:var(--ink);text-decoration:none}
+  .brand-mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--teal);color:white;font-weight:800}
+  .brand strong{display:block;line-height:1.15}.brand small{display:block;color:var(--ink-soft);margin-top:3px}
+  .header-nav{display:flex;gap:18px;font-size:.94rem}.header-nav a{text-decoration:none}.header-nav a:hover{text-decoration:underline}
+  .wrap{max-width:1120px;margin:0 auto;padding:34px 24px 0;display:grid;grid-template-columns:230px minmax(0,1fr);column-gap:44px;row-gap:0}
+  main{max-width:var(--maxw);margin-top:30px;padding:0 32px 90px;background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 32px rgba(25,35,55,.05)}
+
+  /* ---------- HERO ---------- */
+  header.hero{grid-column:1 / -1;padding:46px 42px 36px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#EEF8F5,#F8FBFF);box-shadow:0 8px 28px rgba(25,35,55,.045)}
+  .kicker{font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);font-weight:700}
+  h1{font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:clamp(2.3rem,5.5vw,3.9rem);line-height:1.02;margin:.35em 0 .3em;letter-spacing:-.04em}
+  .lede{font-size:1.12rem;color:var(--ink-soft);max-width:640px;margin:0}
+  .hero-plot{margin-top:34px}
+
+  /* ---------- SIDEBAR NAV ---------- */
+  nav.toc{position:sticky;top:88px;align-self:start;height:max-content;font-size:.9rem;padding-top:36px}
+  nav.toc .toc-title{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-left:2px solid var(--line);margin-left:2px;transition:all .15s}
+  nav.toc a:hover,nav.toc a:focus-visible{color:var(--ink);border-left-color:var(--star);background:var(--paper-2)}
+  nav.toc a .n{font-family:"JetBrains Mono",monospace;color:var(--teal);font-size:.78em;margin-right:8px}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding-top:56px;scroll-margin-top:20px}
+  h2{font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-weight:750;font-size:1.9rem;letter-spacing:-.025em;margin:0 0 6px;display:flex;align-items:baseline;gap:14px}
+  h2 .sec-n{font-family:"JetBrains Mono",monospace;font-size:1rem;color:var(--star);font-weight:700;background:var(--star-soft);border:1px solid var(--star);border-radius:8px;padding:2px 9px;flex:none}
+  h3{font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:1.28rem;margin:34px 0 8px;letter-spacing:-.015em}
+  h4{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin:22px 0 8px}
+  p{margin:12px 0}
+  a{color:var(--teal);text-underline-offset:3px}
+  strong{font-weight:600;color:var(--ink)}
+  code{font-family:"JetBrains Mono",monospace;font-size:.86em;background:var(--teal-soft);color:#0f5a5f;padding:1px 6px;border-radius:5px}
+  .rule{height:2px;background:var(--line-strong);border:0;margin:8px 0}
+
+  /* ---------- CODE / OUTPUT BLOCKS ---------- */
+  .code{background:var(--code-bg);color:var(--code-ink);font-family:"JetBrains Mono",monospace;font-size:.83rem;line-height:1.55;border-radius:var(--radius);padding:18px 20px;overflow-x:auto;margin:14px 0;position:relative;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+  .code::before{content:attr(data-label);position:absolute;top:0;right:14px;transform:translateY(-50%);background:var(--star);color:#152232;font-family:"JetBrains Mono",monospace;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:6px}
+  .code pre{margin:0;white-space:pre}
+  .code .c{color:var(--code-dim);font-style:italic}
+  .code .k{color:var(--code-key)}
+  .code .s{color:var(--code-str)}
+  .out{background:var(--paper-2);border:1px solid var(--line-strong);border-radius:var(--radius);padding:16px 20px 16px;margin:14px 0;font-family:"JetBrains Mono",monospace;font-size:.86rem;line-height:1.5;position:relative;white-space:pre;overflow-x:auto;color:var(--ink)}
+  .out::before{content:"output";position:absolute;top:0;right:14px;transform:translateY(-50%);background:var(--teal);color:#fff;font-family:"JetBrains Mono",monospace;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:6px}
+
+  /* ---------- CALLOUTS ---------- */
+  .callout{border-radius:var(--radius);padding:16px 20px 16px 22px;margin:20px 0;border-left:5px solid var(--teal);background:var(--teal-soft)}
+  .callout.tip{border-left-color:var(--star);background:var(--star-soft)}
+  .callout.trap{border-left-color:var(--rose);background:#F8E1E8}
+  .callout .lbl{font-family:"JetBrains Mono",monospace;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:4px}
+  .callout.tip .lbl{color:#9a6408}
+  .callout .lbl{color:#0f5a5f}
+  .callout.trap .lbl{color:#a12b4d}
+  .callout p:first-of-type{margin-top:2px}
+  .callout p:last-child{margin-bottom:0}
+
+  /* ---------- TABLE ---------- */
+  table{border-collapse:collapse;width:100%;margin:16px 0;font-size:.94rem;background:var(--card);border-radius:10px;overflow:hidden}
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
+  thead th{background:var(--ink);color:#fff;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+  tbody tr:last-child td{border-bottom:0}
+  code.mono-cell{background:none;padding:0;color:var(--ink)}
+
+  /* ---------- THE GRID PLOT (signature element) ---------- */
+  .plot-fig{margin:22px 0 8px;background:var(--card);border:1px solid var(--line-strong);border-radius:var(--radius);padding:20px 20px 16px;overflow-x:auto}
+  .plot-fig .cap{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .plot-fig .cap b{color:var(--ink);font-weight:700}
+  .plot{display:inline-grid;gap:3px;font-family:"JetBrains Mono",monospace}
+  .plot .hd{font-size:.66rem;color:var(--ink-soft);text-align:center;align-self:center;justify-self:center;min-width:22px}
+  .plot .rh{font-size:.66rem;color:var(--teal);text-align:right;padding-right:8px;align-self:center;font-weight:700}
+  .plot .cell{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700}
+  .plot .cell.star{background:var(--star);color:#152232;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+  .plot .cell.space{background:repeating-linear-gradient(45deg,transparent,transparent 3px,var(--line) 3px,var(--line) 4px);border:1px dashed var(--line-strong)}
+  .plot .cell.voidc{background:transparent}
+  .plot .ann{font-size:.68rem;color:var(--ink-soft);padding-left:14px;align-self:center;white-space:nowrap}
+  .plot .ann .sp{color:var(--teal);font-weight:700}
+  .plot .ann .st{color:#b9740c;font-weight:700}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:.68rem;color:var(--ink-soft)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .swatch{width:15px;height:15px;border-radius:4px;display:inline-block}
+  .swatch.star{background:var(--star)}
+  .swatch.space{background:repeating-linear-gradient(45deg,transparent,transparent 3px,var(--line) 3px,var(--line) 4px);border:1px dashed var(--line-strong)}
+  .swatch.voidc{border:1px solid var(--line)}
+
+  ol.practice{padding-left:22px}
+  ol.practice li{margin:8px 0}
+  footer{grid-column:1 / -1;border-top:1px solid var(--line);margin-top:46px;padding:26px 0 60px;font-size:.9rem;color:var(--ink-soft)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr;gap:0}
+    nav.toc{position:static;padding-top:20px;margin-bottom:10px;border-bottom:1px solid var(--line);padding-bottom:16px}
+    nav.toc a{display:inline-block;border-left:0;border-bottom:2px solid var(--line);margin:0 4px 4px 0}
+    main{max-width:100%}
+  }
+  @media (max-width:700px){
+    .header-nav{display:none}.brand small{display:none}
+    .header-inner,.wrap{padding-left:16px;padding-right:16px}
+    header.hero{padding:36px 24px 28px}
+    main{padding-left:20px;padding-right:20px}
+  }
+  a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html#top" aria-label="Structured Programming Language C home">
+      <span class="brand-mark">C</span>
+      <span><strong>Structured Programming Language</strong><small>C learning path and topic reference</small></span>
+    </a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a href="../index.html#foundation">Learning Path</a>
+      <a href="index.html">All Tutorials</a>
+      <a href="../index.html#reference">Book Map</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">C Programming · Reference Handbook</div>
+    <h1>Nested Logic, Loops &amp;<br>the Grid Method</h1>
+    <p class="lede">A hands-on guide to nested <code>if</code>, all three loop types, <code>break</code> and <code>continue</code>, and pattern printing — where every pattern is first <em>plotted on a grid</em> so the formula falls out on its own.</p>
+    <div class="hero-plot" id="hero-plot"></div>
+  </header>
+
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <a href="#s1"><span class="n">01</span>Setup</a>
+    <a href="#s2"><span class="n">02</span>Nested if</a>
+    <a href="#s3"><span class="n">03</span>The three loops</a>
+    <a href="#s4"><span class="n">04</span>Nested loops</a>
+    <a href="#s5"><span class="n">05</span>break &amp; continue</a>
+    <a href="#s6"><span class="n">06</span>The grid method</a>
+    <a href="#s7"><span class="n">07</span>Pattern gallery</a>
+    <a href="#s8"><span class="n">08</span>Pro tip: " \n"[c==r]</a>
+    <a href="#s9"><span class="n">09</span>Common traps</a>
+    <a href="#s10"><span class="n">10</span>Practice</a>
+  </nav>
+
+  <main>
+
+  <!-- 1 -->
+  <section id="s1">
+    <h2><span class="sec-n">01</span>Setup</h2>
+    <p>Every example here is a complete, compilable program. To run one: save it as <code>example.c</code>, compile with <code>gcc example.c -o example</code>, then run <code>./example</code> (on Windows, <code>example.exe</code>). The expected output is shown beneath each program so you can follow along without a compiler. Turn on warnings with <code>gcc -Wall</code> — it catches a whole class of beginner bugs before they bite.</p>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2">
+    <h2><span class="sec-n">02</span>Nested <code>if</code></h2>
+    <p>A <strong>nested <code>if</code></strong> is an <code>if</code> placed inside the body of another <code>if</code> or <code>else</code>. The inner test is only reached when the outer test lets the program get there. Think of it as a series of gates: you reach the second gate only after passing the first.</p>
+
+    <h3>2.1 &nbsp;Basic shape</h3>
+    <div class="code" data-label="c"><pre><span class="k">if</span> (condition1) {
+    <span class="k">if</span> (condition2) {
+        statement_A;   <span class="c">// condition1 AND condition2 true</span>
+    } <span class="k">else</span> {
+        statement_B;   <span class="c">// condition1 true, condition2 false</span>
+    }
+} <span class="k">else</span> {
+    statement_C;       <span class="c">// condition1 false</span>
+}</pre></div>
+
+    <h3>2.2 &nbsp;Login eligibility</h3>
+    <div class="code" data-label="c"><pre><span class="c">#include &lt;stdio.h&gt;</span>
+
+<span class="k">int</span> main(<span class="k">void</span>) {
+    <span class="k">int</span> age = <span class="s">20</span>;
+    <span class="k">int</span> hasID = <span class="s">1</span>;              <span class="c">// 1 = yes, 0 = no</span>
+
+    <span class="k">if</span> (age &gt;= <span class="s">18</span>) {
+        <span class="k">if</span> (hasID == <span class="s">1</span>) {
+            printf(<span class="s">"Access granted.\n"</span>);
+        } <span class="k">else</span> {
+            printf(<span class="s">"Old enough, but you need an ID.\n"</span>);
+        }
+    } <span class="k">else</span> {
+        printf(<span class="s">"Access denied. Must be at least 18.\n"</span>);
+    }
+    <span class="k">return</span> <span class="s">0</span>;
+}</pre></div>
+    <div class="out">Access granted.</div>
+    <p><code>hasID</code> is checked only <em>after</em> we confirm <code>age &gt;= 18</code>. That dependency is the entire point of nesting.</p>
+
+    <h3>2.3 &nbsp;Largest of three numbers</h3>
+    <div class="code" data-label="c"><pre><span class="k">int</span> a = <span class="s">15</span>, b = <span class="s">42</span>, c = <span class="s">27</span>;
+
+<span class="k">if</span> (a &gt;= b) {
+    <span class="k">if</span> (a &gt;= c) {
+        printf(<span class="s">"Largest is %d\n"</span>, a);
+    } <span class="k">else</span> {
+        printf(<span class="s">"Largest is %d\n"</span>, c);
+    }
+} <span class="k">else</span> {
+    <span class="k">if</span> (b &gt;= c) {
+        printf(<span class="s">"Largest is %d\n"</span>, b);
+    } <span class="k">else</span> {
+        printf(<span class="s">"Largest is %d\n"</span>, c);
+    }
+}</pre></div>
+    <div class="out">Largest is 42</div>
+    <p>First we ask whether <code>a &gt;= b</code>. If yes, the winner is <code>a</code> or <code>c</code>; if no, it is <code>b</code> or <code>c</code>. Each branch has fewer cases left to weigh.</p>
+
+    <h3>2.4 &nbsp;Nested <code>if</code> vs. the <code>else if</code> ladder</h3>
+    <p>When conditions are <strong>mutually exclusive ranges</strong>, an <code>else if</code> ladder reads better than deep nesting.</p>
+    <div class="code" data-label="c"><pre><span class="k">int</span> marks = <span class="s">76</span>;
+
+<span class="k">if</span> (marks &gt;= <span class="s">80</span>) {
+    printf(<span class="s">"Grade: A\n"</span>);
+} <span class="k">else if</span> (marks &gt;= <span class="s">70</span>) {
+    printf(<span class="s">"Grade: B\n"</span>);
+} <span class="k">else if</span> (marks &gt;= <span class="s">60</span>) {
+    printf(<span class="s">"Grade: C\n"</span>);
+} <span class="k">else if</span> (marks &gt;= <span class="s">50</span>) {
+    printf(<span class="s">"Grade: D\n"</span>);
+} <span class="k">else</span> {
+    printf(<span class="s">"Grade: F\n"</span>);
+}</pre></div>
+    <div class="out">Grade: B</div>
+    <div class="callout"><span class="lbl">Rule of thumb</span><p>Use <strong>nested <code>if</code></strong> when the inner decision genuinely depends on the outer one (login, leap year). Use an <strong><code>else if</code> ladder</strong> when you are just choosing one bucket out of several.</p></div>
+
+    <h3>2.5 &nbsp;Leap year — a truly nested rule</h3>
+    <div class="code" data-label="c"><pre><span class="k">int</span> year = <span class="s">2000</span>;
+
+<span class="k">if</span> (year % <span class="s">4</span> == <span class="s">0</span>) {
+    <span class="k">if</span> (year % <span class="s">100</span> == <span class="s">0</span>) {
+        <span class="k">if</span> (year % <span class="s">400</span> == <span class="s">0</span>) {
+            printf(<span class="s">"%d is a leap year.\n"</span>, year);
+        } <span class="k">else</span> {
+            printf(<span class="s">"%d is NOT a leap year.\n"</span>, year);
+        }
+    } <span class="k">else</span> {
+        printf(<span class="s">"%d is a leap year.\n"</span>, year);
+    }
+} <span class="k">else</span> {
+    printf(<span class="s">"%d is NOT a leap year.\n"</span>, year);
+}</pre></div>
+    <div class="out">2000 is a leap year.</div>
+    <p>Try <code>1900</code> (not leap), <code>2024</code> (leap), <code>2023</code> (not leap) to walk every branch.</p>
+  </section>
+
+  <!-- 3 -->
+  <section id="s3">
+    <h2><span class="sec-n">03</span>The three loops</h2>
+    <p>C offers three loop constructs. They can all do the same jobs, but each fits certain situations best — and you will nest all three in the next section.</p>
+
+    <h4>for — when you know the count</h4>
+    <div class="code" data-label="c"><pre><span class="c">// initialization ; condition ; update</span>
+<span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= <span class="s">5</span>; i++) {
+    printf(<span class="s">"%d "</span>, i);
+}</pre></div>
+    <div class="out">1 2 3 4 5</div>
+    <p>Read the header as three parts separated by semicolons. The <strong>initialization</strong> <code>int i = 1</code> runs once at the very start. Before every pass the <strong>condition</strong> <code>i &lt;= 5</code> is tested — if it is true the body runs, if false the loop ends. After each pass the <strong>update</strong> <code>i++</code> runs, then the condition is tested again. So the loop stops the instant <code>i</code> reaches 6.</p>
+
+    <h4>while — checked before the body (may run 0 times)</h4>
+    <div class="code" data-label="c"><pre><span class="k">int</span> i = <span class="s">1</span>;
+<span class="k">while</span> (i &lt;= <span class="s">5</span>) {
+    printf(<span class="s">"%d "</span>, i);
+    i++;                <span class="c">// update, or you loop forever</span>
+}</pre></div>
+    <div class="out">1 2 3 4 5</div>
+    <p>A <code>while</code> loop keeps only the condition in its header, so you set up the counter <em>before</em> the loop and update it <em>inside</em>. Because the test happens before the body, if the condition starts out false the body never runs even once. Forgetting the <code>i++</code> is the classic cause of an infinite loop.</p>
+
+    <h4>do-while — checked after the body (always runs at least once)</h4>
+    <div class="code" data-label="c"><pre><span class="k">int</span> i = <span class="s">1</span>;
+<span class="k">do</span> {
+    printf(<span class="s">"%d "</span>, i);
+    i++;
+} <span class="k">while</span> (i &lt;= <span class="s">5</span>);</pre></div>
+    <div class="out">1 2 3 4 5</div>
+    <p>The only difference from <code>while</code> is where the test sits: at the <em>bottom</em>. The body therefore always runs once before the condition is ever checked — start with <code>i = 99</code> and this loop still prints once. That guaranteed first pass is why <code>do-while</code> suits menus and input prompts, which must appear at least once before the user can respond.</p>
+
+    <h4>the classic use: input validation</h4>
+    <p>The condition you want to test — "is the input valid?" — is written in terms of the input, so you cannot check it until the input exists. <code>do-while</code> fits perfectly: it reads first, then validates, and loops back only if the value was bad.</p>
+    <div class="code" data-label="c"><pre><span class="k">int</span> age;
+<span class="k">do</span> {
+    printf(<span class="s">"Enter your age (1-120): "</span>);
+    scanf(<span class="s">"%d"</span>, &amp;age);
+} <span class="k">while</span> (age &lt; <span class="s">1</span> || age &gt; <span class="s">120</span>);   <span class="c">// test uses the value we just read</span>
+
+printf(<span class="s">"Age accepted: %d\n"</span>, age);</pre></div>
+    <div class="out">Enter your age (1-120): 200
+Enter your age (1-120): 45
+Age accepted: 45</div>
+    <p>The read happens first, the check happens after. Type <code>200</code> and the condition is true, so control returns to the top of the body and asks again; it keeps looping until a valid value makes the condition false. Because the body is guaranteed to run once, there is no awkward "first time" special case to handle.</p>
+    <p>Forcing this into a <code>while</code> loop shows what <code>do-while</code> saves you. Since the top test runs before any input is read, you must invent a starting value that is deliberately invalid — a <em>priming</em> value — just to make the loop enter its body the first time:</p>
+    <div class="code" data-label="c"><pre><span class="k">int</span> age = -<span class="s">1</span>;                     <span class="c">// priming value: known to be invalid</span>
+<span class="k">while</span> (age &lt; <span class="s">1</span> || age &gt; <span class="s">120</span>) {
+    printf(<span class="s">"Enter your age (1-120): "</span>);
+    scanf(<span class="s">"%d"</span>, &amp;age);
+}</pre></div>
+    <p>This works, but the <code>-1</code> exists only to trick a top-tested loop into running once — which is exactly the job <code>do-while</code> does for free. Whenever the body must execute before the condition can be tested meaningfully, <code>do-while</code> states that intent directly.</p>
+
+    <table>
+      <thead><tr><th>Loop</th><th>Condition checked</th><th>Min runs</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td><code class="mono-cell">for</code></td><td>Before body</td><td>0</td><td>Known count / counting</td></tr>
+        <tr><td><code class="mono-cell">while</code></td><td>Before body</td><td>0</td><td>Repeat until something changes</td></tr>
+        <tr><td><code class="mono-cell">do-while</code></td><td>After body</td><td>1</td><td>Menus, input validation</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <h2><span class="sec-n">04</span>Nested loops</h2>
+    <p>A <strong>nested loop</strong> is a loop inside another loop. For every single pass of the <strong>outer</strong> loop, the <strong>inner</strong> loop runs completely. Outer × inner = total passes.</p>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= <span class="s">3</span>; i++) {        <span class="c">// outer</span>
+    <span class="k">for</span> (<span class="k">int</span> j = <span class="s">1</span>; j &lt;= <span class="s">4</span>; j++) {    <span class="c">// inner</span>
+        printf(<span class="s">"(%d,%d) "</span>, i, j);
+    }
+    printf(<span class="s">"\n"</span>);                       <span class="c">// end of a row</span>
+}</pre></div>
+    <div class="out">(1,1) (1,2) (1,3) (1,4)
+(2,1) (2,2) (2,3) (2,4)
+(3,1) (3,2) (3,3) (3,4)</div>
+    <p><code>i</code> holds each row fixed while <code>j</code> sweeps every column. This <strong>outer = row, inner = column</strong> model is exactly what powers every pattern below.</p>
+
+    <div class="callout trap"><span class="lbl">Trap · reset the inner counter</span><p>With nested <code>while</code>/<code>do-while</code>, reset the inner counter <em>inside</em> the outer loop (<code>int j = 1;</code> each pass). Forget it and the inner loop runs fully only once. A <code>for</code> loop does this automatically in its initializer — one reason <code>for</code> dominates pattern code.</p></div>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5">
+    <h2><span class="sec-n">05</span><code>break</code> &amp; <code>continue</code></h2>
+    <p><code>break</code> exits the loop entirely; <code>continue</code> skips the rest of the current pass and jumps to the next iteration.</p>
+
+    <h4>break — stop the loop</h4>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= <span class="s">10</span>; i++) {
+    <span class="k">if</span> (i == <span class="s">5</span>) {
+        <span class="k">break</span>;
+    }
+    printf(<span class="s">"%d "</span>, i);
+}</pre></div>
+    <div class="out">1 2 3 4</div>
+    <p>The loop counts up and prints each value normally. When <code>i</code> becomes 5 the <code>if</code> fires and <code>break</code> runs, ending the loop on the spot — so 5 is never printed, and 6 through 10 are never even tested. Notice the <code>printf</code> sits <em>after</em> the check, which is why 4 is the last number shown.</p>
+
+    <h4>continue — skip this pass</h4>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= <span class="s">10</span>; i++) {
+    <span class="k">if</span> (i % <span class="s">2</span> == <span class="s">0</span>) {          <span class="c">// skip evens</span>
+        <span class="k">continue</span>;
+    }
+    printf(<span class="s">"%d "</span>, i);
+}</pre></div>
+    <div class="out">1 3 5 7 9</div>
+    <p>For every even <code>i</code>, <code>continue</code> jumps straight to the next iteration and skips the <code>printf</code> below it — but the loop keeps running to the end. Only the <em>current</em> pass is cut short. That is the whole distinction: <code>continue</code> skips one pass, while <code>break</code> abandons the entire loop.</p>
+
+    <h4>Where the execution pointer jumps</h4>
+    <p>Both statements redirect the flow of control, but to different places — and for <code>continue</code> the destination depends on the loop type, which is easy to get wrong.</p>
+    <p><strong><code>break</code></strong> is the simple case: control leaves the current loop at once and resumes at the first statement <em>after</em> the loop. It behaves the same in all three loop types.</p>
+    <p><strong><code>continue</code></strong> ends the current pass and hands control to the point where the loop decides whether to run again — and that point sits in a different place in each loop:</p>
+    <table>
+      <thead><tr><th>Loop</th><th>On <code>continue</code>, the execution pointer jumps to…</th></tr></thead>
+      <tbody>
+        <tr><td><code class="mono-cell">for</code></td><td>the <strong>update</strong> step (<code>i++</code>), and only then the condition test</td></tr>
+        <tr><td><code class="mono-cell">while</code></td><td>the <strong>condition</strong> test at the top of the loop</td></tr>
+        <tr><td><code class="mono-cell">do-while</code></td><td>the <strong>condition</strong> test at the bottom of the loop</td></tr>
+      </tbody>
+    </table>
+    <p>The <code>for</code> loop is special: its update runs even on a <code>continue</code>, so a counting loop keeps advancing safely. A <code>while</code> or <code>do-while</code> has no such automatic step — so if the line that updates your counter sits <em>after</em> the <code>continue</code>, it is skipped on every triggered pass and the loop spins forever:</p>
+    <div class="code" data-label="buggy"><pre><span class="k">int</span> i = <span class="s">0</span>;
+<span class="k">while</span> (i &lt; <span class="s">5</span>) {
+    <span class="k">if</span> (i == <span class="s">2</span>) {
+        <span class="k">continue</span>;   <span class="c">// jumps to the condition — i never changes</span>
+    }
+    printf(<span class="s">"%d "</span>, i);
+    i++;            <span class="c">// never reached when i == 2  ->  loops forever</span>
+}</pre></div>
+    <div class="callout trap"><span class="lbl">The fix</span><p>Update the counter <em>before</em> the <code>continue</code>, or use a <code>for</code> loop — its update step runs no matter how the pass ends, so the same logic is safe.</p></div>
+
+    <div class="callout"><span class="lbl">The rule everyone misses</span><p><code>break</code> and <code>continue</code> affect <strong>only the innermost loop</strong> they sit in. In a nested loop, <code>break</code> ends the <em>inner</em> loop; the outer loop simply moves on.</p></div>
+
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= <span class="s">3</span>; i++) {
+    <span class="k">for</span> (<span class="k">int</span> j = <span class="s">1</span>; j &lt;= <span class="s">5</span>; j++) {
+        <span class="k">if</span> (j == <span class="s">3</span>) {              <span class="c">// exits ONLY the inner loop</span>
+            <span class="k">break</span>;
+        }
+        printf(<span class="s">"(%d,%d) "</span>, i, j);
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+    <div class="out">(1,1) (1,2)
+(2,1) (2,2)
+(3,1) (3,2)</div>
+    <p>All three rows still appear: each inner <code>break</code> only ends that inner run, then the outer loop starts a fresh inner loop.</p>
+
+    <h4>Breaking out of all loops — use a flag</h4>
+    <div class="code" data-label="c"><pre><span class="k">int</span> found = <span class="s">0</span>;
+<span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= <span class="s">5</span> &amp;&amp; !found; i++) {
+    <span class="k">for</span> (<span class="k">int</span> j = <span class="s">1</span>; j &lt;= <span class="s">5</span>; j++) {
+        <span class="k">if</span> (i * j == <span class="s">12</span>) {
+            printf(<span class="s">"Found it: %d x %d = 12\n"</span>, i, j);
+            found = <span class="s">1</span>;               <span class="c">// set flag</span>
+            <span class="k">break</span>;                   <span class="c">// leave inner loop</span>
+        }
+    }                                <span class="c">// outer !found now stops too</span>
+}</pre></div>
+    <div class="out">Found it: 3 x 4 = 12</div>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <h2><span class="sec-n">06</span>The grid method</h2>
+    <p>Pattern printing feels magical until you see the trick: <strong>every pattern is just cells on a grid</strong>. Before writing a single loop, draw the pattern on a coordinate grid — rows down the side (<code>r</code>), columns across the top (<code>c</code>) — and mark what each cell holds. Once the grid is drawn, the loop bounds read straight off it.</p>
+
+    <p>Three cell states matter, and telling them apart is the whole skill:</p>
+    <div class="plot-fig">
+      <div class="legend" style="margin-top:0">
+        <span><i class="swatch star"></i> a printed character (<code>*</code>, a digit, a letter)</span>
+        <span><i class="swatch space"></i> a printed <b>&nbsp;space&nbsp;</b> — takes width, holds the shape</span>
+        <span><i class="swatch voidc"></i> nothing printed — the row already ended</span>
+      </div>
+    </div>
+    <p>The <strong>space cells drive the space loop</strong>; the <strong>star cells drive the star loop</strong>. Read this grid for a 5-row right triangle:</p>
+
+    <div class="plot-fig" id="plot-tri"></div>
+
+    <p>Look down the annotation column: on row <code>r</code> there are exactly <code>r</code> filled cells and no printed spaces (the empty cells on the right are <em>void</em> — the row just stops). So the recipe is one loop that runs <code>r</code> times:</p>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> r = <span class="s">1</span>; r &lt;= n; r++) {
+    <span class="k">for</span> (<span class="k">int</span> c = <span class="s">1</span>; c &lt;= r; c++) {   <span class="c">// grid says: r stars on row r</span>
+        printf(<span class="s">"* "</span>);
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+
+    <p>Now the pyramid — the pattern that confuses people until they grid it. Here the left cells are <strong>printed spaces</strong> (hatched), not void:</p>
+    <div class="plot-fig" id="plot-pyr"></div>
+    <p>The annotations spell out both loops at once. On row <code>r</code>: <span style="color:#157F86;font-weight:600">spaces = n − r</span> and <span style="color:#b9740c;font-weight:600">stars = 2r − 1</span>. That is precisely two inner loops:</p>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> r = <span class="s">1</span>; r &lt;= n; r++) {
+    <span class="k">for</span> (<span class="k">int</span> s = <span class="s">1</span>; s &lt;= n - r; s++) {     <span class="c">// space cells</span>
+        printf(<span class="s">" "</span>);
+    }
+    <span class="k">for</span> (<span class="k">int</span> k = <span class="s">1</span>; k &lt;= <span class="s">2</span>*r - <span class="s">1</span>; k++) {   <span class="c">// star cells</span>
+        printf(<span class="s">"*"</span>);
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+    <div class="callout tip"><span class="lbl">The grid method in one line</span><p>Draw the grid → count <span style="color:#157F86;font-weight:600">printed spaces</span> and <span style="color:#b9740c;font-weight:600">stars</span> per row → turn each count into a loop bound → print. Every pattern in the gallery below is just this, over and over.</p></div>
+  </section>
+
+  <!-- 7 -->
+  <section id="s7">
+    <h2><span class="sec-n">07</span>Pattern gallery</h2>
+    <p>All examples use <code>n = 5</code>. Before each pattern, we first derive the loop limits from the row/column relationship. Where a grid clarifies that relationship, the formula is also written beside the corresponding row.</p>
+
+    <h3>7.1 &nbsp;Solid square</h3>
+    <p><strong>Finding the limits:</strong> the square has <code>n</code> rows and every row has exactly <code>n</code> columns. So the row variable <code>i</code> runs from <code>1</code> to <code>n</code>, and for every row the column variable <code>j</code> also runs from <code>1</code> to <code>n</code>. The number of stars does not depend on the current row: <code>stars = n</code>.</p>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= n; i++) {
+    <span class="k">for</span> (<span class="k">int</span> j = <span class="s">1</span>; j &lt;= n; j++) {   <span class="c">// always n stars</span>
+        printf(<span class="s">"* "</span>);
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+    <div class="out">* * * * *
+* * * * *
+* * * * *
+* * * * *
+* * * * *</div>
+    <p>The inner loop runs a fixed <code>n</code> times regardless of which row we are on, so every row prints the same number of stars and we get a solid block. Keep this in mind as a baseline: in the triangle below, the only thing that changes is the inner loop's upper bound — and that single change bends the square into a triangle.</p>
+
+    <h3>7.2 &nbsp;Right triangle &amp; inverted right triangle</h3>
+    <p><strong>Finding the limits:</strong> keep <code>i = 1 ... n</code> as the natural row number. In the increasing triangle, row <code>i</code> contains exactly <code>i</code> stars, so <code>j</code> runs from <code>1</code> to <code>i</code>. In the inverted triangle, the counts are <code>n, n-1, ..., 1</code>, so row <code>i</code> contains <code>n - i + 1</code> stars and <code>j</code> runs to that formula.</p>
+    <div class="plot-fig" id="plot-inv"></div>
+
+    <h4>increasing</h4>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= n; i++) {
+    <span class="k">for</span> (<span class="k">int</span> j = <span class="s">1</span>; j &lt;= i; j++) {
+        printf(<span class="s">"* "</span>);
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+    <div class="out">*
+* *
+* * *
+* * * *
+* * * * *</div>
+    <p>The only change from the square is the inner condition: <code>j &lt;= i</code> instead of <code>j &lt;= n</code>. That ties the star count to the current row. Tracing the first rows makes the link concrete — watch how the inner loop's range grows with <code>i</code>:</p>
+    <table>
+      <thead><tr><th>Row (outer <code>i</code>)</th><th>Inner loop <code>j &lt;= i</code></th><th>Stars printed</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>j = 1</td><td><code class="mono-cell">*</code></td></tr>
+        <tr><td>2</td><td>j = 1, 2</td><td><code class="mono-cell">* *</code></td></tr>
+        <tr><td>3</td><td>j = 1, 2, 3</td><td><code class="mono-cell">* * *</code></td></tr>
+        <tr><td>4</td><td>j = 1, 2, 3, 4</td><td><code class="mono-cell">* * * *</code></td></tr>
+        <tr><td>5</td><td>j = 1, 2, 3, 4, 5</td><td><code class="mono-cell">* * * * *</code></td></tr>
+      </tbody>
+    </table>
+
+    <h4>inverted</h4>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= n; i++) {
+    <span class="k">for</span> (<span class="k">int</span> j = <span class="s">1</span>; j &lt;= n - i + <span class="s">1</span>; j++) {   <span class="c">// row i prints (n - i + 1) stars</span>
+        printf(<span class="s">"* "</span>);
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+    <div class="out">* * * * *
+* * * *
+* * *
+* *
+*</div>
+    <p>Keep the outer loop counting up as a plain row number, <code>i = 1 … n</code>, and put all the shape logic in the inner bound. Read the relation off the pattern: row 1 has 5 stars, row 2 has 4, … row 5 has 1 — that is <code>n - i + 1</code> stars on row <code>i</code> (check: <code>i = 1</code> gives 5, <code>i = 5</code> gives 1). This is more reliable than reversing the outer loop, because the outer variable always means "row number," so the same mental model carries over to every pattern.</p>
+
+    <div class="callout tip"><span class="lbl">Method · fix the row counter, derive the relation</span><p>Rather than run the outer loop backwards, always keep it as a natural row counter (<code>1</code> to <code>n</code>) and express the inner count as a formula in <code>i</code>. Reversing the outer loop happens to work for a plain triangle, but it stops helping the moment a row needs <em>both</em> spaces and stars (a pyramid) — there you have no choice but to write each count as a relation. Learn the relation habit once and it covers every case.</p></div>
+
+    <h3>7.3 &nbsp;Number, repeating, Floyd &amp; character triangles</h3>
+    <p><strong>Finding the limits:</strong> all four patterns have the same shape as the increasing right triangle. There are <code>n</code> rows, and row <code>i</code> contains <code>i</code> printed values, so <code>i</code> runs from <code>1</code> to <code>n</code> and <code>j</code> runs from <code>1</code> to <code>i</code>. Only the value printed at each <code>(i, j)</code> position changes.</p>
+    <p>Here is the number triangle in full:</p>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= n; i++) {
+    <span class="k">for</span> (<span class="k">int</span> j = <span class="s">1</span>; j &lt;= i; j++) {
+        printf(<span class="s">"%d "</span>, j);
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+    <div class="out">1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5</div>
+    <p>To get the other three, change only the one print statement inside the inner loop:</p>
+    <div class="code" data-label="c"><pre>printf(<span class="s">"%d "</span>, i);          <span class="c">// repeating: prints the row number</span>
+printf(<span class="s">"%d "</span>, count++);     <span class="c">// Floyd: a running counter that never resets</span>
+printf(<span class="s">"%c "</span>, <span class="s">'A'</span> + j - <span class="s">1</span>);   <span class="c">// letters: 'A', 'B', 'C', ...</span></pre></div>
+    <p>For the Floyd triangle, declare <code>int count = 1;</code> before the outer loop so the numbering flows across rows (1 / 2 3 / 4 5 6 / …). The repeating version prints 1 / 2 2 / 3 3 3, and the letters version prints A / A B / A B C.</p>
+
+    <h3>7.4 &nbsp;Pyramid &amp; inverted pyramid</h3>
+    <p><strong>Finding the limits:</strong> both patterns have <code>n</code> rows, so <code>i</code> runs from <code>1</code> to <code>n</code>. For the upright pyramid, each next row loses one leading space and gains two stars, giving <code>spaces = n - i</code> and <code>stars = 2i - 1</code>. For the inverted pyramid, each next row gains one leading space and loses two stars, giving <code>spaces = i - 1</code> and <code>stars = 2(n - i) + 1</code>. Each formula becomes the upper limit of its own inner loop.</p>
+    <p>The grid in Section 6 shows the upright pyramid; the figure below shows the inverted one.</p>
+    <div class="plot-fig" id="plot-ipyr"></div>
+    <div class="code" data-label="c"><pre><span class="c">// inverted pyramid — spaces GROW, stars SHRINK as rows go down</span>
+<span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= n; i++) {
+    <span class="k">for</span> (<span class="k">int</span> s = <span class="s">1</span>; s &lt;= i - <span class="s">1</span>; s++) {          <span class="c">// row i: (i - 1) spaces</span>
+        printf(<span class="s">" "</span>);
+    }
+    <span class="k">for</span> (<span class="k">int</span> k = <span class="s">1</span>; k &lt;= <span class="s">2</span>*(n - i) + <span class="s">1</span>; k++) {   <span class="c">// row i: 2(n - i) + 1 stars</span>
+        printf(<span class="s">"*"</span>);
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+    <div class="out">*********
+ *******
+  *****
+   ***
+    *</div>
+    <p>The grid's annotation column above states both relations directly: on row <code>i</code>, spaces = <code>i - 1</code> and stars = <code>2(n - i) + 1</code>. Compare with the upright pyramid, where spaces = <code>n - i</code> and stars = <code>2i - 1</code> — same two loops, mirrored formulas, and the outer loop untouched in both.</p>
+
+    <h3>7.5 &nbsp;Diamond</h3>
+    <p><strong>Finding the limits:</strong> treat the diamond as two separate patterns. The top half is a full upright pyramid: <code>i = 1 ... n</code>, <code>spaces = n - i</code>, and <code>stars = 2i - 1</code>. The bottom half starts below the middle row, so it has only <code>n - 1</code> rows: for its local row <code>i</code>, <code>spaces = i</code> and <code>stars = 2(n - i) - 1</code>. Using <code>n - 1</code> for the second outer loop prevents the widest middle row from being printed twice.</p>
+    <div class="code" data-label="c"><pre><span class="c">// top half — the upright pyramid, rows 1..n</span>
+<span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= n; i++) {
+    <span class="k">for</span> (<span class="k">int</span> s = <span class="s">1</span>; s &lt;= n - i; s++) {
+        printf(<span class="s">" "</span>);
+    }
+    <span class="k">for</span> (<span class="k">int</span> k = <span class="s">1</span>; k &lt;= <span class="s">2</span>*i - <span class="s">1</span>; k++) {
+        printf(<span class="s">"*"</span>);
+    }
+    printf(<span class="s">"\n"</span>);
+}
+
+<span class="c">// bottom half — rows 1..n-1, each row narrower than the last</span>
+<span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= n - <span class="s">1</span>; i++) {
+    <span class="k">for</span> (<span class="k">int</span> s = <span class="s">1</span>; s &lt;= i; s++) {                 <span class="c">// row i: i spaces</span>
+        printf(<span class="s">" "</span>);
+    }
+    <span class="k">for</span> (<span class="k">int</span> k = <span class="s">1</span>; k &lt;= <span class="s">2</span>*(n - i) - <span class="s">1</span>; k++) {     <span class="c">// row i: 2(n - i) - 1 stars</span>
+        printf(<span class="s">"*"</span>);
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+    <div class="out">    *
+   ***
+  *****
+ *******
+*********
+ *******
+  *****
+   ***
+    *</div>
+    <p>Read it as two shapes glued together, each with its own row counter starting at 1. The top loop is exactly the upright pyramid from 7.4. The bottom loop is a fresh pyramid that gets narrower as its rows go down: on its row <code>i</code>, spaces = <code>i</code> and stars = <code>2(n - i) - 1</code>. It runs only to <code>n - 1</code> rows because the widest row (the middle of the diamond) was already drawn by the top half — repeating it would pinch the shape.</p>
+
+    <h3>7.6 &nbsp;Hollow square — a nested <code>if</code> inside nested loops</h3>
+    <p><strong>Finding the limits:</strong> this pattern is different from the triangles and pyramids: we do not derive a separate star-count formula for each row. The square always has <code>n</code> rows and <code>n</code> columns, so <code>i</code> and <code>j</code> both run from <code>1</code> to <code>n</code>. Then, for every cell <code>(i, j)</code>, print a star only when the cell lies on a border: <code>i == 1</code>, <code>i == n</code>, <code>j == 1</code>, or <code>j == n</code>. Otherwise print a space.</p>
+    <div class="plot-fig" id="plot-hollow"></div>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> i = <span class="s">1</span>; i &lt;= n; i++) {
+    <span class="k">for</span> (<span class="k">int</span> j = <span class="s">1</span>; j &lt;= n; j++) {
+        <span class="k">if</span> (i == <span class="s">1</span> || i == n || j == <span class="s">1</span> || j == n) {
+            printf(<span class="s">"* "</span>);   <span class="c">// border</span>
+        } <span class="k">else</span> {
+            printf(<span class="s">"  "</span>);   <span class="c">// interior space</span>
+        }
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+    <div class="out">* * * * *
+*       *
+*       *
+*       *
+* * * * *</div>
+
+    <h3>7.7 &nbsp;Pascal's triangle</h3>
+    <p><strong>Finding the limits:</strong> here the rows are most naturally numbered from <code>0</code> to <code>n - 1</code>, because Pascal row <code>i</code> contains exactly <code>i + 1</code> values. Therefore the value loop uses <code>j = 0 ... i</code>. To center the triangle, row <code>i</code> gets <code>n - i - 1</code> leading space units, so the space loop runs while <code>s &lt; n - i - 1</code>.</p>
+    <p>Each value is a binomial coefficient, carried forward across the row with <code>value = value * (i - j) / (j + 1)</code> — no factorials needed.</p>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> i = <span class="s">0</span>; i &lt; n; i++) {
+    <span class="k">for</span> (<span class="k">int</span> s = <span class="s">0</span>; s &lt; n - i - <span class="s">1</span>; s++) {
+        printf(<span class="s">"  "</span>);
+    }
+    <span class="k">int</span> value = <span class="s">1</span>;
+    <span class="k">for</span> (<span class="k">int</span> j = <span class="s">0</span>; j &lt;= i; j++) {
+        printf(<span class="s">"%4d"</span>, value);
+        value = value * (i - j) / (j + <span class="s">1</span>);
+    }
+    printf(<span class="s">"\n"</span>);
+}</pre></div>
+    <div class="out">           1
+         1   1
+       1   2   1
+     1   3   3   1
+   1   4   6   4   1</div>
+    <p>Every row begins with <code>value = 1</code>. After printing a number, the line <code>value = value * (i - j) / (j + 1)</code> turns it into the next number in the row. This is the standard step-up for binomial coefficients, so row <code>i</code> ends up holding C(i,0), C(i,1), …, C(i,i) — the very numbers Pascal's triangle is made of — without ever computing a factorial. The separate leading-space loop simply pushes each row to the right so the triangle stays centred, exactly like the space loop in a pyramid.</p>
+  </section>
+
+  <!-- 8 -->
+  <section id="s8">
+    <h2><span class="sec-n">08</span>Pro tip: the <code>" \n"[c==r]</code> idiom</h2>
+    <p>Once you are comfortable, here is a compact trick that prints a separator between items and a newline at the end of each row — <strong>without</strong> a separate <code>printf("\n")</code> after the inner loop.</p>
+    <div class="code" data-label="c"><pre><span class="k">for</span> (<span class="k">int</span> r = <span class="s">1</span>; r &lt;= n; r++) {
+    <span class="k">for</span> (<span class="k">int</span> c = <span class="s">1</span>; c &lt;= r; c++) {
+        printf(<span class="s">"*%c"</span>, <span class="s">" \n"</span>[c == r]);
+    }
+}</pre></div>
+    <div class="out">*
+* *
+* * *
+* * * *
+* * * * *</div>
+
+    <div class="callout tip"><span class="lbl">Why it works</span>
+      <p><strong>1. A string literal is a <code>char</code> array.</strong> <code>" \n"</code> is three bytes: index <code>0</code> is a space <code>' '</code>, index <code>1</code> is a newline <code>'\n'</code>, index <code>2</code> is the hidden terminator <code>'\0'</code>. So <code>" \n"[0]</code> is <code>' '</code> and <code>" \n"[1]</code> is <code>'\n'</code>.</p>
+      <p><strong>2. A comparison is an <code>int</code>.</strong> In C, <code>c == r</code> evaluates to <code>1</code> when true and <code>0</code> when false.</p>
+      <p><strong>3. Put them together.</strong> <code>" \n"[c==r]</code> picks index <code>1</code> (<code>'\n'</code>) on the last column of the row, and index <code>0</code> (a space) everywhere else. So each item is followed by a space — except the last on each row, which is followed by a newline.</p>
+    </div>
+    <div class="callout"><span class="lbl">What it is formally called</span><p>There is no single named idiom for the whole line, but each piece has a precise name. <code>" \n"</code> is a <strong>string literal</strong>, which in C <em>is</em> an array of <code>char</code>. The <code>[ ]</code> is the <strong>array subscript operator</strong>, so the line is <strong>subscripting a string literal</strong>. Because a 0-or-1 value is used to pick one of two stored results without an <code>if</code>, the technique is a <strong>branchless lookup table</strong> (LUT), also called <strong>table-driven selection</strong>.</p><p>A neat consequence: since <code>a[b]</code> is defined as <code>*(a + b)</code>, subscripting is commutative — <code>" \n"[c==r]</code> and <code>(c==r)[" \n"]</code> are exactly equivalent.</p></div>
+    <p>It works for any printed value — swap the digit or char in and keep the same tail:</p>
+    <div class="code" data-label="c"><pre>printf(<span class="s">"%d%c"</span>, c, <span class="s">" \n"</span>[c == r]);   <span class="c">// number triangle, no trailing printf("\n")</span></pre></div>
+    <div class="out">1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5</div>
+    <div class="callout trap"><span class="lbl">Use with care</span><p>It is elegant but terse. In shared or beginner code, a plain <code>if</code>/<code>else</code> that prints the newline or the space — each on its own braced line — is easier for a teammate to read. Reach for the idiom once the mechanism is second nature.</p></div>
+  </section>
+
+  <!-- 9 -->
+  <section id="s9">
+    <h2><span class="sec-n">09</span>Common traps</h2>
+    <p><strong>Forgetting to reset the inner counter</strong> in nested <code>while</code>/<code>do-while</code> loops — reset it inside the outer loop, or use <code>for</code>. <strong>Expecting <code>break</code> to exit every loop</strong> — it exits only one level; use a flag. <strong>Off-by-one in patterns</strong> — check whether the bound is <code>j &lt;= i</code> or <code>j &lt; i</code>, and whether spaces are <code>n - i</code> or <code>n - i + 1</code>; drawing the grid settles it instantly. <strong>Infinite loops</strong> — every <code>while</code>/<code>do-while</code> needs an update that eventually makes the condition false. <strong>Assignment vs. comparison</strong> — <code>if (x = 5)</code> assigns and is always true; you meant <code>if (x == 5)</code>. Compile with <code>gcc -Wall</code> to catch it.</p>
+  </section>
+
+  <!-- 10 -->
+  <section id="s10">
+    <h2><span class="sec-n">10</span>Practice</h2>
+    <ol class="practice">
+      <li><strong>Nested if:</strong> read three numbers and print the <em>smallest</em>, mirroring the largest-of-three logic.</li>
+      <li><strong>Nested if:</strong> classify a number as positive / negative / zero, and if positive, further as even or odd.</li>
+      <li><strong>Nested loops:</strong> print a 6×6 multiplication table with aligned columns (<code>%4d</code>).</li>
+      <li><strong>break / continue:</strong> print 1–50, skipping multiples of 3 (<code>continue</code>) and stopping once past 40 (<code>break</code>).</li>
+      <li><strong>Grid it first:</strong> draw the grid for a left-aligned inverted triangle, then code it.</li>
+      <li><strong>Pattern:</strong> print a number pyramid — <code>1&nbsp;/&nbsp;121&nbsp;/&nbsp;12321&nbsp;/&nbsp;1234321</code>. Grid the spaces and the digits separately.</li>
+      <li><strong>Pattern:</strong> print a <em>hollow</em> right triangle (border stars only) — combine nested loops with a nested <code>if</code>, exactly like the hollow square.</li>
+      <li><strong>Challenge:</strong> print a full diamond made of numbers instead of stars, then rewrite its inner prints using the <code>" \n"[c==r]</code> idiom.</li>
+    </ol>
+  </section>
+
+  </main>
+
+  <footer>
+    Compile every example, then change the numbers and conditions and watch the output shift — editing code and observing the result is the fastest way to build real intuition. Draw the grid before you write the loops, and pattern printing stops being guesswork.
+  </footer>
+</div>
+
+<script>
+(function(){
+  // cell state helpers per pattern; return 'star' | 'space' | 'voidc'
+  function build(id, cfg){
+    var host = document.getElementById(id);
+    if(!host) return;
+    var n = cfg.n, cols = cfg.cols;
+    var wrap = document.createElement('div');
+    if(cfg.caption){
+      var cap = document.createElement('div');
+      cap.className = 'cap';
+      cap.innerHTML = cfg.caption;
+      wrap.appendChild(cap);
+    }
+    var grid = document.createElement('div');
+    grid.className = 'plot';
+    // columns: row-header + N cells + annotation
+    grid.style.gridTemplateColumns = 'auto repeat(' + cols + ', 24px) auto';
+
+    // header row
+    var corner = document.createElement('div'); corner.className='hd'; corner.textContent='r\\c';
+    grid.appendChild(corner);
+    for(var c=1;c<=cols;c++){ var h=document.createElement('div'); h.className='hd'; h.textContent=c; grid.appendChild(h); }
+    var spacerHd=document.createElement('div'); spacerHd.className='hd'; grid.appendChild(spacerHd);
+
+    for(var r=1;r<=n;r++){
+      var rh=document.createElement('div'); rh.className='rh'; rh.textContent=r; grid.appendChild(rh);
+      var stars=0, spaces=0;
+      for(var cc=1;cc<=cols;cc++){
+        var st = cfg.cell(r,cc,n,cols);
+        var cell=document.createElement('div');
+        cell.className='cell '+st;
+        if(st==='star'){ cell.textContent = cfg.glyph ? cfg.glyph(r,cc) : '★'; stars++; }
+        if(st==='space'){ spaces++; }
+        grid.appendChild(cell);
+      }
+      var ann=document.createElement('div'); ann.className='ann';
+      ann.innerHTML = cfg.ann(r,n,stars,spaces);
+      grid.appendChild(ann);
+    }
+    wrap.appendChild(grid);
+
+    if(cfg.legend!==false){
+      var lg=document.createElement('div'); lg.className='legend';
+      lg.innerHTML = '<span><i class="swatch star"></i>printed char</span>'
+                   + '<span><i class="swatch space"></i>printed space</span>'
+                   + '<span><i class="swatch voidc"></i>nothing (row ended)</span>';
+      wrap.appendChild(lg);
+    }
+    host.appendChild(wrap);
+  }
+
+  // Right triangle
+  build('plot-tri', {
+    n:5, cols:5,
+    caption:'Grid · <b>right triangle</b> (n = 5)',
+    cell:function(r,c){ return c<=r ? 'star' : 'voidc'; },
+    ann:function(r,n,st){ return 'stars = r = <span class="st">'+st+'</span>'; }
+  });
+
+  // Pyramid
+  build('plot-pyr', {
+    n:5, cols:9,
+    caption:'Grid · <b>pyramid</b> (width 2n−1 = 9)',
+    cell:function(r,c,n){
+      var sp = n - r;                 // leading spaces
+      var stStart = sp + 1;
+      var stEnd = sp + (2*r - 1);
+      if(c <= sp) return 'space';
+      if(c >= stStart && c <= stEnd) return 'star';
+      return 'voidc';
+    },
+    ann:function(r,n,st,sp){ return '<span class="sp">spaces n−r = '+sp+'</span> · <span class="st">stars 2r−1 = '+st+'</span>'; }
+  });
+
+  // Inverted right triangle
+  build('plot-inv', {
+    n:5, cols:5,
+    caption:'Grid · <b>inverted right triangle</b>',
+    cell:function(r,c,n){ return c <= (n - r + 1) ? 'star' : 'voidc'; },
+    ann:function(r,n,st){ return 'stars = n−r+1 = <span class="st">'+st+'</span>'; }
+  });
+
+  // Inverted pyramid
+  build('plot-ipyr', {
+    n:5, cols:9,
+    caption:'Grid · <b>inverted pyramid</b> — spaces grow, stars shrink',
+    cell:function(r,c,n){
+      var sp = r - 1;
+      var stStart = sp + 1;
+      var stEnd = sp + (2*(n-r) + 1);
+      if(c <= sp) return 'space';
+      if(c >= stStart && c <= stEnd) return 'star';
+      return 'voidc';
+    },
+    ann:function(r,n,st,sp){ return '<span class="sp">spaces r−1 = '+sp+'</span> · <span class="st">stars 2(n−r)+1 = '+st+'</span>'; }
+  });
+
+  // Hollow square
+  build('plot-hollow', {
+    n:5, cols:5,
+    caption:'Grid · <b>hollow square</b> — test the border condition at every cell',
+    cell:function(r,c,n){ return (r===1||r===n||c===1||c===n) ? 'star' : 'space'; },
+    ann:function(r,n){
+      if(r===1) return '<span class="st">r = 1 → border row</span>';
+      if(r===n) return '<span class="st">r = n → border row</span>';
+      return '<span class="st">c = 1 or c = n → side borders</span>';
+    },
+    legend:true
+  });
+
+  // Hero: a compact pyramid grid as the signature moment
+  build('hero-plot', {
+    n:4, cols:7,
+    caption:'The idea in one figure · <b>plot the pattern, read the loops</b>',
+    cell:function(r,c,n){
+      var sp = n - r; var stEnd = sp + (2*r - 1);
+      if(c <= sp) return 'space';
+      if(c <= stEnd) return 'star';
+      return 'voidc';
+    },
+    ann:function(r,n,st,sp){ var pl=function(x,w){return x+' '+w+(x===1?'':'s');}; return '<span class="sp">'+pl(sp,'space')+'</span> + <span class="st">'+pl(st,'star')+'</span>'; }
+  });
+})();
+</script>
+</body>
+</html>
