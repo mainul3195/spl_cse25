@@ -35,7 +35,7 @@
     <h1>First, know how to learn, learn to understand. Then, learn to build.</h1>
     <p class="hero-copy">A complete curriculum pipeline for learning C. The first part removes topic dependencies so students can start programming independently; the second part revisits the language in a deeper, systematic order.</p>
     <div class="hero-note"><strong>How to use this reference:</strong> click any major topic to expand its granular topic list. Linked topic names and practice questions open the matching tutorial section.</div>
-    <a class="release-badge" href="updates.html">Version <span data-release-version>1.1.2</span> · See course updates</a>
+    <a class="release-badge" href="updates.html">Version <span data-release-version>1.2.0</span> · See course updates</a>
   </div>
 </section>
 
@@ -419,7 +419,7 @@
         <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 6 — Control Statements</div>
       </div>
     </details>
-<details class="pipeline-item" data-search="arrays — dependency-level foundation schaum ch. 9 — arrays why arrays are needed concept of storing multiple values of one element type array declaration zero-based array indexing indexed element access valid index range out-of-bounds access as invalid and dangerous basic traversal basic array input and output">
+<details class="pipeline-item" data-search="arrays — dependency-level foundation schaum ch. 9 — arrays why arrays are needed concept of storing multiple values of one element type array declaration and initialization variations zero-based array indexing indexed element access valid index range out-of-bounds access as invalid and dangerous contiguous memory layout of array elements how the array name refers to the address of the first element element-aware address movement such as ar + 1 basic traversal with indexes basic array input and output">
       <summary>
         <span class="num">F17</span>
         <span class="summary-copy">
@@ -432,17 +432,21 @@
         <h4>What this topic covers</h4>
         <ul class="topic-list"><li>Why arrays are needed</li>
 <li>Concept of storing multiple values of one element type</li>
-<li>Array declaration</li>
-<li>Zero-based array indexing</li>
-<li>Indexed element access</li>
-<li>Valid index range</li>
-<li>Out-of-bounds access as invalid and dangerous</li>
-<li>Basic traversal</li>
-<li>Basic array input and output</li></ul>
+<li><a href="tutorials/array-string-fundamentals.html#array-declaration">Array declaration and initialization variations</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#array-model">Zero-based array indexing</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#array-model">Indexed element access</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#array-model">Valid index range</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#array-model">Out-of-bounds access as invalid and dangerous</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#memory">Contiguous memory layout of array elements</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#array-name">How the array name refers to the address of the first element</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#address-step">Element-aware address movement such as <code>ar + 1</code></a></li>
+<li><a href="tutorials/array-string-fundamentals.html#array-traversal">Basic traversal with indexes</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#array-traversal">Basic array input and output</a></li></ul>
+        <a class="tutorial-link" href="tutorials/array-string-fundamentals.html#array-model"><span>Open tutorial</span> Array &amp; String Fundamentals in C <span aria-hidden="true">→</span></a>
         <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 9 — Arrays</div>
       </div>
     </details>
-<details class="pipeline-item" data-search="strings — dependency-level foundation schaum ch. 9 — arrays concept of a string in c relationship between strings and character arrays the null character &#x27;\0&#x27; a c string as a null-terminated sequence of characters difference between a character constant and a string literal basic string declaration and use basic string input and output">
+<details class="pipeline-item" data-search="strings — dependency-level foundation schaum ch. 9 — arrays concept of a string in c relationship between strings and character arrays difference between a character array and a null-terminated string the null character &#x27;\0&#x27; a c string as a null-terminated sequence of characters difference between a character constant and a string literal string declaration and initialization variations why string input uses the array name without the address-of operator what an embedded null character does to a string finding string length by traversing to the null character string length versus array size or capacity basic string input and output">
       <summary>
         <span class="num">F18</span>
         <span class="summary-copy">
@@ -453,13 +457,19 @@
       </summary>
       <div class="pipeline-content">
         <h4>What this topic covers</h4>
-        <ul class="topic-list"><li>Concept of a string in C</li>
-<li>Relationship between strings and character arrays</li>
-<li>The null character &#x27;\0&#x27;</li>
-<li>A C string as a null-terminated sequence of characters</li>
-<li>Difference between a character constant and a string literal</li>
-<li>Basic string declaration and use</li>
-<li>Basic string input and output</li></ul>
+        <ul class="topic-list"><li><a href="tutorials/array-string-fundamentals.html#char-array-string">Concept of a string in C</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#char-array-string">Relationship between strings and character arrays</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#char-array-string">Difference between a character array and a null-terminated string</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#null">The null character &#x27;\0&#x27;</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#char-array-string">A C string as a null-terminated sequence of characters</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#char-array-string">Difference between a character constant and a string literal</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#string-declaration">String declaration and initialization variations</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#string-input">Why string input uses the array name without the address-of operator</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#embedded-null">What an embedded null character does to a string</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#string-traversal">Finding string length by traversing to the null character</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#size-length">String length versus array size or capacity</a></li>
+<li><a href="tutorials/array-string-fundamentals.html#string-input">Basic string input and output</a></li></ul>
+        <a class="tutorial-link" href="tutorials/array-string-fundamentals.html#char-array-string"><span>Open tutorial</span> Array &amp; String Fundamentals in C <span aria-hidden="true">→</span></a>
         <div class="book-ref"><strong>Primary reference:</strong> Schaum Ch. 9 — Arrays</div>
       </div>
     </details></div>
@@ -999,11 +1009,11 @@
 
 <footer class="site-footer">
   <span>Structured Programming Language · C · Curriculum and topic reference</span>
-  <span class="release-line"><a href="updates.html">Version <span data-release-version>1.1.2</span></a> · Updated <time data-release-date datetime="2026-07-20">20 July 2026</time></span>
+  <span class="release-line"><a href="updates.html">Version <span data-release-version>1.2.0</span></a> · Updated <time data-release-date datetime="2026-07-22">22 July 2026</time></span>
   <span>Signed — <span class="signature-name" data-release-author>Mainul Hasan</span></span>
 </footer>
 <script src="script.js"></script>
-<script src="site-meta.js?v=1.1.2"></script>
-<script src="site-nav.js?v=1.1.2"></script>
+<script src="site-meta.js?v=1.2.0"></script>
+<script src="site-nav.js?v=1.2.0"></script>
 </body>
 </html>

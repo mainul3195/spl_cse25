@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A detailed beginner tutorial on C arrays and strings: declaration, initialization, traversal, consecutive memory, array names and addresses, character arrays, null termination, string input, length, and size.">
+  <title>Array &amp; String Fundamentals in C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#f7f8fb;--paper2:#fcfdfd;--card:#fff;--ink:#172033;--soft:#5f6b7d;--line:#e2e7ef;--line2:#ccd5e1;--teal:#0f6b5b;--teal2:#e9f5f2;--gold:#e39518;--gold2:#fbebcb;--rose:#c64268;--code:#152232;--codeink:#e7ecf2;--radius:14px;--maxw:820px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.62 "Public Sans",system-ui,sans-serif}.site-header{position:sticky;top:0;z-index:50;background:#fffffff0;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.header-inner{max-width:1120px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none}.brand-mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--teal);color:#fff;font-weight:800}.brand strong,.brand small{display:block}.brand strong{line-height:1.15}.brand small{margin-top:3px;color:var(--soft)}.header-nav{display:flex;gap:18px;font-size:.94rem}.header-nav a{text-decoration:none}.header-nav a:hover{text-decoration:underline}.wrap{max-width:1120px;margin:auto;padding:34px 24px 0;display:grid;grid-template-columns:230px minmax(0,1fr);column-gap:44px}.hero{grid-column:1/-1;padding:46px 42px 36px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#eef8f5,#f8fbff);box-shadow:0 8px 28px #1923370b}.kicker,.toc-title,.lbl{font:700 .72rem/1.3 "JetBrains Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}h1{font-size:clamp(2.3rem,5.5vw,3.9rem);line-height:1.03;letter-spacing:-.045em;margin:.35em 0 .3em}.lede{max-width:760px;margin:0;color:var(--soft);font-size:1.12rem}.release-badge{display:inline-flex;margin-top:18px;padding:7px 11px;border:1px solid #b7d6cf;border-radius:999px;background:#ffffffd1;color:var(--teal);font-size:.82rem;font-weight:700;text-decoration:none}.toc{position:sticky;top:88px;align-self:start;padding-top:36px;max-height:calc(100vh - 105px);overflow:auto}.toc-title{margin-bottom:12px;color:var(--soft)}.toc a{display:block;padding:5px 10px;border-left:2px solid var(--line);color:var(--soft);font-size:.9rem;text-decoration:none}.toc a:hover,.toc a:focus-visible{border-color:var(--gold);background:#fff;color:var(--ink)}.toc .n{margin-right:8px;color:var(--teal);font-family:"JetBrains Mono",monospace;font-size:.78em}main{max-width:var(--maxw);margin-top:30px;padding:0 32px 90px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:0 10px 32px #1923370d}section{padding-top:56px;scroll-margin-top:20px}h2{display:flex;align-items:baseline;gap:14px;margin:0 0 6px;font-size:1.9rem;letter-spacing:-.025em}h2 .sec-n{flex:none;padding:2px 9px;border:1px solid var(--gold);border-radius:8px;background:var(--gold2);color:#9a6208;font:700 1rem/1.4 "JetBrains Mono",monospace}h3{margin:34px 0 8px;font-size:1.28rem;letter-spacing:-.015em}p{margin:12px 0}a{color:var(--teal);text-underline-offset:3px}code{padding:1px 6px;border-radius:5px;background:var(--teal2);color:var(--teal);font:.86em "JetBrains Mono",monospace}.code,.out{position:relative;margin:18px 0;padding:18px 20px;border-radius:var(--radius);overflow-x:auto;white-space:pre;font:.83rem/1.55 "JetBrains Mono",monospace}.code{background:var(--code);color:var(--codeink)}.out{border:1px solid var(--line2);background:var(--paper2);color:var(--ink)}.code::before,.out::before{position:absolute;top:0;right:14px;transform:translateY(-50%);padding:3px 9px;border-radius:6px;font:700 .62rem "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase}.code::before{content:attr(data-label);background:var(--gold);color:var(--code)}.out::before{content:"output";background:var(--teal);color:#fff}.code pre{margin:0;font:inherit}.callout{margin:20px 0;padding:16px 20px 16px 22px;border-left:5px solid var(--teal);border-radius:var(--radius);background:var(--teal2)}.callout.tip{border-color:var(--gold);background:var(--gold2)}.callout.trap{border-color:var(--rose);background:#f8e1e8}.callout.tip .lbl{color:#865708}.callout.trap .lbl{color:#a12b4d}.callout p:first-of-type{margin-top:3px}.callout p:last-child{margin-bottom:0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}.card{min-width:0;padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper2)}.card h3{margin-top:0}.memory{margin:20px 0;padding:20px;border:1px solid var(--line2);border-radius:var(--radius);background:var(--paper2);overflow-x:auto}.memory-row{display:flex;min-width:max-content}.cell{width:116px;border:1px solid var(--line2);border-right:0;background:#fff;text-align:center}.cell:last-child{border-right:1px solid var(--line2)}.cell .index,.cell .address{display:block;padding:5px;color:var(--soft);font:.68rem "JetBrains Mono",monospace}.cell .value{display:block;padding:13px 5px;border-block:1px solid var(--line);background:var(--teal2);color:var(--teal);font:700 1rem "JetBrains Mono",monospace}.memory-note{margin:12px 0 0;color:var(--soft);font-size:.88rem}.equation{margin:18px 0;padding:18px;border:1px dashed var(--line2);border-radius:var(--radius);background:var(--paper2);text-align:center;font:600 1rem/1.8 "JetBrains Mono",monospace}table{width:100%;margin:18px 0;border-collapse:collapse;font-size:.94rem}th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}thead th{background:var(--ink);color:#fff;font:600 .72rem "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase}tbody tr:last-child td{border-bottom:0}.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}.compare .card.good{border-top:5px solid var(--teal)}.compare .card.bad{border-top:5px solid var(--rose)}.mini{color:var(--soft);font-size:.9rem}ol li,ul li{margin:7px 0}footer{grid-column:1/-1;margin-top:46px;padding:26px 0 60px;border-top:1px solid var(--line);color:var(--soft);font-size:.9rem;text-align:center}.release-footer{display:flex;flex-direction:column;gap:5px}.signature-name{color:var(--ink);font-family:Georgia,serif;font-size:1.08rem;font-style:italic}a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media(max-width:900px){.wrap{grid-template-columns:1fr}.toc{position:static;max-height:none;padding:20px 0 16px;border-bottom:1px solid var(--line)}.toc a{display:inline-block;border-left:0;border-bottom:2px solid var(--line)}main{max-width:100%}}@media(max-width:780px){.header-nav{display:none}.brand small{display:none}.header-inner{padding-inline:16px}.wrap{padding:0}.hero{padding:40px 16px 30px;border-inline:0;border-radius:0}.toc{padding-inline:16px;background:#fff}main{margin-top:0;padding:0 16px 68px;border:0;border-radius:0;background:transparent}section{scroll-margin-top:76px}h2{align-items:flex-start;font-size:1.65rem}.grid,.compare{grid-template-columns:1fr}table{display:block;overflow-x:auto}.code,.out,.memory{max-width:calc(100vw - 32px)}footer{padding-inline:16px}}
+  </style>
+  <link rel="stylesheet" href="../mobile-nav.css">
+  <link rel="stylesheet" href="../tutorial-mobile.css?v=1.2.0">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html#top" aria-label="Structured Programming Language C home">
+      <span class="brand-mark">C</span>
+      <span><strong>Structured Programming Language</strong><small>C learning path and topic reference</small></span>
+    </a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a href="../index.html#foundation">Learning Path</a>
+      <a href="index.html">All Tutorials</a>
+      <a href="../updates.html">Updates</a>
+      <a href="../index.html#reference">Book Map</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open navigation">
+      <span class="nav-toggle-label">Open navigation</span>
+      <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+    </button>
+  </div>
+</header>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">Tutorial 03 · Foundation</div>
+    <h1>Array &amp; String<br>Fundamentals in C</h1>
+    <p class="lede">A detailed, from-memory-up explanation of arrays and strings using only indexes, addresses, loops, <code>printf</code>, and <code>scanf</code>—no later-course address syntax required.</p>
+    <a class="release-badge" href="../updates.html">Version <span data-release-version>1.2.0</span> · Added 22 July 2026</a>
+  </header>
+
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <a href="#array-model"><span class="n">01</span>The array model</a>
+    <a href="#array-declaration"><span class="n">02</span>Declare &amp; initialize</a>
+    <a href="#memory"><span class="n">03</span>Consecutive memory</a>
+    <a href="#array-name"><span class="n">04</span>Name &amp; start address</a>
+    <a href="#address-step"><span class="n">05</span>Why ar + 1 jumps</a>
+    <a href="#array-traversal"><span class="n">06</span>Array traversal</a>
+    <a href="#char-array-string"><span class="n">07</span>Char array vs string</a>
+    <a href="#string-declaration"><span class="n">08</span>String variations</a>
+    <a href="#string-input"><span class="n">09</span>String input</a>
+    <a href="#null"><span class="n">10</span>The null character</a>
+    <a href="#embedded-null"><span class="n">11</span>Null in the middle</a>
+    <a href="#string-traversal"><span class="n">12</span>Traversal &amp; length</a>
+    <a href="#size-length"><span class="n">13</span>Size vs length</a>
+    <a href="#mistakes"><span class="n">14</span>Common mistakes</a>
+    <a href="#practice"><span class="n">15</span>Practice</a>
+  </nav>
+
+  <main>
+    <section id="array-model">
+      <h2><span class="sec-n">01</span>The array mental model</h2>
+      <p>An array is one named block containing a fixed number of elements of the <strong>same type</strong>. The elements are distinguished by indexes. Indexing begins at <code>0</code>, not <code>1</code>.</p>
+      <div class="code" data-label="c"><pre>int marks[5] = {72, 85, 91, 68, 77};
+
+printf("%d\n", marks[0]);  /* first element: 72 */
+printf("%d\n", marks[4]);  /* last element: 77  */</pre></div>
+      <div class="equation">For N elements, valid indexes are 0 through N - 1.</div>
+      <div class="callout trap"><span class="lbl">Array boundary</span><p>For <code>marks[5]</code>, the last valid element is <code>marks[4]</code>. Accessing <code>marks[5]</code>, <code>marks[-1]</code>, or any other outside position is invalid and causes undefined behavior.</p></div>
+    </section>
+
+    <section id="array-declaration">
+      <h2><span class="sec-n">02</span>Array declaration and initialization</h2>
+      <table>
+        <thead><tr><th>Declaration</th><th>What it creates</th></tr></thead>
+        <tbody>
+          <tr><td><code>int a[5];</code></td><td>Five local integer elements. Their initial values are unknown until the program stores values in them.</td></tr>
+          <tr><td><code>int a[5] = {1, 2, 3, 4, 5};</code></td><td>Five elements with all initial values supplied.</td></tr>
+          <tr><td><code>int a[] = {1, 2, 3};</code></td><td>The compiler counts the values and creates three elements.</td></tr>
+          <tr><td><code>int a[5] = {1, 2};</code></td><td>The result is <code>{1, 2, 0, 0, 0}</code>. Missing initializers become zero.</td></tr>
+          <tr><td><code>int a[5] = {0};</code></td><td>All five elements become zero.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><span class="lbl">Initialization is part of declaration</span><p>After the declaration, change individual elements: <code>a[0] = 10;</code>. C does not allow <code>a = {1, 2, 3};</code> later, and one whole array cannot be assigned to another with <code>a = b;</code>.</p></div>
+    </section>
+
+    <section id="memory">
+      <h2><span class="sec-n">03</span>How an array is stored in memory</h2>
+      <p>Every array element is stored immediately after the previous element. This is called <strong>contiguous</strong> or <strong>consecutive</strong> storage.</p>
+      <div class="memory" role="img" aria-label="Five integer elements at consecutive example addresses">
+        <div class="memory-row">
+          <div class="cell"><span class="index">ar[0]</span><span class="value">10</span><span class="address">1000</span></div>
+          <div class="cell"><span class="index">ar[1]</span><span class="value">20</span><span class="address">1004</span></div>
+          <div class="cell"><span class="index">ar[2]</span><span class="value">30</span><span class="address">1008</span></div>
+          <div class="cell"><span class="index">ar[3]</span><span class="value">40</span><span class="address">1012</span></div>
+          <div class="cell"><span class="index">ar[4]</span><span class="value">50</span><span class="address">1016</span></div>
+        </div>
+        <p class="memory-note">Example only: the first address is 1000 and each <code>int</code> uses 4 bytes. Actual addresses vary.</p>
+      </div>
+      <div class="equation">address of ar[i] = starting address + i × size of one element</div>
+      <p>If an <code>int</code> occupies 4 bytes, neighboring integer elements begin 4 bytes apart. If a <code>char</code> occupies 1 byte, neighboring character elements begin 1 byte apart. There is still no unused gap between elements.</p>
+    </section>
+
+    <section id="array-name">
+      <h2><span class="sec-n">04</span>Why the array name represents the start</h2>
+      <p>In many expressions, C uses an array name such as <code>ar</code> to represent the location where that array begins. The array begins with its first element, <code>ar[0]</code>.</p>
+      <div class="equation"><code>ar</code> → starting address of the array → address of <code>ar[0]</code></div>
+      <p>This is why a function that needs the array's starting storage can receive the array name. For this foundation lesson, that memory picture is enough; the exact formal rule belongs later in the course.</p>
+    </section>
+
+    <section id="address-step">
+      <h2><span class="sec-n">05</span>Why <code>ar + 1</code> reaches the next element</h2>
+      <p>The <code>+ 1</code> means “move forward by one <strong>element</strong>.” It does not mean “add one byte.” C already knows the type and size of each array element, so it calculates the required byte jump.</p>
+      <table>
+        <thead><tr><th>Expression</th><th>Location represented</th><th>Example address</th></tr></thead>
+        <tbody>
+          <tr><td><code>ar</code> or <code>ar + 0</code></td><td><code>ar[0]</code></td><td>1000</td></tr>
+          <tr><td><code>ar + 1</code></td><td><code>ar[1]</code></td><td>1004</td></tr>
+          <tr><td><code>ar + 2</code></td><td><code>ar[2]</code></td><td>1008</td></tr>
+        </tbody>
+      </table>
+      <div class="callout tip"><span class="lbl">The wording matters</span><p><code>ar + 1</code> does produce another memory address. The important point is that it reaches the <strong>next element's address</strong>, not merely the next byte address.</p></div>
+    </section>
+
+    <section id="array-traversal">
+      <h2><span class="sec-n">06</span>Traversing an array</h2>
+      <p>Traversal means visiting every element systematically. For five elements, the loop visits indexes <code>0, 1, 2, 3, 4</code>.</p>
+      <div class="code" data-label="c"><pre>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int numbers[5];
+
+    for (int i = 0; i &lt; 5; i++) {
+        scanf("%d", &amp;numbers[i]);
+    }
+
+    for (int i = 0; i &lt; 5; i++) {
+        printf("%d ", numbers[i]);
+    }
+    printf("\n");
+    return 0;
+}</pre></div>
+      <div class="callout"><span class="lbl">Input detail</span><p><code>numbers[i]</code> is one ordinary integer element. Therefore <code>scanf</code> receives its address as <code>&amp;numbers[i]</code>, just as it would receive <code>&amp;age</code> for one integer variable.</p></div>
+    </section>
+
+    <section id="char-array-string">
+      <h2><span class="sec-n">07</span>Character array versus string</h2>
+      <p>A character array is simply an array whose elements are <code>char</code>. A C string is a character sequence whose end is marked by <code>'\0'</code>. Therefore:</p>
+      <div class="equation">Every writable C string can live in a char array, but not every char array is a string.</div>
+      <div class="compare">
+        <div class="card bad"><h3>Character array, not a string</h3><div class="code" data-label="c"><pre>char a[3] = {'C', 'A', 'T'};</pre></div><p>All three positions contain visible characters. There is no <code>'\0'</code> to mark the end.</p></div>
+        <div class="card good"><h3>Character array and string</h3><div class="code" data-label="c"><pre>char s[4] = {'C', 'A', 'T', '\0'};</pre></div><p>The fourth position marks the end, so the stored string is <code>"CAT"</code>.</p></div>
+      </div>
+      <h3>Character constant versus string literal</h3>
+      <div class="grid">
+        <div class="card"><p><code>'A'</code> is one character value. It can be stored in one <code>char</code> element.</p></div>
+        <div class="card"><p><code>"A"</code> is a string literal containing two character positions: <code>'A'</code> followed by <code>'\0'</code>.</p></div>
+      </div>
+      <div class="callout trap"><span class="lbl">Why this distinction matters</span><p><code>printf("%s", a)</code> requires a string. If the array contains no <code>'\0'</code>, output may continue beyond the array while searching for an end marker. That is undefined behavior.</p></div>
+    </section>
+
+    <section id="string-declaration">
+      <h2><span class="sec-n">08</span>String declaration and initialization</h2>
+      <table>
+        <thead><tr><th>Declaration</th><th>Actual stored elements</th></tr></thead>
+        <tbody>
+          <tr><td><code>char s[] = "Hello";</code></td><td>Six elements: <code>'H','e','l','l','o','\0'</code>. The compiler determines size 6.</td></tr>
+          <tr><td><code>char s[6] = "Hello";</code></td><td>Exactly enough space for five visible characters and the terminator.</td></tr>
+          <tr><td><code>char s[10] = "Hello";</code></td><td>The first six positions hold the string; the remaining four positions are also zero-initialized.</td></tr>
+          <tr><td><code>char s[] = {'H','i','\0'};</code></td><td>A manually initialized valid string of length 2.</td></tr>
+          <tr><td><code>char s[] = {'H','i'};</code></td><td>A two-element character array, not a string.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout trap"><span class="lbl">No room for the terminator</span><p><code>char s[5] = "Hello";</code> has room for the five letters but not <code>'\0'</code>. Some compilers warn. The result must not be treated as a string.</p></div>
+    </section>
+
+    <section id="string-input">
+      <h2><span class="sec-n">09</span>Why string input does not use <code>&amp;</code></h2>
+      <p>For one integer, <code>scanf</code> needs the variable's storage address:</p>
+      <div class="code" data-label="c"><pre>int age;
+scanf("%d", &amp;age);</pre></div>
+      <p>For a character array, the array name already represents its starting address:</p>
+      <div class="code" data-label="c"><pre>char name[20];
+scanf("%19s", name);</pre></div>
+      <div class="callout"><span class="lbl">One rule, two forms</span><p><code>&amp;age</code> is needed because <code>age</code> is one variable. For the array, <code>name</code> already supplies the starting location, so do not write <code>&amp;name</code>.</p></div>
+      <div class="callout tip"><span class="lbl">Why the width is 19</span><p>The array has 20 positions. <code>%19s</code> reads at most 19 non-whitespace characters and then adds <code>'\0'</code> in the final required position. Plain <code>%s</code> can overflow the array if the word is too long.</p></div>
+      <p class="mini"><code>%s</code> stops at whitespace, so it reads one word rather than a complete name containing spaces.</p>
+    </section>
+
+    <section id="null">
+      <h2><span class="sec-n">10</span>The null character</h2>
+      <p>The null character is written <code>'\0'</code> and has numeric value zero. It occupies one character position in memory but produces no visible output. String operations treat the first null character as the end.</p>
+      <div class="memory" role="img" aria-label="CAT stored with a null character at the end">
+        <div class="memory-row">
+          <div class="cell"><span class="index">text[0]</span><span class="value">'C'</span><span class="address">2000</span></div>
+          <div class="cell"><span class="index">text[1]</span><span class="value">'A'</span><span class="address">2001</span></div>
+          <div class="cell"><span class="index">text[2]</span><span class="value">'T'</span><span class="address">2002</span></div>
+          <div class="cell"><span class="index">text[3]</span><span class="value">'\0'</span><span class="address">2003</span></div>
+        </div>
+        <p class="memory-note">Illustrative addresses show the characters stored consecutively. The null character occupies the next character position after <code>'T'</code>.</p>
+      </div>
+      <table>
+        <thead><tr><th>Notation</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>'\0'</code></td><td>One null character with value zero.</td></tr>
+          <tr><td><code>'0'</code></td><td>The visible digit character zero. It is not the null character.</td></tr>
+          <tr><td><code>0</code></td><td>An integer zero. Storing it in a <code>char</code> element creates a null character.</td></tr>
+          <tr><td><code>"\0"</code></td><td>A string containing an explicit null plus the automatic terminator, so it contains two null characters.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="embedded-null">
+      <h2><span class="sec-n">11</span>Putting <code>'\0'</code> in the middle</h2>
+      <p>The first null becomes the logical end of the string. Later array elements still exist and can be accessed by index, but string output stops before them.</p>
+      <div class="code" data-label="c"><pre>#include &lt;stdio.h&gt;
+
+int main(void) {
+    char text[6] = {'H', 'i', '\0', 'X', 'Y', '\0'};
+
+    printf("string: %s\n", text);
+    printf("text[3]: %c\n", text[3]);
+    return 0;
+}</pre></div>
+      <div class="out">string: Hi
+text[3]: X</div>
+      <p>The array contains six character positions. As a string, however, it represents only <code>"Hi"</code>.</p>
+    </section>
+
+    <section id="string-traversal">
+      <h2><span class="sec-n">12</span>String traversal and length</h2>
+      <p>An ordinary array loop stops at a known element count. A string loop normally stops when it finds <code>'\0'</code>.</p>
+      <h3>Print one character at a time</h3>
+      <div class="code" data-label="c"><pre>char text[] = "Bangladesh";
+
+for (int i = 0; text[i] != '\0'; i++) {
+    printf("%c\n", text[i]);
+}</pre></div>
+      <h3>Count the length manually</h3>
+      <div class="code" data-label="c"><pre>char text[] = "Bangladesh";
+int length = 0;
+
+while (text[length] != '\0') {
+    length++;
+}
+
+printf("Length = %d\n", length);</pre></div>
+      <div class="out">Length = 10</div>
+      <div class="callout"><span class="lbl">What length counts</span><p>Length counts the characters before the first <code>'\0'</code>. It does not count the null character itself.</p></div>
+    </section>
+
+    <section id="size-length">
+      <h2><span class="sec-n">13</span>Size, capacity, and length</h2>
+      <div class="code" data-label="c"><pre>char text[10] = "cat";</pre></div>
+      <table>
+        <thead><tr><th>Idea</th><th>Meaning</th><th>Result here</th></tr></thead>
+        <tbody>
+          <tr><td>Array size/capacity</td><td>Total character positions reserved by the declaration.</td><td>10 positions</td></tr>
+          <tr><td>String length</td><td>Characters before the first <code>'\0'</code>.</td><td>3 characters</td></tr>
+          <tr><td>Storage currently needed</td><td>Length plus one position for <code>'\0'</code>.</td><td>4 positions</td></tr>
+        </tbody>
+      </table>
+      <div class="equation"><code>sizeof text</code> is 10 · calculated length is 3 · length + terminator is 4</div>
+      <p>For <code>char exact[] = "cat";</code>, the compiler reserves exactly four positions: three letters and one null character. Therefore the array size is 4 while the string length is 3.</p>
+      <div class="callout tip"><span class="lbl">Integer-array size</span><p>For <code>int ar[5]</code>, the total byte size is <code>5 × sizeof ar[0]</code>. The expression <code>sizeof ar / sizeof ar[0]</code> gives the element count where the array is declared.</p></div>
+    </section>
+
+    <section id="mistakes">
+      <h2><span class="sec-n">14</span>Common mistakes and their causes</h2>
+      <div class="grid">
+        <div class="callout trap"><span class="lbl">Starting at index 1</span><p>This skips the first element. Array traversal normally begins at <code>0</code>.</p></div>
+        <div class="callout trap"><span class="lbl">Using i &lt;= 5</span><p>For five elements, this reaches invalid index <code>5</code>. Use <code>i &lt; 5</code>.</p></div>
+        <div class="callout trap"><span class="lbl">Printing a non-string with %s</span><p>Without <code>'\0'</code>, output has no valid stopping marker.</p></div>
+        <div class="callout trap"><span class="lbl">Using &amp;name with %s</span><p>The array name already gives the starting location. Use <code>name</code>.</p></div>
+        <div class="callout trap"><span class="lbl">Confusing '\0' and '0'</span><p><code>'\0'</code> ends a string; <code>'0'</code> is a visible digit.</p></div>
+        <div class="callout trap"><span class="lbl">Confusing size and length</span><p>Size is reserved storage. Length stops at the first null character.</p></div>
+      </div>
+    </section>
+
+    <section id="practice">
+      <h2><span class="sec-n">15</span>Practice and quick checks</h2>
+      <ol>
+        <li>Declare an integer array of six elements, initialize only the first two, and predict every stored value.</li>
+        <li>Read five integers and print them in forward and reverse order.</li>
+        <li>For an <code>int</code> array beginning at address 2000 with four-byte elements, calculate the example addresses of indexes 0 through 4.</li>
+        <li>Explain in one sentence why <code>ar + 1</code> does not mean “the next byte.”</li>
+        <li>Write one character array that is not a string and one that is a valid string.</li>
+        <li>Predict the size and length of <code>char word[12] = "array";</code>.</li>
+        <li>Put <code>'\0'</code> at <code>word[2]</code>, then predict the output and recalculated length.</li>
+        <li>Write a loop that counts vowels until it reaches the null character.</li>
+      </ol>
+      <div class="callout"><span class="lbl">Final mental model</span><p>An array is a fixed, consecutive block of same-type elements. A string is a character sequence inside such storage whose logical end is the first <code>'\0'</code>. Indexes select elements, the array name identifies the start, and length is not the same as reserved size.</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="release-footer">
+      <span>Structured Programming Language — C · Array &amp; String Fundamentals</span>
+      <span><a href="../updates.html">Version <span data-release-version>1.2.0</span></a> · Updated <time data-release-date datetime="2026-07-22">22 July 2026</time></span>
+      <span>Signed — <span class="signature-name" data-release-author>Mainul Hasan</span></span>
+    </div>
+  </footer>
+</div>
+
+<script src="../site-meta.js?v=1.2.0"></script>
+<script src="../site-nav.js?v=1.2.0"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 {
   "course": "Structured Programming Language — C",
-  "version": "1.1.2",
-  "last_updated": "2026-07-20",
+  "version": "1.2.0",
+  "last_updated": "2026-07-22",
   "maintainer": "Mainul Hasan",
   "primary_reference": {
     "title": "Schaum's Outline of Programming with C",
@@ -308,15 +308,23 @@
         "topics": [
           "Why arrays are needed",
           "Concept of storing multiple values of one element type",
-          "Array declaration",
+          "Array declaration and initialization variations",
           "Zero-based array indexing",
           "Indexed element access",
           "Valid index range",
           "Out-of-bounds access as invalid and dangerous",
-          "Basic traversal",
+          "Contiguous memory layout of array elements",
+          "How the array name refers to the address of the first element",
+          "Element-aware address movement such as ar + 1",
+          "Basic traversal with indexes",
           "Basic array input and output"
         ],
-        "slug": "arrays-dependency-level-foundation"
+        "slug": "arrays-dependency-level-foundation",
+        "tutorial": {
+          "title": "Array & String Fundamentals in C",
+          "href": "tutorials/array-string-fundamentals.html#array-model",
+          "covered_topics": ["Array declaration and initialization variations", "Zero-based array indexing", "Indexed element access", "Valid index range", "Out-of-bounds access as invalid and dangerous", "Contiguous memory layout of array elements", "How the array name refers to the address of the first element", "Element-aware address movement such as ar + 1", "Basic traversal with indexes", "Basic array input and output"]
+        }
       },
       {
         "n": 18,
@@ -325,13 +333,23 @@
         "topics": [
           "Concept of a string in C",
           "Relationship between strings and character arrays",
+          "Difference between a character array and a null-terminated string",
           "The null character '\\0'",
           "A C string as a null-terminated sequence of characters",
           "Difference between a character constant and a string literal",
-          "Basic string declaration and use",
+          "String declaration and initialization variations",
+          "Why string input uses the array name without the address-of operator",
+          "What an embedded null character does to a string",
+          "Finding string length by traversing to the null character",
+          "String length versus array size or capacity",
           "Basic string input and output"
         ],
-        "slug": "strings-dependency-level-foundation"
+        "slug": "strings-dependency-level-foundation",
+        "tutorial": {
+          "title": "Array & String Fundamentals in C",
+          "href": "tutorials/array-string-fundamentals.html#char-array-string",
+          "covered_topics": ["Concept of a string in C", "Relationship between strings and character arrays", "Difference between a character array and a null-terminated string", "The null character '\\0'", "A C string as a null-terminated sequence of characters", "Difference between a character constant and a string literal", "String declaration and initialization variations", "Why string input uses the array name without the address-of operator", "What an embedded null character does to a string", "Finding string length by traversing to the null character", "String length versus array size or capacity", "Basic string input and output"]
+        }
       }
     ],
     "detailed": [
