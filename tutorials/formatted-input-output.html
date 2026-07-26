@@ -227,6 +227,55 @@ scanf("%d", &amp;age);</pre></div></div>
 <tr><td><code>%%</code></td><td>no argument</td><td>no destination</td><td>A literal percent sign.</td></tr>
 </tbody></table>
 <div class="callout tip"><span class="lbl">Type matching matters.</span> For example, <code>%x</code> and <code>%o</code> are defined for unsigned integers. When scanning, pass <code>unsigned int *</code>, not <code>int *</code>.</div>
+
+<h3>Length modifiers</h3>
+<p>The table above assumes the default argument types: <code>int</code> for <code>%d</code>, <code>unsigned int</code> for <code>%u</code>, <code>double</code> for <code>%f</code>. A <strong>length modifier</strong> sits immediately before the conversion character and changes that assumed type. It is the <code>length</code> slot in both grammar diagrams of Section 02.</p>
+<div class="anatomy"><span class="pct">%</span><span class="width">width</span><span class="length">l</span><span class="spec">d</span></div>
+<table>
+<thead><tr><th>Modifier</th><th>With <code>d</code> <code>i</code></th><th>With <code>u</code> <code>o</code> <code>x</code> <code>X</code></th><th>With <code>f</code> <code>e</code> <code>g</code></th></tr></thead>
+<tbody>
+<tr><td><em>none</em></td><td><code>int</code></td><td><code>unsigned int</code></td><td><code>double</code> out, <code>float</code> in</td></tr>
+<tr><td><code>hh</code></td><td><code>signed char</code></td><td><code>unsigned char</code></td><td>—</td></tr>
+<tr><td><code>h</code></td><td><code>short</code></td><td><code>unsigned short</code></td><td>—</td></tr>
+<tr><td><code>l</code></td><td><code>long</code></td><td><code>unsigned long</code></td><td><code>double</code> on input; no effect on output</td></tr>
+<tr><td><code>ll</code></td><td><code>long long</code></td><td><code>unsigned long long</code></td><td>—</td></tr>
+<tr><td><code>L</code></td><td>—</td><td>—</td><td><code>long double</code></td></tr>
+<tr><td><code>z</code></td><td>—</td><td><code>size_t</code></td><td>—</td></tr>
+<tr><td><code>j</code></td><td><code>intmax_t</code></td><td><code>uintmax_t</code></td><td>—</td></tr>
+<tr><td><code>t</code></td><td><code>ptrdiff_t</code></td><td>—</td><td>—</td></tr>
+</tbody></table>
+<p class="mini">With <code>%c</code> and <code>%s</code>, the <code>l</code> modifier selects the wide-character forms <code>wint_t</code> and <code>wchar_t *</code>, which are outside the scope of this tutorial.</p>
+
+<h4>Why output is forgiving and input is not</h4>
+<p>This is the single most important thing to understand about the length slot.</p>
+<div class="compare">
+<div class="card"><h3>Output passes values</h3><p>Default argument promotion converts every <code>char</code> and <code>short</code> to <code>int</code>, and every <code>float</code> to <code>double</code>, before <code>printf</code> sees it. So <code>%d</code> already handles <code>char</code> and <code>short</code>, and <code>%f</code> already handles both <code>float</code> and <code>double</code>. The modifier is only genuinely required for types wider than <code>int</code>, such as <code>long</code> and <code>long long</code>.</p></div>
+<div class="card"><h3>Input passes addresses</h3><p>No promotion applies to a pointer. <code>scanf</code> writes exactly as many bytes as the conversion says, at the address you supply. If the modifier does not match the destination, the wrong number of bytes is written and the behavior is undefined.</p></div>
+</div>
+<div class="code" data-label="c"><pre>short  h;
+long   L;
+double d;
+float  f;
+
+/* input: the modifier must match the destination exactly */
+scanf("%hd", &amp;h);    /* short *       */
+scanf("%ld", &amp;L);    /* long *        */
+scanf("%lf", &amp;d);    /* double *      */
+scanf("%f",  &amp;f);    /* float *       */
+
+/* output: both of these are correct, because f is promoted to double */
+printf("%f %f\n", f, d);</pre></div>
+<div class="callout trap"><span class="lbl">The two mistakes that actually happen</span>
+<div class="code" data-label="c — both wrong"><pre>double d;
+long   n;
+
+scanf("%f", &amp;d);   /* writes 4 bytes into an 8-byte object */
+scanf("%d", &amp;n);   /* writes 4 bytes into an 8-byte object */</pre></div>
+<p>Neither is a compile error, but both corrupt the destination. A verified run of the first one stored a value that read back as <code>0.000000</code>. Both compilers do warn with <code>-Wall</code>:</p>
+<div class="out">warning: format specifies type 'float *' but the argument has type 'double *'
+warning: format specifies type 'int *' but the argument has type 'long *'</div>
+<p>This is also why <code>%lf</code> is required for reading a <code>double</code> even though <code>%f</code> is enough for printing one.</p></div>
+<div class="callout tip"><span class="lbl">The one you will need constantly</span><p><code>strlen</code>, <code>sizeof</code>, and the array-counting idiom all produce <code>size_t</code>, whose width is not guaranteed to match <code>unsigned int</code>. Print it with <code>%zu</code>, never with <code>%d</code> or <code>%u</code>.</p></div>
 </section>
 <section id="flags">
 <h2><span class="sec-n">04</span><code>printf</code> flags — including interactions</h2>
