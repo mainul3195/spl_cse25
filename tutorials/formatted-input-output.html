@@ -60,6 +60,7 @@
 
   nav.toc{position:sticky;top:88px;align-self:start;height:max-content;font-size:.9rem;padding-top:36px;max-height:calc(100vh - 105px);overflow:auto;padding-bottom:16px}
   nav.toc .toc-title{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+  nav.toc .toc-group{color:var(--teal);margin:18px 0 8px;font-size:.64rem}
   nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-left:2px solid var(--line);margin-left:2px;transition:all .15s}
   nav.toc a:hover,nav.toc a:focus-visible{color:var(--ink);border-left-color:var(--star);background:var(--paper-2)}
   nav.toc a .n{font-family:"JetBrains Mono",monospace;color:var(--teal);font-size:.78em;margin-right:8px}
@@ -93,8 +94,11 @@
   tbody tr:last-child td{border-bottom:0}
 
   .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+  .compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
   .card{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--paper-2)}
   .card h3,.card h4{margin-top:0}
+  .card.bad{border-left:5px solid var(--rose)}.card.good{border-left:5px solid var(--teal)}
+  .card.bad h3{color:var(--rose)}.card.good h3{color:var(--teal)}
   .anatomy{display:flex;flex-wrap:wrap;gap:5px;align-items:center;background:var(--code-bg);color:white;padding:18px;border-radius:var(--radius);font:600 1rem/1.5 "JetBrains Mono",monospace;margin:18px 0}
   .anatomy span{padding:5px 8px;border-radius:7px}.anatomy .pct{background:#4b5563}.anatomy .flags{background:#7c3aed}.anatomy .width{background:#0369a1}.anatomy .precision{background:#047857}.anatomy .length{background:#a16207}.anatomy .spec{background:#be123c}
   .mini,.muted{font-size:.9rem;color:var(--ink-soft)}
@@ -120,7 +124,7 @@
     main{margin-top:0;padding:0 16px 68px;background:transparent;border:0;border-radius:0;box-shadow:none}
     section{scroll-margin-top:76px}h2{align-items:flex-start;font-size:1.65rem}
     table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-    .code,.out{max-width:100%;border-radius:10px}.grid{grid-template-columns:1fr}
+    .code,.out{max-width:100%;border-radius:10px}.grid,.compare{grid-template-columns:1fr}
     footer{margin-top:0;padding:26px 16px 44px}
   }
   a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
@@ -160,28 +164,37 @@
 
   <nav class="toc" aria-label="Table of contents">
     <div class="toc-title">Contents</div>
+    <div class="toc-title toc-group">Foundations</div>
     <a href="#mental-model"><span class="n">01</span>The mental model</a>
-<a href="#anatomy"><span class="n">02</span>Format anatomy</a>
-<a href="#specifiers"><span class="n">03</span>Conversion specifiers</a>
-<a href="#flags"><span class="n">04</span>Flags</a>
-<a href="#width-precision"><span class="n">05</span>Width & precision</a>
-<a href="#integers"><span class="n">06</span>Integer formatting</a>
-<a href="#floats"><span class="n">07</span>Floating-point formatting</a>
-<a href="#strings"><span class="n">08</span>String formatting</a>
-<a href="#char-io"><span class="n">09</span>Character I/O</a>
-<a href="#scanf"><span class="n">10</span>Formatted input</a>
-<a href="#eof"><span class="n">11</span>End of input &amp; EOF</a>
-<a href="#scansets"><span class="n">12</span>Scansets</a>
-<a href="#string-io"><span class="n">13</span>sscanf / snprintf</a>
-<a href="#null"><span class="n">14</span>The null character</a>
-<a href="#pitfalls"><span class="n">15</span>Common mistakes</a>
-<a href="#reference-program"><span class="n">16</span>Consolidated program</a>
-<a href="#quick-reference"><span class="n">17</span>Quick reference</a>
-<a href="#references"><span class="n">18</span>References</a>
+    <a href="#anatomy"><span class="n">02</span>Format anatomy</a>
+    <a href="#specifiers"><span class="n">03</span>Conversion specifiers</a>
+    <div class="toc-title toc-group">One control at a time</div>
+    <a href="#width-precision"><span class="n">04</span>Field width</a>
+    <a href="#precision"><span class="n">05</span>Precision</a>
+    <a href="#flags"><span class="n">06</span>Flags</a>
+    <a href="#combining"><span class="n">07</span>Combining them</a>
+    <div class="toc-title toc-group">Output by data type</div>
+    <a href="#integers"><span class="n">08</span>Integer formatting</a>
+    <a href="#floats"><span class="n">09</span>Floating-point formatting</a>
+    <a href="#strings"><span class="n">10</span>String formatting</a>
+    <a href="#length-modifiers"><span class="n">11</span>Length modifiers</a>
+    <div class="toc-title toc-group">Reading input</div>
+    <a href="#char-io"><span class="n">12</span>Character I/O</a>
+    <a href="#scanf"><span class="n">13</span>Formatted input</a>
+    <a href="#eof"><span class="n">14</span>End of input &amp; EOF</a>
+    <a href="#scansets"><span class="n">15</span>Scansets</a>
+    <div class="toc-title toc-group">Strings in memory</div>
+    <a href="#string-io"><span class="n">16</span>sscanf / snprintf</a>
+    <a href="#null"><span class="n">17</span>The null character</a>
+    <div class="toc-title toc-group">Wrap-up</div>
+    <a href="#pitfalls"><span class="n">18</span>Common mistakes</a>
+    <a href="#reference-program"><span class="n">19</span>Consolidated program</a>
+    <a href="#quick-reference"><span class="n">20</span>Quick reference</a>
+    <a href="#references"><span class="n">21</span>References</a>
   </nav>
 
   <main>
-  
+
 <section id="mental-model">
 <h2><span class="sec-n">01</span>The mental model: formatting is a contract</h2>
 <p>Functions such as <code>printf</code> and <code>scanf</code> use a <strong>format string</strong> as a compact description of how data should be converted. The format string and the arguments must agree about types. When they do not agree, the result is not merely “a strange output”; in many cases the program has undefined behavior.</p>
@@ -192,7 +205,12 @@ printf("Age: %d\n", age);</pre></div></div>
 scanf("%d", &amp;age);</pre></div></div>
 </div>
 <div class="callout"><span class="lbl">Core distinction</span> in <code>printf</code>, width and precision describe <em>how output is displayed</em>. In <code>scanf</code>, width describes the <em>maximum number of input characters consumed</em>. Similar syntax, different job.</div>
+<div class="callout tip"><span class="lbl">How this handbook is ordered</span>
+<p>Sections 01–03 build the shared grammar. Sections 04–07 then introduce the output controls <strong>one at a time</strong> — width alone, precision alone, each flag alone — and only after that does Section 07 combine them and explain which control wins when two disagree.</p>
+<p>Sections 08–11 apply the finished grammar to one data type at a time: integers, floating point, strings, and finally the length modifiers that change the assumed argument type. Sections 12–15 turn to <strong>input</strong>, from single characters to whole lines. Sections 16–17 replace the console with <strong>character arrays</strong>, which is where <code>sscanf</code>, <code>sprintf</code>, and <code>snprintf</code> enter and where the null terminator earns its own section.</p>
+<p>Nothing in an earlier section depends on a later one. Every example uses only the notation already introduced.</p></div>
 </section>
+
 <section id="anatomy">
 <h2><span class="sec-n">02</span>Anatomy of a printf conversion</h2>
 <p>The general shape is:</p>
@@ -204,12 +222,15 @@ scanf("%d", &amp;age);</pre></div></div>
         │└─── 0  : pad with zeroes
         └──── +  : always show the sign</pre></div>
 <div class="out">+0000452</div>
+<p>That single conversion already uses three optional parts at once. Sections 04 to 06 take them apart and introduce one per section; Section 07 puts them back together.</p>
 <h3>The <code>scanf</code> grammar is different</h3>
 <div class="anatomy"><span class="pct">%</span><span class="flags">*</span><span class="width">width</span><span class="length">length</span><span class="spec">specifier</span></div>
 <p>For <code>scanf</code>, <code>*</code> means “match this input but do not assign it.” There is no output-style <code>+</code>, <code>-</code>, <code>#</code>, or <code>0</code> flag system.</p>
 </section>
+
 <section id="specifiers">
 <h2><span class="sec-n">03</span>Essential conversion specifiers</h2>
+<p>The specifier is the only part that is never optional. It decides how the argument is interpreted, and everything in later sections merely adjusts its presentation.</p>
 <table>
 <thead><tr><th>Specifier</th><th><code>printf</code></th><th><code>scanf</code> destination</th><th>Purpose</th></tr></thead>
 <tbody>
@@ -227,59 +248,77 @@ scanf("%d", &amp;age);</pre></div></div>
 <tr><td><code>%%</code></td><td>no argument</td><td>no destination</td><td>A literal percent sign.</td></tr>
 </tbody></table>
 <div class="callout tip"><span class="lbl">Type matching matters.</span> For example, <code>%x</code> and <code>%o</code> are defined for unsigned integers. When scanning, pass <code>unsigned int *</code>, not <code>int *</code>.</div>
-
-<h3>Length modifiers</h3>
-<p>The table above assumes the default argument types: <code>int</code> for <code>%d</code>, <code>unsigned int</code> for <code>%u</code>, <code>double</code> for <code>%f</code>. A <strong>length modifier</strong> sits immediately before the conversion character and changes that assumed type. It is the <code>length</code> slot in both grammar diagrams of Section 02.</p>
-<div class="anatomy"><span class="pct">%</span><span class="width">width</span><span class="length">l</span><span class="spec">d</span></div>
-<table>
-<thead><tr><th>Modifier</th><th>With <code>d</code> <code>i</code></th><th>With <code>u</code> <code>o</code> <code>x</code> <code>X</code></th><th>With <code>f</code> <code>e</code> <code>g</code></th></tr></thead>
-<tbody>
-<tr><td><em>none</em></td><td><code>int</code></td><td><code>unsigned int</code></td><td><code>double</code> out, <code>float</code> in</td></tr>
-<tr><td><code>hh</code></td><td><code>signed char</code></td><td><code>unsigned char</code></td><td>—</td></tr>
-<tr><td><code>h</code></td><td><code>short</code></td><td><code>unsigned short</code></td><td>—</td></tr>
-<tr><td><code>l</code></td><td><code>long</code></td><td><code>unsigned long</code></td><td><code>double</code> on input; no effect on output</td></tr>
-<tr><td><code>ll</code></td><td><code>long long</code></td><td><code>unsigned long long</code></td><td>—</td></tr>
-<tr><td><code>L</code></td><td>—</td><td>—</td><td><code>long double</code></td></tr>
-<tr><td><code>z</code></td><td>—</td><td><code>size_t</code></td><td>—</td></tr>
-<tr><td><code>j</code></td><td><code>intmax_t</code></td><td><code>uintmax_t</code></td><td>—</td></tr>
-<tr><td><code>t</code></td><td><code>ptrdiff_t</code></td><td>—</td><td>—</td></tr>
-</tbody></table>
-<p class="mini">With <code>%c</code> and <code>%s</code>, the <code>l</code> modifier selects the wide-character forms <code>wint_t</code> and <code>wchar_t *</code>, which are outside the scope of this tutorial.</p>
-
-<h4>Why output is forgiving and input is not</h4>
-<p>This is the single most important thing to understand about the length slot.</p>
-<div class="compare">
-<div class="card"><h3>Output passes values</h3><p>Default argument promotion converts every <code>char</code> and <code>short</code> to <code>int</code>, and every <code>float</code> to <code>double</code>, before <code>printf</code> sees it. So <code>%d</code> already handles <code>char</code> and <code>short</code>, and <code>%f</code> already handles both <code>float</code> and <code>double</code>. The modifier is only genuinely required for types wider than <code>int</code>, such as <code>long</code> and <code>long long</code>.</p></div>
-<div class="card"><h3>Input passes addresses</h3><p>No promotion applies to a pointer. <code>scanf</code> writes exactly as many bytes as the conversion says, at the address you supply. If the modifier does not match the destination, the wrong number of bytes is written and the behavior is undefined.</p></div>
-</div>
-<div class="code" data-label="c"><pre>short  h;
-long   L;
-double d;
-float  f;
-
-/* input: the modifier must match the destination exactly */
-scanf("%hd", &amp;h);    /* short *       */
-scanf("%ld", &amp;L);    /* long *        */
-scanf("%lf", &amp;d);    /* double *      */
-scanf("%f",  &amp;f);    /* float *       */
-
-/* output: both of these are correct, because f is promoted to double */
-printf("%f %f\n", f, d);</pre></div>
-<div class="callout trap"><span class="lbl">The two mistakes that actually happen</span>
-<div class="code" data-label="c — both wrong"><pre>double d;
-long   n;
-
-scanf("%f", &amp;d);   /* writes 4 bytes into an 8-byte object */
-scanf("%d", &amp;n);   /* writes 4 bytes into an 8-byte object */</pre></div>
-<p>Neither is a compile error, but both corrupt the destination. A verified run of the first one stored a value that read back as <code>0.000000</code>. Both compilers do warn with <code>-Wall</code>:</p>
-<div class="out">warning: format specifies type 'float *' but the argument has type 'double *'
-warning: format specifies type 'int *' but the argument has type 'long *'</div>
-<p>This is also why <code>%lf</code> is required for reading a <code>double</code> even though <code>%f</code> is enough for printing one.</p></div>
-<div class="callout tip"><span class="lbl">The one you will need constantly</span><p><code>strlen</code>, <code>sizeof</code>, and the array-counting idiom all produce <code>size_t</code>, whose width is not guaranteed to match <code>unsigned int</code>. Print it with <code>%zu</code>, never with <code>%d</code> or <code>%u</code>.</p></div>
+<p class="mini">The types in this table are the <em>defaults</em>. A length modifier in the <code>length</code> slot of Section 02 changes them — for a <code>long</code>, a <code>short</code>, or a <code>double</code> destination, for instance. Length modifiers matter far more on input than on output, so they get their own treatment in Section 11, immediately before the input chapters.</p>
 </section>
+
+<section id="width-precision">
+<h2><span class="sec-n">04</span>The first control: field width</h2>
+<p>A number between <code>%</code> and the specifier is a <strong>field width</strong>: the minimum number of characters the conversion may occupy.</p>
+
+<h3>4.1 Width is a minimum, not a maximum</h3>
+<div class="code" data-label="c"><pre>printf(":%4d:\n", 10);
+printf(":%4d:\n", 45646546);</pre></div>
+<div class="out">:  10:
+:45646546:</div>
+<p>The field expands when the converted result needs more characters. Width by itself never truncates a number or a string.</p>
+
+<h3>4.2 The default is right alignment with spaces</h3>
+<p>When the result is shorter than the field, the padding goes on the left, so the value ends flush with the right edge of the field.</p>
+<div class="code" data-label="c"><pre>printf(":%8d:\n", 452);
+printf(":%8.2f:\n", 4.49);
+printf(":%8s:\n", "wow!");</pre></div>
+<div class="out">:     452:
+:    4.49:
+:    wow!:</div>
+<p>The same width rule applies to every conversion — integers, floating point, and strings alike. Left alignment and zero padding are not part of width; they are flags, and they arrive in Section 06.</p>
+<div class="callout"><span class="lbl">Why width exists</span><p>Equal widths on every row are what turn a stream of numbers into a table. <code>%8d</code> on each column gives every value the same amount of horizontal space, so the digits line up.</p></div>
+</section>
+
+<section id="precision">
+<h2><span class="sec-n">05</span>The second control: precision</h2>
+<p>Precision is a dot followed by a number, written after the width if a width is present: <code>%.2f</code>, <code>%10.2f</code>. Unlike width, precision means something <em>different</em> for each family of conversions.</p>
+
+<h3>5.1 What precision means per conversion</h3>
+<table>
+<thead><tr><th>Conversion</th><th>Meaning of precision</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>Integer</td><td>Minimum number of digits.</td><td><code>%.6d</code> → <code>000452</code></td></tr>
+<tr><td><code>f</code>, <code>e</code>, <code>E</code></td><td>Digits after the decimal point.</td><td><code>%.2f</code> → <code>4.49</code></td></tr>
+<tr><td><code>g</code>, <code>G</code></td><td>Significant digits.</td><td><code>%.4g</code></td></tr>
+<tr><td><code>s</code></td><td>Maximum bytes written from the string.</td><td><code>%.5s</code> → first five bytes</td></tr>
+</tbody></table>
+<div class="code" data-label="c"><pre>printf(":%.6d:\n", 452);
+printf(":%.2f:\n", 4.49);
+printf(":%.0f:\n", 4.49);
+printf(":%.5s:\n", "wOw!Really Great!");</pre></div>
+<div class="out">:000452:
+:4.49:
+:4:
+:wOw!R:</div>
+<div class="callout tip"><span class="lbl">One dot, two opposite jobs</span><p>For an integer, precision is a <strong>minimum</strong> digit count and can only make the result longer. For a string, precision is a <strong>maximum</strong> byte count and can only make the result shorter. For floating point, it fixes the number of fractional digits exactly.</p></div>
+
+<h3>5.2 Precision changes the text, not the value</h3>
+<div class="code" data-label="c"><pre>double p = 4.49;
+
+printf("%.0f\n", p);
+printf("%.1f\n", p);
+printf("%.4f\n", p);</pre></div>
+<div class="out">4
+4.5
+4.4900</div>
+<p>The stored <code>double</code> is untouched. Precision only decides how many of its digits appear, rounding the displayed result when digits are dropped.</p>
+
+<h3>5.3 Precision zero on an integer zero produces nothing</h3>
+<div class="code" data-label="c"><pre>printf(":%.0d:\n", 0);
+printf(":%.0d:\n", 452);</pre></div>
+<div class="out">::
+:452:</div>
+<p>“At least zero digits” is satisfied by no digits at all, so the value <code>0</code> disappears entirely. Any non-zero value still needs its own digits and is printed in full.</p>
+</section>
+
 <section id="flags">
-<h2><span class="sec-n">04</span><code>printf</code> flags — including interactions</h2>
-<p>Flags modify the presentation of a conversion. They appear after <code>%</code> and before width. The same set of flags is <strong>not</strong> valid for every conversion specifier.</p>
+<h2><span class="sec-n">06</span>The third control: flags, one at a time</h2>
+<p>Flags modify the presentation of a conversion. They appear immediately after <code>%</code>, before any width. This section introduces each flag on its own; Section 07 covers what happens when several are used together.</p>
 <table>
 <thead><tr><th>Flag</th><th>Meaning</th><th>Example</th><th>Typical result</th></tr></thead>
 <tbody>
@@ -290,7 +329,54 @@ warning: format specifies type 'int *' but the argument has type 'long *'</div>
 <tr><td><code>#</code></td><td>Request an alternative representation where the conversion defines one.</td><td><code>%#x</code></td><td><code>0x1c4</code></td></tr>
 </tbody></table>
 
-<h3>4.1 Flag order is flexible</h3>
+<h3>6.1 <code>-</code> — left alignment</h3>
+<p>The flag only has a visible effect when there is a field wider than the result, because it decides which side the padding goes on.</p>
+<div class="code" data-label="c"><pre>printf(":%8d:\n",  452);
+printf(":%-8d:\n", 452);</pre></div>
+<div class="out">:     452:
+:452     :</div>
+
+<h3>6.2 <code>+</code> — always show the sign</h3>
+<div class="code" data-label="c"><pre>printf(":%d:\n",   452);
+printf(":%+d:\n",  452);
+printf(":%+d:\n", -452);</pre></div>
+<div class="out">:452:
+:+452:
+:-452:</div>
+<p>A negative value already prints its sign. The flag only adds the <code>+</code> that a positive value would otherwise omit.</p>
+
+<h3>6.3 space — a blank where the <code>+</code> would be</h3>
+<div class="code" data-label="c"><pre>printf(":% d:\n",  452);
+printf(":% d:\n", -452);</pre></div>
+<div class="out">: 452:
+:-452:</div>
+<p>This keeps a column of positive and negative numbers aligned without printing a plus sign.</p>
+
+<h3>6.4 <code>0</code> — pad the field with zeroes</h3>
+<div class="code" data-label="c"><pre>printf(":%08d:\n",  452);
+printf(":%08d:\n", -452);</pre></div>
+<div class="out">:00000452:
+:-0000452:</div>
+<p>The zeroes are inserted <em>after</em> the sign, never before it, so the result still reads as a number.</p>
+
+<h3>6.5 <code>#</code> — alternative form</h3>
+<p>Where a conversion defines an alternative representation, <code>#</code> requests it. For the base conversions that means a base prefix.</p>
+<div class="code" data-label="c"><pre>printf(":%x:\n",  452u);
+printf(":%#x:\n", 452u);
+printf(":%#o:\n", 452u);</pre></div>
+<div class="out">:1c4:
+:0x1c4:
+:0704:</div>
+<p>Section 08 covers the base conversions themselves, and Section 09 shows the other use of <code>#</code>: forcing a decimal point onto a floating-point result that has no fractional digits.</p>
+<div class="callout"><span class="lbl">Flags are per conversion</span><p>A flag exists only where the conversion defines a meaning for it. <code>#</code> means something for <code>%o</code>, <code>%x</code>, <code>%X</code>, <code>%f</code>, <code>%e</code>, and <code>%g</code>; it means nothing for <code>%d</code> or <code>%i</code>. <code>+</code>, space, and <code>0</code> belong to numeric conversions, not to <code>%s</code>. Section 7.7 shows what compilers say about the invalid combinations.</p></div>
+</section>
+
+<section id="combining">
+<h2><span class="sec-n">07</span>Putting flags, width, and precision together</h2>
+<p>Each control is simple on its own. The interesting part is what happens when two of them ask for opposite things in the same conversion. Every rule below is verified.</p>
+<p class="verified">GCC 14.2 and Clang 17 produced identical runtime output</p>
+
+<h3>7.1 Flag order is flexible</h3>
 <p>The flags form a set. Their textual order does not change their meaning. These are equivalent:</p>
 <div class="code" data-label="c"><pre>printf("%+08d\n", 452);
 printf("%0+8d\n", 452);</pre></div>
@@ -298,82 +384,104 @@ printf("%0+8d\n", 452);</pre></div>
 +0000452</div>
 <p>The same idea applies to <code>%-+8d</code> and <code>%+-8d</code>: both request an explicit sign and left alignment.</p>
 
-<h3>4.2 When <code>-</code> and <code>0</code> meet, <code>-</code> wins</h3>
+<h3>7.2 When <code>-</code> and <code>0</code> meet, <code>-</code> wins</h3>
 <div class="code" data-label="c"><pre>printf(":%0-8d:\n", 452);
 printf(":%-08d:\n", 452);</pre></div>
 <div class="out">:452     :
 :452     :</div>
 <p>Both GCC 14.2 and Clang 17 warn that the <code>0</code> flag is ignored when <code>-</code> is present. Left alignment needs padding on the right, so leading zero padding no longer makes sense.</p>
+<p>The rule is not specific to integers. A floating-point conversion behaves the same way:</p>
+<div class="code" data-label="c"><pre>printf(":%-020.10f:\n", 0.0000007856546631);</pre></div>
+<div class="out">:0.0000007857        :</div>
 
-<h3>4.3 When <code>+</code> and the space flag meet, <code>+</code> wins</h3>
+<h3>7.3 When <code>+</code> and the space flag meet, <code>+</code> wins</h3>
 <div class="code" data-label="c"><pre>printf(":%+ d:\n", 452);
 printf(":% +d:\n", 452);</pre></div>
 <div class="out">:+452:
 :+452:</div>
 <p>The explicit <code>+</code> is stronger than the “blank for positive values” rule, so the space flag is ignored.</p>
 
-<h3>4.4 A flag can be valid for one conversion and invalid for another</h3>
-<div class="callout trap"><span class="lbl">Important distinction</span><p><code>%+20s</code>, <code>%020s</code>, and <code>%#i</code> are not clever formatting tricks. They use flags for conversions where those flags have no defined meaning. Clang diagnoses these as format strings whose behavior is undefined. GCC also warns.</p></div>
-<p>On the tested glibc runtime, <code>%+20s</code> happened to behave like <code>%20s</code> and <code>%020s</code> also happened to use spaces. That observation is useful for understanding what you may see during an experiment, but it is <strong>not a rule to teach or rely on</strong>.</p>
-</section>
-<section id="width-precision">
-<h2><span class="sec-n">05</span>Field width and precision</h2>
-<h3>5.1 Field width is a minimum, not a maximum</h3>
-<div class="code" data-label="c"><pre>printf(":%4d:\n", 10);
-printf(":%4d:\n", 45646546);</pre></div>
-<div class="out">:  10:
-:45646546:</div>
-<p>The field expands when the converted result needs more characters. Width by itself does not truncate numbers or strings.</p>
-
-<h3>5.2 Precision changes meaning with the conversion</h3>
-<table>
-<thead><tr><th>Conversion</th><th>Meaning of precision</th><th>Example</th></tr></thead>
-<tbody>
-<tr><td>Integer</td><td>Minimum number of digits.</td><td><code>%.6d</code> → <code>000452</code></td></tr>
-<tr><td><code>f</code>, <code>e</code>, <code>E</code></td><td>Digits after the decimal point.</td><td><code>%.2f</code> → <code>4.49</code></td></tr>
-<tr><td><code>g</code>, <code>G</code></td><td>Significant digits.</td><td><code>%.4g</code></td></tr>
-<tr><td><code>s</code></td><td>Maximum bytes written from the string.</td><td><code>%.5s</code> → first five bytes</td></tr>
-</tbody></table>
-
-<h3>5.3 Integer precision overrides the <code>0</code> flag</h3>
+<h3>7.4 For integers, precision overrides the <code>0</code> flag</h3>
 <div class="code" data-label="c"><pre>printf(":%08.5d:\n", 452);
 printf(":%8.5d:\n", 452);</pre></div>
 <div class="out">:   00452:
 :   00452:</div>
-<p>Once an explicit precision is given for an integer conversion, the <code>0</code> flag is ignored. Precision supplies the minimum digit count; ordinary field padding supplies the remaining spaces.</p>
+<p>Once an explicit precision is given for an integer conversion, the <code>0</code> flag is ignored. Precision supplies the minimum digit count; ordinary field padding supplies the remaining spaces. This is the reason to read <code>%08.5d</code> as “five digits inside a field of eight”, not as “two kinds of zero padding”.</p>
 
-<h3>5.4 Precision zero has a special integer edge case</h3>
-<div class="code" data-label="c"><pre>printf(":%.0d:\n", 0);
-printf(":%#.0o:\n", 0u);</pre></div>
-<div class="out">::
-:0:</div>
-<p>For an integer value of zero with precision zero, no digits are produced. Octal alternative form is the notable exception shown above: <code>#</code> still ensures a leading zero.</p>
+<h3>7.5 The order of operations inside one conversion</h3>
+<p>Every example so far follows the same three steps, which is worth stating once:</p>
+<ol>
+<li>The specifier converts the value to digits or bytes.</li>
+<li>Precision adjusts that result — padding integer digits, fixing fractional digits, or truncating a string.</li>
+<li>Width pads whatever remains, on the left by default or on the right under <code>-</code>, with spaces unless <code>0</code> applies.</li>
+</ol>
+<div class="code" data-label="c"><pre>printf(":%20.5s:\n", "wOw!Really Great!");</pre></div>
+<div class="out">:               wOw!R:</div>
+<p>Precision cuts the string to five bytes first; width then aligns those five bytes inside a twenty-character field.</p>
 
-<h3>5.5 Dynamic width and precision with <code>*</code></h3>
+<h3>7.6 Width and precision can be supplied at run time with <code>*</code></h3>
 <div class="code" data-label="c"><pre>int width = 10;
 int digits = 3;
 double x = 12.34567;
 
 printf("|%*.*f|\n", width, digits, x);</pre></div>
 <div class="out">|    12.346|</div>
-<p>The width and precision values are taken from preceding <code>int</code> arguments.</p>
+<p>The width and precision values are taken from preceding <code>int</code> arguments, in the order the <code>*</code> characters appear.</p>
 
 <h4>Negative dynamic width</h4>
 <div class="code" data-label="c"><pre>printf("|%*d|\n", -8, 452);</pre></div>
 <div class="out">|452     |</div>
-<p>A negative width supplied through <code>*</code> means left alignment with the corresponding positive width.</p>
+<p>A negative width supplied through <code>*</code> means left alignment with the corresponding positive width — exactly as if the <code>-</code> flag had been written.</p>
 
 <h4>Negative dynamic precision</h4>
 <div class="code" data-label="c"><pre>printf("|%.*f|\n", -1, 12.34567);</pre></div>
 <div class="out">|12.345670|</div>
 <p>A negative precision supplied through <code>*</code> is treated as though the precision were omitted, so <code>%f</code> falls back to its default six digits after the decimal point.</p>
+
+<h3>7.7 A flag can be valid for one conversion and invalid for another</h3>
+<div class="callout trap"><span class="lbl">Important distinction</span><p><code>%+20s</code>, <code>%020s</code>, and <code>%#i</code> are not clever formatting tricks. They use flags for conversions where those flags have no defined meaning. Clang diagnoses these as format strings whose behavior is undefined. GCC also warns.</p></div>
+<p>On the tested glibc runtime, <code>%+20s</code> happened to behave like <code>%20s</code> and <code>%020s</code> also happened to use spaces. That observation is useful for understanding what you may see during an experiment, but it is <strong>not a rule to teach or rely on</strong>.</p>
 </section>
+
 <section id="integers">
-<h2><span class="sec-n">06</span>Integer formatting in detail</h2>
-<p>Consider the exact variables from the reference program:</p>
+<h2><span class="sec-n">08</span>Integer formatting in detail</h2>
+<p>With all three controls in hand, the rest of the output chapters simply apply them to one data type at a time. This section uses the exact variables from the reference program:</p>
 <div class="code" data-label="c"><pre>int a = 10, b = 452, c = -56465, d = 45646546;</pre></div>
 
-<h3>6.1 The complete reference flag matrix — verified</h3>
+<h3>8.1 The other bases: octal and hexadecimal</h3>
+<div class="code" data-label="c"><pre>unsigned int x = 452;
+
+printf("decimal     : %u\n", x);
+printf("octal       : %o\n", x);
+printf("hex         : %x\n", x);
+printf("HEX         : %X\n", x);
+printf("alt octal   : %#o\n", x);
+printf("alt hex     : %#x\n", x);
+printf("alt HEX     : %#X\n", x);</pre></div>
+<div class="out">decimal     : 452
+octal       : 704
+hex         : 1c4
+HEX         : 1C4
+alt octal   : 0704
+alt hex     : 0x1c4
+alt HEX     : 0X1C4</div>
+<p>The three base conversions take an <code>unsigned int</code>. The <code>#</code> flag from Section 6.5 adds the prefix that makes the base unambiguous when the result is read back.</p>
+
+<h3>8.2 Alternative form combined with width, precision, and zero</h3>
+<div class="code" data-label="c"><pre>printf("%#x\n", 0u);
+printf("%#08x\n", 452u);
+printf("%#08o\n", 452u);
+printf(":%#.0o:\n", 0u);</pre></div>
+<div class="out">0
+0x0001c4
+00000704
+:0:</div>
+<p>Hexadecimal prefixes are not added for a zero value. With zero padding, the <code>0x</code> prefix is placed before the padding zeroes, so the prefix stays readable. The last line is the one exception to Section 5.3: precision zero normally erases an integer zero, but octal alternative form still guarantees the leading <code>0</code>.</p>
+
+<div class="callout trap"><span class="lbl"><code>%#i</code> is not valid alternative-form output</span><p>The <code>#</code> flag has no defined meaning for <code>%i</code>. In the test run glibc happened to print the same decimal result, but Clang explicitly diagnosed the combination as undefined behavior. Use <code>%#o</code>, <code>%#x</code>, or <code>%#X</code> for base prefixes.</p></div>
+
+<h3>8.3 The complete reference flag matrix — verified</h3>
+<p>Every rule from Sections 04 to 07 appears somewhere in this matrix. Read it as a consolidation exercise rather than as new material: for each line, predict the output before looking at it.</p>
 <p class="verified">GCC 14.2 and Clang 17 produced identical runtime output</p>
 <div class="code" data-label="c"><pre>printf("a=:%d:    b=:%d:    c=:%d:    d=:%d:\n", a,b,c,d);
 printf("a=:%4d:   b=:%4d:   c=:%4d:   d=:%4d:\n", a,b,c,d);
@@ -398,48 +506,59 @@ a=:10      : b=:452     : c=:-56465  : d=:45646546:
 a=:+10     : b=:+452    : c=:-56465  : d=:+45646546:
 a=:+10     : b=:+452    : c=:-56465  : d=:+45646546:</div>
 <div class="callout tip"><span class="lbl">What the matrix proves</span><p>Width does not truncate; signs count inside the width; zero padding goes after the sign; flag order is flexible; <code>-</code> turns padding into trailing spaces; and when <code>-</code> is present, <code>0</code> is ignored.</p></div>
-
-<h3>6.2 Octal and hexadecimal output</h3>
-<div class="code" data-label="c"><pre>unsigned int x = 452;
-
-printf("decimal     : %u\n", x);
-printf("octal       : %o\n", x);
-printf("hex         : %x\n", x);
-printf("HEX         : %X\n", x);
-printf("alt octal   : %#o\n", x);
-printf("alt hex     : %#x\n", x);
-printf("alt HEX     : %#X\n", x);</pre></div>
-<div class="out">decimal     : 452
-octal       : 704
-hex         : 1c4
-HEX         : 1C4
-alt octal   : 0704
-alt hex     : 0x1c4
-alt HEX     : 0X1C4</div>
-
-<h3>6.3 Alternative form and zero</h3>
-<div class="code" data-label="c"><pre>printf("%#x\n", 0u);
-printf("%#08x\n", 452u);
-printf("%#08o\n", 452u);</pre></div>
-<div class="out">0
-0x0001c4
-00000704</div>
-<p>Hexadecimal prefixes are not added for a zero value. With zero padding, the <code>0x</code> prefix is placed before the padding zeroes.</p>
-
-<div class="callout trap"><span class="lbl"><code>%#i</code> is not valid alternative-form output</span><p>The <code>#</code> flag has no defined meaning for <code>%i</code>. In the test run glibc happened to print the same decimal result, but Clang explicitly diagnosed the combination as undefined behavior. Use <code>%#o</code>, <code>%#x</code>, or <code>%#X</code> for base prefixes.</p></div>
 </section>
+
 <section id="floats">
-<h2><span class="sec-n">07</span>Floating-point formatting in detail</h2>
-<div class="callout"><span class="lbl">First rule</span><p>In calls to <code>printf</code>, a <code>float</code> argument is promoted to <code>double</code>. Therefore <code>%f</code> and <code>%lf</code> produce the same output role in <code>printf</code>. In <code>scanf</code>, however, <code>%f</code> requires <code>float *</code> and <code>%lf</code> requires <code>double *</code>.</p></div>
-<p>Using the exact values from the reference program:</p>
+<h2><span class="sec-n">09</span>Floating-point formatting in detail</h2>
+<div class="callout"><span class="lbl">First rule</span><p>In calls to <code>printf</code>, a <code>float</code> argument is promoted to <code>double</code>. Therefore <code>%f</code> and <code>%lf</code> produce the same output role in <code>printf</code>. In <code>scanf</code>, however, <code>%f</code> requires <code>float *</code> and <code>%lf</code> requires <code>double *</code>. Section 11 explains why the two directions differ.</p></div>
+<p>This section uses the exact values from the reference program:</p>
 <div class="code" data-label="c"><pre>float p = 4.49f;
 float q = -0.00000005f;
 float r = 100005.21454f;
 float t = 78565465e-14f;</pre></div>
 
-<h3>7.1 Exact reference experiment — verified on the test platform</h3>
+<h3>9.1 The default is six digits after the decimal point</h3>
+<div class="code" data-label="c"><pre>printf(":%f:\n",  p);
+printf(":%lf:\n", p);
+printf(":%.1f:\n", p);
+printf(":%.4f:\n", p);</pre></div>
+<div class="out">:4.490000:
+:4.490000:
+:4.5:
+:4.4900:</div>
+<p><code>%f</code> and <code>%lf</code> are interchangeable here, which is exactly what the promotion rule predicts. Precision, as in Section 5.2, rounds the displayed result without touching the stored value.</p>
+
+<h3>9.2 Scientific notation with <code>%e</code> and <code>%E</code></h3>
+<div class="code" data-label="c"><pre>printf(":%e:\n",   q);
+printf(":%.1e:\n", q);
+printf(":%.1E:\n", q);</pre></div>
+<div class="out">:-5.000000e-08:
+:-5.0e-08:
+:-5.0E-08:</div>
+<p>Precision counts the digits after the point in the mantissa. The only difference between <code>%e</code> and <code>%E</code> is the case of the exponent letter — and, for <code>%x</code> versus <code>%X</code>, the same convention held in Section 08.</p>
+
+<h3>9.3 Negative zero can appear</h3>
+<div class="code" data-label="c"><pre>printf(":%f:\n",   q);
+printf(":%.0f:\n", q);</pre></div>
+<div class="out">:-0.000000:
+:-0:</div>
+<p><code>q</code> is a very small negative value. When rounded to six decimal places it becomes <code>-0.000000</code>, and with zero fractional digits it becomes <code>-0</code>. The sign survives even when the displayed magnitude rounds to zero, which is a formatting artefact rather than an error.</p>
+
+<h3>9.4 <code>#</code> forces the decimal point</h3>
+<div class="code" data-label="c"><pre>printf("%.0f\n",  4.49);
+printf("%#.0f\n", 4.49);</pre></div>
+<div class="out">4
+4.</div>
+<p>This is the floating-point meaning of the same <code>#</code> flag that produced <code>0x</code> in Section 8.1: keep the mark that says what kind of value this is, even when it looks redundant.</p>
+
+<h3>9.5 Why the stored value may surprise you</h3>
+<div class="code" data-label="c"><pre>printf("%20.10f\n", r);</pre></div>
+<div class="out">   100005.2109375000</div>
+<p>The literal <code>100005.21454</code> is converted to <code>float</code> when assigned to <code>r</code>. On the tested platform, the nearest stored value prints as <code>100005.2109375000</code> once enough decimal places are requested. Formatting does not create that error; a wide precision merely reveals the approximation that was already stored.</p>
+
+<h3>9.6 The full reference experiment — verified on the test platform</h3>
 <p class="verified">GCC 14.2 and Clang 17 produced identical output on this Linux environment</p>
-<p>Each line prints the same four variables through one more demanding conversion than the last. The leading <code>%%</code> in every format string is what writes the literal <code>%</code> that labels the line.</p>
+<p>This is the floating-point counterpart of the integer matrix in Section 8.3. Each line prints the same four variables through one more demanding conversion than the last. The leading <code>%%</code> in every format string is what writes the literal <code>%</code> that labels the line.</p>
 <div class="code" data-label="c"><pre>printf("%%lf   p=:%lf: q=:%lf: r=:%lf: t=:%lf:\n", p, q, r, t);
 printf("%%f    p=:%f: q=:%f: r=:%f: t=:%f:\n", p, q, r, t);
 printf("%%10f  p=:%10f: q=:%10f: r=:%10f: t=:%10f:\n", p, q, r, t);
@@ -476,41 +595,17 @@ printf("%%.1e/E p=:%.1e: q=:%.1E: r=:%.1e: t=:%.1e:\n", p, q, r, t);</pre></div>
 %10.1f p=:       4.5: q=:      -0.0: r=:  100005.2: t=:       0.0:
 %.1e/E p=:4.5e+00: q=:-5.0E-08: r=:1.0e+05: t=:7.9e-07:</div>
 
-<div class="callout tip"><span class="lbl">Two of those lines draw a warning</span><p>The <code>%-020.10f</code> and <code>%-020.10e</code> forms combine <code>-</code> with <code>0</code>. Both compilers report <code>flag '0' is ignored when flag '-' is present</code>, which is exactly the behavior shown above: <code>t</code> is left-aligned and padded with spaces, not zeros. The combination is kept here because the reference experiment includes it; write <code>%-20.10f</code> in your own code.</p></div>
-
-<h3>7.2 Why the stored value may surprise you</h3>
-<p>The literal <code>100005.21454</code> is converted to <code>float</code> when assigned to <code>r</code>. On the tested platform, the nearest stored value prints as <code>100005.2109375000</code> with enough decimal places. Formatting does not create that error; it merely reveals the approximation already stored.</p>
-
-<h3>7.3 Precision rounds the displayed result</h3>
-<div class="code" data-label="c"><pre>printf("%.0f\n", p);
-printf("%.1f\n", p);
-printf("%.4f\n", p);</pre></div>
-<div class="out">4
-4.5
-4.4900</div>
-<p>Changing precision changes the text produced, not the object stored in memory.</p>
-
-<h3>7.4 Negative zero can appear</h3>
-<p><code>q</code> is a very small negative value. When rounded to six decimal places it becomes <code>-0.000000</code>, and with zero fractional digits it becomes <code>-0</code>. The sign can survive even when the displayed magnitude rounds to zero.</p>
-
-<h3>7.5 The <code>#</code> flag can force the decimal point</h3>
-<div class="code" data-label="c"><pre>printf("%.0f\n", 4.49);
-printf("%#.0f\n", 4.49);</pre></div>
-<div class="out">4
-4.</div>
-
-<h3>7.6 <code>-</code> overrides zero padding here too</h3>
-<div class="code" data-label="c"><pre>printf(":%-020.10f:\n", 0.0000007856546631);</pre></div>
-<div class="out">:0.0000007857        :</div>
-<p>GCC and Clang both warn that <code>0</code> is ignored because left alignment is active.</p>
+<div class="callout tip"><span class="lbl">Two of those lines draw a warning</span><p>The <code>%-020.10f</code> and <code>%-020.10e</code> forms combine <code>-</code> with <code>0</code>, the clash already settled in Section 7.2. Both compilers report <code>flag '0' is ignored when flag '-' is present</code>, which is exactly the behavior shown above: <code>t</code> is left-aligned and padded with spaces, not zeros. The combination is kept here because the reference experiment includes it; write <code>%-20.10f</code> in your own code.</p></div>
 </section>
+
 <section id="strings">
-<h2><span class="sec-n">08</span>String output formatting</h2>
+<h2><span class="sec-n">10</span>String output formatting</h2>
+<p>Strings use the same width and precision slots, with the precision meaning from Section 5.1: a maximum, not a minimum.</p>
 <div class="code" data-label="c"><pre>char s[]   = "wow!";
 char ss[]  = "wOw!Really Great!";
 char sss[] = "100% accurAte! Handsome! Awesome! Speechless!";</pre></div>
 
-<h3>8.1 Width right-aligns a short string</h3>
+<h3>10.1 Width right-aligns a short string</h3>
 <div class="code" data-label="c"><pre>printf(":%20s:\n", s);
 printf(":%20s:\n", ss);
 printf(":%20s:\n", sss);</pre></div>
@@ -519,18 +614,18 @@ printf(":%20s:\n", sss);</pre></div>
 :100% accurAte! Handsome! Awesome! Speechless!:</div>
 <p>Width is a minimum. The long third string is printed completely rather than being truncated.</p>
 
-<h3>8.2 Left alignment</h3>
+<h3>10.2 Left alignment</h3>
 <div class="code" data-label="c"><pre>printf(":%-20s:\n", s);</pre></div>
 <div class="out">:wow!                :</div>
 
-<h3>8.3 Precision limits how much of the string is written</h3>
+<h3>10.3 Precision limits how much of the string is written</h3>
 <div class="code" data-label="c"><pre>printf(":%20.5s:\n", ss);
 printf(":%-20.5s:\n", ss);</pre></div>
 <div class="out">:               wOw!R:
 :wOw!R               :</div>
-<p>Precision is applied first to obtain at most five bytes; width then aligns that shortened result inside a 20-character field.</p>
+<p>Precision is applied first to obtain at most five bytes; width then aligns that shortened result inside a 20-character field — the order of operations from Section 7.5.</p>
 
-<h3>8.4 Exact behavior of the experimental invalid flags</h3>
+<h3>10.4 Exact behavior of the experimental invalid flags</h3>
 <p>The reference code deliberately tries <code>%020s</code>, <code>%+20s</code>, and <code>%-020s</code>. Both GCC and Clang warn. Clang specifically says the unsupported flag combinations result in undefined behavior.</p>
 <div class="out">On this tested glibc run:
 %020s   happened to look like %20s
@@ -538,9 +633,62 @@ printf(":%-20.5s:\n", ss);</pre></div>
 %-020s  happened to look like %-20s</div>
 <div class="callout trap"><span class="lbl">Do not convert an observation into a language rule</span><p>The runtime output above is only what this implementation happened to do. Portable C code should use <code>%20s</code>, <code>%-20s</code>, <code>%20.5s</code>, or <code>%-20.5s</code>.</p></div>
 </section>
+
+<section id="length-modifiers">
+<h2><span class="sec-n">11</span>Length modifiers: changing the assumed type</h2>
+<p>The specifier table in Section 03 assumes the default argument types: <code>int</code> for <code>%d</code>, <code>unsigned int</code> for <code>%u</code>, <code>double</code> for <code>%f</code>. A <strong>length modifier</strong> sits immediately before the conversion character and changes that assumed type. It is the <code>length</code> slot in both grammar diagrams of Section 02.</p>
+<div class="anatomy"><span class="pct">%</span><span class="width">width</span><span class="length">l</span><span class="spec">d</span></div>
+<table>
+<thead><tr><th>Modifier</th><th>With <code>d</code> <code>i</code></th><th>With <code>u</code> <code>o</code> <code>x</code> <code>X</code></th><th>With <code>f</code> <code>e</code> <code>g</code></th></tr></thead>
+<tbody>
+<tr><td><em>none</em></td><td><code>int</code></td><td><code>unsigned int</code></td><td><code>double</code> out, <code>float</code> in</td></tr>
+<tr><td><code>hh</code></td><td><code>signed char</code></td><td><code>unsigned char</code></td><td>—</td></tr>
+<tr><td><code>h</code></td><td><code>short</code></td><td><code>unsigned short</code></td><td>—</td></tr>
+<tr><td><code>l</code></td><td><code>long</code></td><td><code>unsigned long</code></td><td><code>double</code> on input; no effect on output</td></tr>
+<tr><td><code>ll</code></td><td><code>long long</code></td><td><code>unsigned long long</code></td><td>—</td></tr>
+<tr><td><code>L</code></td><td>—</td><td>—</td><td><code>long double</code></td></tr>
+<tr><td><code>z</code></td><td>—</td><td><code>size_t</code></td><td>—</td></tr>
+<tr><td><code>j</code></td><td><code>intmax_t</code></td><td><code>uintmax_t</code></td><td>—</td></tr>
+<tr><td><code>t</code></td><td><code>ptrdiff_t</code></td><td>—</td><td>—</td></tr>
+</tbody></table>
+<p class="mini">With <code>%c</code> and <code>%s</code>, the <code>l</code> modifier selects the wide-character forms <code>wint_t</code> and <code>wchar_t *</code>, which are outside the scope of this tutorial.</p>
+
+<h3>11.1 Why output is forgiving and input is not</h3>
+<p>This is the single most important thing to understand about the length slot, and it is also the bridge into the input chapters that follow.</p>
+<div class="compare">
+<div class="card"><h3>Output passes values</h3><p>Default argument promotion converts every <code>char</code> and <code>short</code> to <code>int</code>, and every <code>float</code> to <code>double</code>, before <code>printf</code> sees it. So <code>%d</code> already handles <code>char</code> and <code>short</code>, and <code>%f</code> already handles both <code>float</code> and <code>double</code>. The modifier is only genuinely required for types wider than <code>int</code>, such as <code>long</code> and <code>long long</code>.</p></div>
+<div class="card"><h3>Input passes addresses</h3><p>No promotion applies to a pointer. <code>scanf</code> writes exactly as many bytes as the conversion says, at the address you supply. If the modifier does not match the destination, the wrong number of bytes is written and the behavior is undefined.</p></div>
+</div>
+<div class="code" data-label="c"><pre>short  h;
+long   L;
+double d;
+float  f;
+
+/* input: the modifier must match the destination exactly */
+scanf("%hd", &amp;h);    /* short *       */
+scanf("%ld", &amp;L);    /* long *        */
+scanf("%lf", &amp;d);    /* double *      */
+scanf("%f",  &amp;f);    /* float *       */
+
+/* output: both of these are correct, because f is promoted to double */
+printf("%f %f\n", f, d);</pre></div>
+<div class="callout trap"><span class="lbl">The two mistakes that actually happen</span>
+<div class="code" data-label="c — both wrong"><pre>double d;
+long   n;
+
+scanf("%f", &amp;d);   /* writes 4 bytes into an 8-byte object */
+scanf("%d", &amp;n);   /* writes 4 bytes into an 8-byte object */</pre></div>
+<p>Neither is a compile error, but both corrupt the destination. A verified run of the first one stored a value that read back as <code>0.000000</code>. Both compilers do warn with <code>-Wall</code>:</p>
+<div class="out">warning: format specifies type 'float *' but the argument has type 'double *'
+warning: format specifies type 'int *' but the argument has type 'long *'</div>
+<p>This is also why <code>%lf</code> is required for reading a <code>double</code> even though <code>%f</code> is enough for printing one.</p></div>
+<div class="callout tip"><span class="lbl">The one you will need constantly</span><p><code>strlen</code>, <code>sizeof</code>, and the array-counting idiom all produce <code>size_t</code>, whose width is not guaranteed to match <code>unsigned int</code>. Print it with <code>%zu</code>, never with <code>%d</code> or <code>%u</code>.</p></div>
+</section>
+
 <section id="char-io">
-<h2><span class="sec-n">09</span>Character and simple string I/O</h2>
-<h3>9.1 <code>getchar()</code> and <code>putchar()</code></h3>
+<h2><span class="sec-n">12</span>Character and simple string I/O</h2>
+<p>Input starts with the smallest unit there is: one character at a time, with no format string involved.</p>
+<h3>12.1 <code>getchar()</code> and <code>putchar()</code></h3>
 <div class="code" data-label="c"><pre>#include &lt;ctype.h&gt;
 #include &lt;stdio.h&gt;
 
@@ -554,25 +702,28 @@ int main(void)
 
     return 0;
 }</pre></div>
-<div class="callout tip"><span class="lbl">Why <code>int ch</code>, not <code>char ch</code>?</span><p><code>getchar()</code> needs to represent every possible unsigned-character value plus the separate sentinel <code>EOF</code>. Store its result in <code>int</code>.</p></div>
+<div class="callout tip"><span class="lbl">Why <code>int ch</code>, not <code>char ch</code>?</span><p><code>getchar()</code> needs to represent every possible unsigned-character value plus the separate sentinel <code>EOF</code>. Store its result in <code>int</code>. Section 14 explains <code>EOF</code> in full.</p></div>
 
-<h3>9.2 <code>putchar(c)</code> and <code>printf("%c", c)</code></h3>
+<h3>12.2 <code>putchar(c)</code> and <code>printf("%c", c)</code></h3>
 <p>Both can output one character. <code>putchar</code> is the direct character-output function; <code>printf</code> is useful when the character is part of a larger formatted record.</p>
 
-<h3>9.3 <code>puts()</code> appends a newline automatically</h3>
+<h3>12.3 <code>puts()</code> appends a newline automatically</h3>
 <div class="code" data-label="c"><pre>puts("-----------------------------");
 printf("-----------------------------\n");</pre></div>
 <p>These produce the same visible line. The difference is that the newline is implicit in <code>puts</code>.</p>
 
-<h3>9.4 A character can also be formatted as an integer</h3>
+<h3>12.4 A character can also be formatted as an integer</h3>
 <div class="code" data-label="c"><pre>char ch = 'g';
 printf("character = %c, numeric code = %d\n", ch, (unsigned char) ch);</pre></div>
 <div class="out">character = g, numeric code = 103</div>
-<p>The value <code>103</code> is what the tested ASCII-based execution environment uses for <code>'g'</code>. This explains the reference expression <code>x += s[10]</code>: before the array is overwritten, <code>s[10]</code> is <code>'g'</code>, so on this system <code>x</code> changes from 100 to 203.</p>
+<p>The value <code>103</code> is what the tested ASCII-based execution environment uses for <code>'g'</code>. A character is simply a small integer, and either view of it can be printed. Section 17 puts this fact to work when arithmetic is done on the bytes of a string.</p>
 </section>
+
 <section id="scanf">
-<h2><span class="sec-n">10</span>Formatted input with <code>scanf</code></h2>
-<h3>10.1 Field width and assignment suppression — exact reference example</h3>
+<h2><span class="sec-n">13</span>Formatted input with <code>scanf</code></h2>
+<p>The format string now runs in the other direction. The specifiers are the ones from Section 03; what changes is that width becomes a <em>maximum</em> and that every destination is an address.</p>
+
+<h3>13.1 Field width and assignment suppression</h3>
 <p>Given:</p><div class="out">63458465321654</div>
 <div class="code" data-label="c"><pre>int a, b, c, d;
 int count = scanf("%1d%2d%*3d%4d%d", &amp;a, &amp;b, &amp;c, &amp;d);</pre></div>
@@ -585,56 +736,56 @@ int count = scanf("%1d%2d%*3d%4d%d", &amp;a, &amp;b, &amp;c, &amp;d);</pre></div
 </tbody></table>
 <div class="out">count = 4
 a = 6, b = 34, c = 6532, d = 1654</div>
-<p>The suppressed conversion consumes input but is not counted as an assignment.</p>
+<p>One long run of digits is cut into four values purely by the widths. The suppressed conversion consumes input but is not counted as an assignment, which is why <code>count</code> is 4 and not 5.</p>
 
-<h3>10.2 Base-specific input: <code>%o</code>, <code>%x</code>, <code>%X</code>, and <code>%d</code></h3>
+<h3>13.2 Base-specific input: <code>%o</code>, <code>%x</code>, <code>%X</code>, and <code>%d</code></h3>
 <p>With the exact reference input:</p>
 <div class="out">065355 0X4fFbFd 0xd 0123</div>
 <div class="code" data-label="c"><pre>unsigned int a, b, c;
 int d;
 
-sscanf("065355 0X4fFbFd 0xd 0123",
-       "%o%x%X%d", &amp;a, &amp;b, &amp;c, &amp;d);</pre></div>
+scanf("%o%x%X%d", &amp;a, &amp;b, &amp;c, &amp;d);</pre></div>
 <div class="out">decimal values: 27373 5241853 13 123</div>
-<p>The final token <code>0123</code> is read by <code>%d</code>, so it is decimal 123. The leading zero does not make <code>%d</code> switch to octal.</p>
+<p>Each conversion decides the base by itself; the text does not have to carry a prefix. The final token <code>0123</code> is read by <code>%d</code>, so it is decimal 123 — the leading zero does not make <code>%d</code> switch to octal.</p>
 
-<h3>10.3 The same text with <code>%i</code> gives a different last value</h3>
+<h3>13.3 The same input with <code>%i</code> gives a different last value</h3>
 <div class="code" data-label="c"><pre>int a, b, c, d;
-sscanf("065355 0X4fFbFd 0xd 0123",
-       "%i%i%i%i", &amp;a, &amp;b, &amp;c, &amp;d);</pre></div>
+scanf("%i%i%i%i", &amp;a, &amp;b, &amp;c, &amp;d);</pre></div>
 <div class="out">27373 5241853 13 83</div>
-<p><code>%i</code> detects the prefix: <code>065355</code> and <code>0123</code> are octal, while <code>0X4fFbFd</code> and <code>0xd</code> are hexadecimal.</p>
+<p><code>%i</code> detects the prefix: <code>065355</code> and <code>0123</code> are octal, while <code>0X4fFbFd</code> and <code>0xd</code> are hexadecimal. This is the one place where <code>%d</code> and <code>%i</code> genuinely differ.</p>
 
-<h3>10.4 Reformatting the parsed values</h3>
+<h3>13.4 Reformatting the parsed values</h3>
 <div class="code" data-label="c"><pre>printf("a=%o, b=%x, c=%i, d=%X\n", a, b, (int)c, (unsigned)d);
 printf("a=%#o, b=%#x, d=%#X\n", a, b, (unsigned)d);</pre></div>
 <div class="out">a=65355, b=4ffbfd, c=13, d=7B
 a=065355, b=0x4ffbfd, d=0X7B</div>
+<p>The value stored in memory is just a number. The base is a property of the text, chosen independently on the way in and on the way out.</p>
 
-<h3>10.5 Correct pointer types are part of the format contract</h3>
-<div class="callout trap"><span class="lbl">Type mismatch</span><p><code>%o</code>, <code>%x</code>, and <code>%X</code> expect <code>unsigned int *</code> unless a length modifier says otherwise. The original experiment used <code>int *</code>; that is a format-type mismatch even when <code>int</code> and <code>unsigned int</code> happen to have the same representation size.</p></div>
+<h3>13.5 Correct pointer types are part of the format contract</h3>
+<div class="callout trap"><span class="lbl">Type mismatch</span><p><code>%o</code>, <code>%x</code>, and <code>%X</code> expect <code>unsigned int *</code> unless a length modifier says otherwise. The original experiment used <code>int *</code>; that is a format-type mismatch even when <code>int</code> and <code>unsigned int</code> happen to have the same representation size. Section 11 is the rule this follows.</p></div>
 
-<h3>10.6 Whitespace behavior is conversion-dependent</h3>
+<h3>13.6 Whitespace behavior is conversion-dependent</h3>
 <ul>
 <li>Most numeric conversions and <code>%s</code> skip leading whitespace automatically.</li>
 <li><code>%c</code>, <code>%[</code>, and <code>%n</code> do not automatically skip leading whitespace.</li>
 <li>A whitespace character inside the format string means “skip any amount of input whitespace.”</li>
 </ul>
 
-<h3>10.7 Always check the return value</h3>
+<h3>13.7 Always check the return value</h3>
 <div class="code" data-label="c"><pre>int x;
 if (scanf("%d", &amp;x) == 1) {
     printf("Read: %d\n", x);
 } else {
     printf("Invalid integer input.\n");
 }</pre></div>
-<p><code>scanf</code> reports the number of successful assignments. Input failure before the first conversion may produce <code>EOF</code>. Section 11 turns that single sentence into a complete rule.</p>
+<p><code>scanf</code> reports the number of successful assignments. Input failure before the first conversion may produce <code>EOF</code>. Section 14 turns that single sentence into a complete rule.</p>
 </section>
+
 <section id="eof">
-<h2><span class="sec-n">11</span>End of input and <code>EOF</code></h2>
+<h2><span class="sec-n">14</span>End of input and <code>EOF</code></h2>
 <p>Every input function needs a way to report “there is nothing left to read.” In C that report is the macro <code>EOF</code>, defined in <code>&lt;stdio.h&gt;</code>.</p>
 
-<h3>11.1 What <code>EOF</code> actually is</h3>
+<h3>14.1 What <code>EOF</code> actually is</h3>
 <ul>
 <li>It is a <strong>macro</strong>, not a keyword, and it expands to a negative <code>int</code> constant. On virtually every implementation that value is <code>-1</code>.</li>
 <li>It is <strong>not a character</strong>. No byte in a file is “the EOF byte.” It is a sentinel that input functions return <em>in place of</em> a character.</li>
@@ -648,7 +799,7 @@ while ((ch = getchar()) != EOF)</pre></div></div>
 while ((ch = getchar()) != EOF)</pre></div></div>
 </div>
 
-<h3>11.2 Producing end of input at a terminal</h3>
+<h3>14.2 Producing end of input at a terminal</h3>
 <p>When a program reads from the keyboard, nothing ends the input until you say so.</p>
 <table>
 <thead><tr><th>Situation</th><th>How to signal end of input</th></tr></thead>
@@ -661,7 +812,7 @@ while ((ch = getchar()) != EOF)</pre></div></div>
 </table>
 <p class="mini">Pressing <code>Ctrl</code>+<code>D</code> in the middle of a typed line flushes what is buffered instead of ending the stream, which is why the convention is to press it on a fresh line.</p>
 
-<h3>11.3 The character-counting loop</h3>
+<h3>14.3 The character-counting loop</h3>
 <div class="code" data-label="c"><pre>#include &lt;stdio.h&gt;
 
 int main(void)
@@ -683,7 +834,7 @@ int main(void)
 <div class="out">9 characters, 2 lines</div>
 <p>Nine characters, because both newline characters are counted. The assignment inside the condition is deliberate and idiomatic: read, store, and test in one step. The inner parentheses are required, since <code>!=</code> binds more tightly than <code>=</code>.</p>
 
-<h3>11.4 The three possible <code>scanf</code> return values</h3>
+<h3>14.4 The three possible <code>scanf</code> return values</h3>
 <p><code>scanf</code> does not return the value it read. It returns a count, and the count has three distinct cases that must not be confused.</p>
 <table>
 <thead><tr><th>Return value</th><th>Name</th><th>Meaning</th><th>State of the input</th></tr></thead>
@@ -720,7 +871,7 @@ stopped: input was not a number</div>
 read 20
 stopped: end of input</div>
 
-<h3>11.5 Recovering from a matching failure</h3>
+<h3>14.5 Recovering from a matching failure</h3>
 <p>To keep reading after bad input, discard the offending text yourself before trying again.</p>
 <div class="code" data-label="c"><pre>int x, r;
 
@@ -743,7 +894,7 @@ read 30
 end of input</div>
 <p>The loop now terminates on <code>EOF</code> alone, and the matching-failure branch guarantees forward progress by consuming at least the rest of the line.</p>
 
-<h3>11.6 Reading words until the input ends</h3>
+<h3>14.6 Reading words until the input ends</h3>
 <p>The same <code>EOF</code> test drives a string loop. <code>%s</code> reads one whitespace-delimited word, so the loop below consumes the entire input one word at a time regardless of how the words are spread across lines.</p>
 <div class="code" data-label="c"><pre>#include &lt;stdio.h&gt;
 
@@ -767,7 +918,7 @@ word 3: gamma
 total 3 words</div>
 <div class="callout tip"><span class="lbl">Two details in that format string</span><p>The width <code>99</code> is not optional: <code>word</code> holds 100 characters, so at most 99 may be read to leave room for <code>'\0'</code>. A leading space, as in <code>" %99s"</code>, is harmless but unnecessary — <code>%s</code> already skips leading whitespace on its own, including the newlines between lines.</p></div>
 
-<h3>11.7 Reading a whole line, spaces included</h3>
+<h3>14.7 Reading a whole line, spaces included</h3>
 <p><code>%s</code> stops at the first space, so it cannot read a full sentence. The negated scanset <code>%[^\n]</code> reads everything up to, but not including, the next newline.</p>
 <div class="code" data-label="c"><pre>#include &lt;stdio.h&gt;
 
@@ -797,9 +948,9 @@ r=0 [first line here]
 r=0 [first line here]
 ...</div>
 <p>The leading space consumes the pending newline before the scanset starts, which fixes it. Testing <code>== 1</code> instead of <code>!= EOF</code> would also stop the loop, though it would stop on a blank line too.</p></div>
-<p class="mini">Section 12 covers scansets in full, including positive sets, negated sets, and the whitespace behavior described here.</p>
+<p class="mini">Section 15 covers scansets in full, including positive sets, negated sets, and the whitespace behavior described here.</p>
 
-<h3>11.8 <code>EOF</code> across the input functions</h3>
+<h3>14.8 <code>EOF</code> across the input functions</h3>
 <table>
 <thead><tr><th>Function</th><th>Value when the input ends</th><th>Correct loop test</th></tr></thead>
 <tbody>
@@ -812,22 +963,25 @@ r=0 [first line here]
 <div class="callout"><span class="lbl">One habit covers all of them</span><p>Never test for end of input separately from the read. Capture what the input function returned, compare it against that function's own failure value, and let that comparison drive the loop.</p></div>
 <div class="callout tip"><span class="lbl">Coming later in the course</span><p><code>EOF</code> reports either a genuine end of input or a read error, and the two library predicates that tell them apart, <code>feof</code> and <code>ferror</code>, take a stream argument. They belong with data files, later in the learning path, along with the reason <code>while (!feof(...))</code> is the wrong shape for a read loop.</p></div>
 </section>
-<section id="scansets">
-<h2><span class="sec-n">12</span>String pattern matching with scansets</h2>
-<p>A scanset uses <code>%[...]</code>. It reads a consecutive sequence of characters selected by the set and then appends a null terminator to the destination array.</p>
 
-<h3>12.1 Positive scanset</h3>
+<section id="scansets">
+<h2><span class="sec-n">15</span>String pattern matching with scansets</h2>
+<p>A scanset uses <code>%[...]</code>. It reads a consecutive sequence of characters selected by the set and then appends a null terminator to the destination array. Section 14.7 already used one; this section covers the notation in full.</p>
+
+<h3>15.1 Positive scanset</h3>
 <div class="code" data-label="c"><pre>char s[100];
 scanf("%99[a-z]", s);</pre></div>
 <p>This accepts up to 99 consecutive lowercase letters. Width 99 leaves one byte for <code>'\0'</code>.</p>
 
-<h3>12.2 Negated scanset</h3>
+<h3>15.2 Negated scanset</h3>
+<p>Given the input:</p>
+<div class="out">sfsad RRRG;</div>
 <div class="code" data-label="c"><pre>char s[100];
-sscanf("sfsad RRRG;", "%99[^a-d]", s);</pre></div>
+scanf("%99[^a-d]", s);</pre></div>
 <div class="out">sfs</div>
 <p>The leading <code>^</code> means “accept anything except the listed set.” Reading stops immediately before the first <code>a</code>, <code>b</code>, <code>c</code>, or <code>d</code>.</p>
 
-<h3>12.3 The exact chained scanset experiment</h3>
+<h3>15.3 The exact chained scanset experiment</h3>
 <p>Starting with:</p>
 <div class="out">sfsad RRRG; -  dkdfjalkds</div>
 <p>The first conversion:</p>
@@ -840,17 +994,20 @@ ss = :ad RRRG; -  d:
 remaining input begins with :kdfjalkds:</div>
 <p>This exact result was confirmed under both tested runtimes.</p>
 
-<h3>12.4 Scansets do not skip leading whitespace automatically</h3>
+<h3>15.4 Scansets do not skip leading whitespace automatically</h3>
 <p>If the next unread character is a space and space is not in the scanset, the conversion fails immediately. Add a space before the conversion in the format string when you intentionally want to skip input whitespace first:</p>
 <div class="code" data-label="c"><pre>scanf(" %99[a-z]", s);</pre></div>
 
-<h3>12.5 Why <code>%[]</code> is malformed</h3>
+<h3>15.5 Why <code>%[]</code> is malformed</h3>
 <p>Both GCC and Clang warn that <code>"%[]"</code> has no closing <code>]</code> for a valid scanset specification. In the local experiment it returned zero assignments and left the destination unchanged, but malformed format specifications must not be used as a programming technique.</p>
 <div class="callout trap"><span class="lbl">Practical rule</span><p>Always give string and scanset input a width that leaves room for the terminating null byte: <code>%99s</code> or <code>%99[...]</code> for a 100-byte array.</p></div>
 </section>
+
 <section id="string-io">
-<h2><span class="sec-n">13</span>Formatted I/O with strings: <code>sscanf</code>, <code>sprintf</code>, and <code>snprintf</code></h2>
-<h3>13.1 <code>sscanf</code>: parse text already stored in memory</h3>
+<h2><span class="sec-n">16</span>Formatted I/O with strings: <code>sscanf</code>, <code>sprintf</code>, and <code>snprintf</code></h2>
+<p>Everything so far has read from <code>stdin</code> and written to <code>stdout</code>. The same format-string machinery also works on <strong>character arrays in memory</strong>. <code>sscanf</code> parses from a string exactly as <code>scanf</code> parses from the keyboard, and <code>sprintf</code>/<code>snprintf</code> format into a buffer exactly as <code>printf</code> formats to the screen. Every rule from Sections 03–15 — specifiers, width, precision, scansets, return values — carries over unchanged; only the source and destination differ.</p>
+
+<h3>16.1 <code>sscanf</code>: parse text already stored in memory</h3>
 <div class="code" data-label="c"><pre>char text[] = "ID=42 CGPA=3.75";
 int id;
 double cgpa;
@@ -859,30 +1016,24 @@ int count = sscanf(text, "ID=%d CGPA=%lf", &amp;id, &amp;cgpa);</pre></div>
 <div class="out">count = 2
 id = 42
 cgpa = 3.75</div>
-<p>The source is a string instead of <code>stdin</code>, but conversion and return-value rules follow the formatted-input family.</p>
+<p>The literal characters <code>ID=</code> and <code>CGPA=</code> in the format string must match the input exactly; only the conversions produce values. The three-way return-value logic from Section 14.4 applies unchanged: a positive count, <code>0</code> on a matching failure, <code>EOF</code> when the string is exhausted before the first conversion.</p>
 
-<h3>13.2 Pointer arithmetic lets parsing begin in the middle</h3>
-<div class="code" data-label="c"><pre>char s[] = "Something going to happen, but who knows!\0Oh!";
-char word[100];
-
-sscanf(s + 37, "%99s", word);</pre></div>
-<div class="out">word = ows!</div>
-<p><code>s + 37</code> points directly at the <code>o</code> in <code>ows!</code>.</p>
-
-<h3>13.3 <code>sprintf</code>: format into a character array</h3>
+<h3>16.2 <code>sprintf</code>: format into a character array</h3>
 <div class="code" data-label="c"><pre>char buffer[100];
 int count = sprintf(buffer, "x = %d", 203);</pre></div>
 <div class="out">buffer = x = 203
 count = 7</div>
 <p>The return value is the number of characters written before the terminating null character. <code>sprintf</code> itself has no destination-size limit.</p>
 
-<h3>13.4 Prefer <code>snprintf</code> when capacity matters</h3>
+<h3>16.3 Prefer <code>snprintf</code> when capacity matters</h3>
 <div class="code" data-label="c"><pre>char buffer[8];
 int needed = snprintf(buffer, sizeof buffer, "value=%d", 12345);</pre></div>
 <p>At most seven visible characters plus the null terminator fit in <code>buffer</code>. The return value reports how many characters would have been produced with unlimited space, which lets you detect truncation by checking whether <code>needed &gt;= sizeof buffer</code>.</p>
+<p class="mini">Both <code>sprintf</code> and <code>sscanf</code> operate on an array of bytes with a capacity, terminated by a null character. Section 17 examines exactly what that means in memory.</p>
 </section>
+
 <section id="null">
-<h2><span class="sec-n">14</span>Embedded null characters, array capacity, and stale bytes</h2>
+<h2><span class="sec-n">17</span>Embedded null characters, array capacity, and stale bytes</h2>
 <p>Consider the exact reference array:</p>
 <div class="code" data-label="c"><pre>char s[] = "Something going to happen, but who knows!\0Oh!";</pre></div>
 <p>There are two null bytes in the initialized content: the explicit <code>\0</code> after the exclamation mark and the implicit terminator added after <code>Oh!</code>.</p>
@@ -894,16 +1045,24 @@ strlen = 41
 s      = Something going to happen, but who knows!</div>
 <p><code>sizeof</code> measures the complete array. <code>strlen</code> counts only from the starting address up to the first null byte.</p>
 
-<h3>14.1 Critical indices before overwriting</h3>
+<h3>17.1 Critical indices before overwriting</h3>
 <table><thead><tr><th>Index</th><th>Byte</th><th>Meaning</th></tr></thead><tbody>
-<tr><td>10</td><td><code>'g'</code> / 103 on the tested ASCII system</td><td>Used by <code>x += s[10]</code>, making 100 become 203.</td></tr>
+<tr><td>10</td><td><code>'g'</code> / 103 on the tested ASCII system</td><td>A character is a small integer, as Section 12.4 showed; <code>x += s[10]</code> below turns 100 into 203.</td></tr>
 <tr><td>37</td><td><code>'o'</code></td><td><code>s + 37</code> begins the substring <code>ows!</code>.</td></tr>
 <tr><td>41</td><td><code>'\0'</code></td><td>First string terminator.</td></tr>
 <tr><td>42–44</td><td><code>O h !</code></td><td>Bytes physically present in the array but hidden from <code>%s</code> starting at <code>s</code>.</td></tr>
 <tr><td>45</td><td><code>'\0'</code></td><td>Final implicit terminator.</td></tr>
 </tbody></table>
 
-<h3>14.2 What <code>sprintf</code> overwrites — and what it does not</h3>
+<h3>17.2 Pointer arithmetic lets <code>sscanf</code> begin in the middle</h3>
+<p>Because a C string is just a starting address, <code>sscanf</code> can be handed any position inside the array. The index table above shows that <code>s + 37</code> points at the <code>o</code> of <code>knows!</code>:</p>
+<div class="code" data-label="c"><pre>char word[100];
+
+sscanf(s + 37, "%99s", word);</pre></div>
+<div class="out">word = ows!</div>
+<p>Parsing stops at the first null terminator, index 41, exactly as it would stop at the end of console input.</p>
+
+<h3>17.3 What <code>sprintf</code> overwrites — and what it does not</h3>
 <div class="code" data-label="c"><pre>int x = 100;
 x += s[10];              /* 203 on the tested ASCII system */
 sprintf(s, "x = 100+s[10] = %d", x);</pre></div>
@@ -918,8 +1077,9 @@ s+20 = :appen, but who knows!:</div>
 
 <div class="callout tip"><span class="lbl">Core model</span><p>An array is a region of bytes with a capacity. A C string is a view that starts at some byte and ends at the first null byte encountered from that starting point.</p></div>
 </section>
+
 <section id="pitfalls">
-<h2><span class="sec-n">15</span>Common mistakes and verified corrections</h2>
+<h2><span class="sec-n">18</span>Common mistakes and verified corrections</h2>
 <table>
 <thead><tr><th>Pattern</th><th>What the test/compiler showed</th><th>Teach instead</th></tr></thead>
 <tbody>
@@ -941,17 +1101,18 @@ s+20 = :appen, but who knows!:</div>
 <tr><td>Assuming <code>%lf</code> is required to print <code>double</code></td><td>Reference test: <code>%f</code> and <code>%lf</code> printed identically.</td><td>Remember that the important <code>%f</code>/<code>%lf</code> distinction is on <code>scanf</code> input.</td></tr>
 </tbody></table>
 </section>
+
 <section id="reference-program">
-<h2><span class="sec-n">16</span>A consolidated, corrected demonstration program</h2>
+<h2><span class="sec-n">19</span>A consolidated, corrected demonstration program</h2>
 <div id="verification" class="callout"><span class="lbl">Verification environment</span><p>The edge-case programs behind this tutorial were compiled with <code>gcc 14.2.0</code> and <code>clang 17.0.0</code> using <code>-std=c17 -Wall -Wextra -Wpedantic -Wformat=2</code>. The two executables produced identical runtime output for the tested cases. Compiler warnings are treated as part of the lesson: a result that happens to print on one C library is not presented as guaranteed behavior when the format itself is invalid.</p></div>
-<p>This program keeps the spirit of the reference code while making the type usage and bounded string operations suitable for teaching.</p>
+<p>This program keeps the spirit of the reference code while making the type usage and bounded string operations suitable for teaching. Its sections appear in the same order as the handbook: integer output, floating-point output, string output, then string-based parsing and formatting.</p>
 <div class="code" data-label="c"><pre>#include &lt;ctype.h&gt;
 #include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
 
 int main(void)
 {
-    /* Integer formatting */
+    /* Integer formatting — Section 08 */
     int a = 10, b = 452, c = -56465, d = 45646546;
 
     printf("Default : %d %d %d %d\n", a, b, c, d);
@@ -960,7 +1121,7 @@ int main(void)
     printf("Sign    : %+08d %+08d %+08d %+08d\n", a, b, c, d);
     printf("Left    : %-8d %-8d %-8d %-8d\n\n", a, b, c, d);
 
-    /* Floating-point formatting */
+    /* Floating-point formatting — Section 09 */
     double p = 4.49;
     double q = -0.00000005;
     double r = 100005.21454;
@@ -970,13 +1131,13 @@ int main(void)
     printf("Width/prec. : %20.10f\n", r);
     printf("Signed/zero : %+020.10f\n\n", p);
 
-    /* String formatting */
+    /* String formatting — Section 10 */
     char text[] = "wOw!Really Great!";
     printf("Right   : :%20s:\n", text);
     printf("Left    : :%-20s:\n", text);
     printf("Limit   : :%20.5s:\n\n", text);
 
-    /* sscanf: parse from a string */
+    /* sscanf: parse from a string — Section 16 */
     char record[] = "ID=42 CGPA=3.75";
     int id;
     double cgpa;
@@ -985,7 +1146,7 @@ int main(void)
         printf("Parsed: id=%d, cgpa=%.2f\n", id, cgpa);
     }
 
-    /* snprintf: format into a bounded array */
+    /* snprintf: format into a bounded array — Section 16 */
     char buffer[100];
     snprintf(buffer, sizeof buffer, "Student %d has CGPA %.2f", id, cgpa);
     printf("Buffer: %s\n", buffer);
@@ -993,8 +1154,9 @@ int main(void)
     return 0;
 }</pre></div>
 </section>
+
 <section id="quick-reference">
-<h2><span class="sec-n">17</span>Quick reference</h2>
+<h2><span class="sec-n">20</span>Quick reference</h2>
 <h3><code>printf</code> pattern</h3>
 <div class="out">% [flags] [width] [.precision] [length] conversion</div>
 <table><thead><tr><th>Goal</th><th>Format</th><th>Example result</th></tr></thead><tbody>
@@ -1009,6 +1171,14 @@ int main(void)
 <tr><td>At most 5 string bytes</td><td><code>%.5s</code></td><td><code>wOw!R</code></td></tr>
 <tr><td>Left-aligned limited string</td><td><code>%-20.5s</code></td><td><code>wOw!R               </code></td></tr>
 </tbody></table>
+<h3>When two controls disagree</h3>
+<table><thead><tr><th>Clash</th><th>Winner</th><th>Section</th></tr></thead><tbody>
+<tr><td><code>-</code> against <code>0</code></td><td><code>-</code>; zero padding is ignored</td><td>7.2</td></tr>
+<tr><td><code>+</code> against space</td><td><code>+</code>; the space flag is ignored</td><td>7.3</td></tr>
+<tr><td>Integer precision against <code>0</code></td><td>Precision; zero padding is ignored</td><td>7.4</td></tr>
+<tr><td>Width against a longer result</td><td>The result; width never truncates</td><td>4.1</td></tr>
+<tr><td>String precision against a longer string</td><td>Precision; the string is cut</td><td>5.1</td></tr>
+</tbody></table>
 <h3><code>scanf</code> pattern</h3>
 <div class="out">% [*] [maximum-width] [length] conversion</div>
 <ul>
@@ -1020,15 +1190,17 @@ int main(void)
 <li>Always inspect the return value when input validity matters.</li>
 </ul>
 </section>
+
 <section id="references">
-<h2><span class="sec-n">18</span>References and further reading</h2>
+<h2><span class="sec-n">21</span>References and further reading</h2>
 <ul>
 <li><strong>ISO/IEC 9899:2023 working draft N3096</strong>, §7.23.6 — Formatted input/output functions, especially <code>fprintf</code>/<code>printf</code>, <code>fscanf</code>/<code>scanf</code>, <code>snprintf</code>, <code>sprintf</code>, and <code>sscanf</code>. <a href="https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf" rel="noopener" target="_blank">Open the WG14 draft</a>.</li>
 <li><strong>GNU C Library Manual</strong> — Formatted Output and Formatted Input. <a href="https://sourceware.org/glibc/manual/latest/html_node/Formatted-Output.html" rel="noopener" target="_blank">Formatted Output</a> · <a href="https://sourceware.org/glibc/manual/latest/html_node/Formatted-Input.html" rel="noopener" target="_blank">Formatted Input</a>.</li>
 <li><strong>Schaum's Outline of Programming with C</strong> — chapter on Data Input and Output, for textbook-oriented exercises and progression.</li>
 </ul>
-<div class="callout"><span class="lbl">Recommended learning order</span> Start with specifiers → width → precision → flags → integer examples → floating-point examples → strings → <code>scanf</code> width/suppression → scansets → <code>sscanf</code>/<code>snprintf</code> → null-character memory behavior.</div>
+<div class="callout"><span class="lbl">Recommended learning order</span> Follow the sections as numbered: mental model → format anatomy → conversion specifiers → width alone → precision alone → each flag alone → the combinations and their tie-breaking rules → integers → floating point → strings → length modifiers → character I/O → <code>scanf</code> → <code>EOF</code> and return values → scansets → <code>sscanf</code>/<code>sprintf</code>/<code>snprintf</code> → null-character memory behavior.</div>
 </section>
+
 
   </main>
 
