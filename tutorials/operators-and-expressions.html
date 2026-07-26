@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A detailed handbook on operators in C: classification by purpose and arity, compound assignment, prefix and postfix increment and decrement, the conditional and comma operators, sizeof, precedence, associativity, parentheses, compound conditions, short-circuit evaluation, side effects, and order-of-evaluation pitfalls.">
+  <title>Operators &amp; Expression Evaluation in C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#f7f8fb;--paper2:#fcfdfd;--card:#fff;--ink:#172033;--soft:#5f6b7d;--line:#e2e7ef;--line2:#ccd5e1;--teal:#0f6b5b;--teal2:#e9f5f2;--gold:#e39518;--gold2:#fbebcb;--rose:#c64268;--code:#152232;--codeink:#e7ecf2;--radius:14px;--maxw:820px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.62 "Public Sans",system-ui,sans-serif}.site-header{position:sticky;top:0;z-index:50;background:#fffffff0;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.header-inner{max-width:1120px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none}.brand-mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--teal);color:#fff;font-weight:800}.brand strong,.brand small{display:block}.brand strong{line-height:1.15}.brand small{margin-top:3px;color:var(--soft)}.header-nav{display:flex;gap:18px;font-size:.94rem}.header-nav a{text-decoration:none}.header-nav a:hover{text-decoration:underline}.wrap{max-width:1120px;margin:auto;padding:34px 24px 0;display:grid;grid-template-columns:230px minmax(0,1fr);column-gap:44px}.hero{grid-column:1/-1;padding:46px 42px 36px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#eef8f5,#f8fbff);box-shadow:0 8px 28px #1923370b}.kicker,.toc-title,.lbl{font:700 .72rem/1.3 "JetBrains Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}h1{font-size:clamp(2.3rem,5.5vw,3.9rem);line-height:1.03;letter-spacing:-.045em;margin:.35em 0 .3em}.lede{max-width:760px;margin:0;color:var(--soft);font-size:1.12rem}.release-badge{display:inline-flex;margin-top:18px;padding:7px 11px;border:1px solid #b7d6cf;border-radius:999px;background:#ffffffd1;color:var(--teal);font-size:.82rem;font-weight:700;text-decoration:none}.toc{position:sticky;top:88px;align-self:start;padding-top:36px;max-height:calc(100vh - 105px);overflow:auto}.toc-title{margin-bottom:12px;color:var(--soft)}.toc a{display:block;padding:5px 10px;border-left:2px solid var(--line);color:var(--soft);font-size:.9rem;text-decoration:none}.toc a:hover,.toc a:focus-visible{border-color:var(--gold);background:#fff;color:var(--ink)}.toc .n{margin-right:8px;color:var(--teal);font-family:"JetBrains Mono",monospace;font-size:.78em}main{max-width:var(--maxw);margin-top:30px;padding:0 32px 90px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:0 10px 32px #1923370d}section{padding-top:56px;scroll-margin-top:20px}h2{display:flex;align-items:baseline;gap:14px;margin:0 0 6px;font-size:1.9rem;letter-spacing:-.025em}h2 .sec-n{flex:none;padding:2px 9px;border:1px solid var(--gold);border-radius:8px;background:var(--gold2);color:#9a6208;font:700 1rem/1.4 "JetBrains Mono",monospace}h3{margin:34px 0 8px;font-size:1.28rem;letter-spacing:-.015em}p{margin:12px 0}a{color:var(--teal);text-underline-offset:3px}code{padding:1px 6px;border-radius:5px;background:var(--teal2);color:var(--teal);font:.86em "JetBrains Mono",monospace}.code,.out{position:relative;margin:18px 0;padding:18px 20px;border-radius:var(--radius);overflow-x:auto;white-space:pre;font:.83rem/1.55 "JetBrains Mono",monospace}.code{background:var(--code);color:var(--codeink)}.out{border:1px solid var(--line2);background:var(--paper2);color:var(--ink)}.code::before,.out::before{position:absolute;top:0;right:14px;transform:translateY(-50%);padding:3px 9px;border-radius:6px;font:700 .62rem "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase}.code::before{content:attr(data-label);background:var(--gold);color:var(--code)}.out::before{content:"output";background:var(--teal);color:#fff}.code pre{margin:0;font:inherit}.callout{margin:20px 0;padding:16px 20px 16px 22px;border-left:5px solid var(--teal);border-radius:var(--radius);background:var(--teal2)}.callout.tip{border-color:var(--gold);background:var(--gold2)}.callout.trap{border-color:var(--rose);background:#f8e1e8}.callout.tip .lbl{color:#865708}.callout.trap .lbl{color:#a12b4d}.callout p:first-of-type{margin-top:3px}.callout p:last-child{margin-bottom:0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}.card{min-width:0;padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper2)}.card h3{margin-top:0}.memory{margin:20px 0;padding:20px;border:1px solid var(--line2);border-radius:var(--radius);background:var(--paper2);overflow-x:auto}.memory-row{display:flex;min-width:max-content}.cell{width:116px;border:1px solid var(--line2);border-right:0;background:#fff;text-align:center}.cell:last-child{border-right:1px solid var(--line2)}.cell .index,.cell .address{display:block;padding:5px;color:var(--soft);font:.68rem "JetBrains Mono",monospace}.cell .value{display:block;padding:13px 5px;border-block:1px solid var(--line);background:var(--teal2);color:var(--teal);font:700 1rem "JetBrains Mono",monospace}.memory-note{margin:12px 0 0;color:var(--soft);font-size:.88rem}.equation{margin:18px 0;padding:18px;border:1px dashed var(--line2);border-radius:var(--radius);background:var(--paper2);text-align:center;font:600 1rem/1.8 "JetBrains Mono",monospace}table{width:100%;margin:18px 0;border-collapse:collapse;font-size:.94rem}th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}thead th{background:var(--ink);color:#fff;font:600 .72rem "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase}tbody tr:last-child td{border-bottom:0}.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}.compare .card.good{border-top:5px solid var(--teal)}.compare .card.bad{border-top:5px solid var(--rose)}.mini{color:var(--soft);font-size:.9rem}ol li,ul li{margin:7px 0}footer{grid-column:1/-1;margin-top:46px;padding:26px 0 60px;border-top:1px solid var(--line);color:var(--soft);font-size:.9rem;text-align:center}.release-footer{display:flex;flex-direction:column;gap:5px}.signature-name{color:var(--ink);font-family:Georgia,serif;font-size:1.08rem;font-style:italic}a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media(max-width:900px){.wrap{grid-template-columns:1fr}.toc{position:static;max-height:none;padding:20px 0 16px;border-bottom:1px solid var(--line)}.toc a{display:inline-block;border-left:0;border-bottom:2px solid var(--line)}main{max-width:100%}}@media(max-width:780px){.header-nav{display:none}.brand small{display:none}.header-inner{padding-inline:16px}.wrap{padding:0}.hero{padding:40px 16px 30px;border-inline:0;border-radius:0}.toc{padding-inline:16px;background:#fff}main{margin-top:0;padding:0 16px 68px;border:0;border-radius:0;background:transparent}section{scroll-margin-top:76px}h2{align-items:flex-start;font-size:1.65rem}.grid,.compare{grid-template-columns:1fr}table{display:block;overflow-x:auto}.code,.out,.memory{max-width:calc(100vw - 32px)}footer{padding-inline:16px}}
+    .drill{min-width:0;margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper2)}.drill>p:first-of-type{margin-top:0}.drill-n{display:inline-block;margin-right:9px;padding:2px 8px;border-radius:6px;background:var(--teal);color:#fff;font:700 .68rem "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase}.drill .code,.drill .out{margin:14px 0}.exercise{margin-top:14px;border-top:1px solid var(--line2)}.exercise>summary{padding-top:11px;color:var(--teal);cursor:pointer;font:700 .72rem "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;list-style:none}.exercise>summary::-webkit-details-marker{display:none}.exercise>summary::before{content:"+ "}.exercise[open]>summary::before{content:"− "}.exercise .sol>:last-child{margin-bottom:0}.prec-tbl td:first-child{width:56px;color:var(--soft);font:700 .82rem "JetBrains Mono",monospace}.prec-tbl tr.hl td{background:var(--gold2)}
+  </style>
+  <link rel="stylesheet" href="../mobile-nav.css">
+  <link rel="stylesheet" href="../tutorial-mobile.css?v=1.4.0">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html#top" aria-label="Structured Programming Language C home">
+      <span class="brand-mark">C</span>
+      <span><strong>Structured Programming Language</strong><small>C learning path and topic reference</small></span>
+    </a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a href="../index.html#foundation">Learning Path</a>
+      <a href="index.html">All Tutorials</a>
+      <a href="../updates.html">Updates</a>
+      <a href="../index.html#reference">Book Map</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open navigation">
+      <span class="nav-toggle-label">Open navigation</span>
+      <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+    </button>
+  </div>
+</header>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">Tutorial 04 · Detailed</div>
+    <h1>Operators &amp; Expression<br>Evaluation in C</h1>
+    <p class="lede">A complete handbook on the C operator system: every operator family, compound assignment, prefix and postfix forms, <code>?:</code>, <code>,</code>, <code>sizeof</code>, precedence, associativity, short-circuiting, side effects, and the evaluation-order rules that decide whether an expression is even valid.</p>
+    <a class="release-badge" href="../updates.html">Version <span data-release-version>1.4.0</span> · Added 26 July 2026</a>
+  </header>
+
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <a href="#basics"><span class="n">01</span>Operators &amp; expressions</a>
+    <a href="#classification"><span class="n">02</span>Full classification</a>
+    <a href="#lvalues"><span class="n">03</span>Lvalues &amp; rvalues</a>
+    <a href="#compound"><span class="n">04</span>Compound assignment</a>
+    <a href="#increment"><span class="n">05</span>Prefix vs postfix ++</a>
+    <a href="#decrement"><span class="n">06</span>Prefix vs postfix --</a>
+    <a href="#conditional"><span class="n">07</span>Conditional operator</a>
+    <a href="#comma"><span class="n">08</span>Comma operator</a>
+    <a href="#sizeof"><span class="n">09</span>sizeof operator</a>
+    <a href="#precedence"><span class="n">10</span>Precedence</a>
+    <a href="#associativity"><span class="n">11</span>Associativity</a>
+    <a href="#parentheses"><span class="n">12</span>Parentheses</a>
+    <a href="#compound-conditions"><span class="n">13</span>Compound conditions</a>
+    <a href="#short-circuit"><span class="n">14</span>Short-circuit evaluation</a>
+    <a href="#side-effects"><span class="n">15</span>Side effects</a>
+    <a href="#pitfalls"><span class="n">16</span>Evaluation-order traps</a>
+    <a href="#summary"><span class="n">17</span>Quick reference</a>
+    <a href="#practice"><span class="n">18</span>Practice</a>
+  </nav>
+
+  <main>
+    <section id="basics">
+      <h2><span class="sec-n">01</span>Operators, operands, and expressions</h2>
+      <p>An <strong>operator</strong> is a symbol or keyword that tells the compiler to perform one specific action. The values it acts upon are its <strong>operands</strong>. Any valid combination of operands and operators is an <strong>expression</strong>, and every expression produces a value.</p>
+      <div class="code" data-label="c"><pre>int a = 5, b = 3;
+int c = a + b;   /* '+' is the operator, 'a' and 'b' are operands,
+                    'a + b' is an expression whose value is 8    */</pre></div>
+      <p>Three ideas run through this entire tutorial:</p>
+      <div class="grid">
+        <div class="card"><h3>Value</h3><p>Every expression evaluates to a value of a definite type. Only <code>void</code> expressions produce no value.</p></div>
+        <div class="card"><h3>Side effect</h3><p>Some expressions also <strong>change program state</strong>: assignment, <code>++</code>, <code>--</code>, and function calls that modify data or perform input and output.</p></div>
+      </div>
+      <div class="callout"><span class="lbl">Evaluation order is a separate rule</span><p>C's rules decide <strong>which operand belongs to which operator</strong> through precedence and associativity. In most cases they do <strong>not</strong> decide <strong>the order in which the operands are actually computed</strong>. Sections 10 through 16 build this distinction carefully; it is the origin of most expression bugs.</p></div>
+
+      <h3>Expression statements</h3>
+      <p>Adding a semicolon to an expression turns it into a statement.</p>
+      <div class="code" data-label="c"><pre>x = 10;         /* assignment expression used as a statement    */
+i++;            /* increment expression used as a statement     */
+printf("hi");   /* function-call expression used as a statement */
+3 + 4;          /* legal but useless: 7 is computed and discarded */</pre></div>
+      <p>The last line compiles because C evaluates the expression and simply throws the value away. This "everything is an expression" design explains why an assignment can appear inside a condition, why the comma operator exists, and why side effects deserve a section of their own.</p>
+    </section>
+
+    <section id="classification">
+      <h2><span class="sec-n">02</span>Complete classification of C operators</h2>
+      <p>C operators can be organised along two independent axes: <strong>arity</strong>, meaning how many operands the operator takes, and <strong>purpose</strong>, meaning what job it performs.</p>
+
+      <h3>Classification by arity</h3>
+      <table>
+        <thead><tr><th>Arity</th><th>Meaning</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td>Unary</td><td>Acts on one operand</td><td><code>-x</code>, <code>!x</code>, <code>~x</code>, <code>++x</code>, <code>x--</code>, <code>&amp;x</code>, <code>*p</code>, <code>sizeof x</code>, <code>(type)x</code></td></tr>
+          <tr><td>Binary</td><td>Acts on a pair of operands</td><td><code>a + b</code>, <code>a % b</code>, <code>a &lt; b</code>, <code>a &amp;&amp; b</code>, <code>a = b</code>, <code>a &gt;&gt; b</code></td></tr>
+          <tr><td>Ternary</td><td>Acts on three operands. C has exactly one.</td><td><code>cond ? expr1 : expr2</code></td></tr>
+        </tbody>
+      </table>
+      <div class="callout tip"><span class="lbl">One symbol, two jobs</span><p>Several symbols are decided by position. <code>-</code> is subtraction in <code>a - b</code> but negation in <code>-a</code>. <code>*</code> is multiplication in <code>a * b</code> but indirection in <code>*p</code>. <code>&amp;</code> is bitwise AND in <code>a &amp; b</code> but address-of in <code>&amp;a</code>. The compiler tells them apart by where they appear, not by the character itself.</p></div>
+
+      <h3>Arithmetic operators</h3>
+      <table>
+        <thead><tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result with a = 7, b = 2</th></tr></thead>
+        <tbody>
+          <tr><td><code>+</code></td><td>Addition</td><td><code>a + b</code></td><td>9</td></tr>
+          <tr><td><code>-</code></td><td>Subtraction</td><td><code>a - b</code></td><td>5</td></tr>
+          <tr><td><code>*</code></td><td>Multiplication</td><td><code>a * b</code></td><td>14</td></tr>
+          <tr><td><code>/</code></td><td>Division</td><td><code>a / b</code></td><td>3, because integer division truncates</td></tr>
+          <tr><td><code>%</code></td><td>Remainder</td><td><code>a % b</code></td><td>1</td></tr>
+          <tr><td>unary <code>-</code></td><td>Negation</td><td><code>-a</code></td><td>−7</td></tr>
+          <tr><td>unary <code>+</code></td><td>Identity</td><td><code>+a</code></td><td>7</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li>Integer division truncates toward zero: <code>7 / 2</code> is <code>3</code> and <code>-7 / 2</code> is <code>-3</code>.</li>
+        <li><code>%</code> requires integer operands. <code>7.5 % 2</code> does not compile; use <code>fmod()</code> from <code>&lt;math.h&gt;</code> for floating-point remainders.</li>
+        <li>The sign of <code>a % b</code> follows the sign of <code>a</code>, so <code>-7 % 2</code> is <code>-1</code>.</li>
+        <li>Division or remainder by zero is undefined behavior for integers.</li>
+      </ul>
+      <div class="equation">(a / b) * b + a % b == a, for every b that is not zero</div>
+
+      <h3>Relational operators</h3>
+      <p>All four produce the <code>int</code> value <code>1</code> for true or <code>0</code> for false.</p>
+      <table>
+        <thead><tr><th>Operator</th><th>Meaning</th><th>Example with a = 7, b = 2</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>&lt;</code></td><td>Less than</td><td><code>a &lt; b</code></td><td>0</td></tr>
+          <tr><td><code>&lt;=</code></td><td>Less than or equal</td><td><code>a &lt;= b</code></td><td>0</td></tr>
+          <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>a &gt; b</code></td><td>1</td></tr>
+          <tr><td><code>&gt;=</code></td><td>Greater than or equal</td><td><code>a &gt;= b</code></td><td>1</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Equality operators</h3>
+      <p>These are listed separately from the relational operators because they sit at a <strong>lower precedence level</strong>.</p>
+      <table>
+        <thead><tr><th>Operator</th><th>Meaning</th><th>Example with a = 7, b = 2</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>==</code></td><td>Equal to</td><td><code>a == b</code></td><td>0</td></tr>
+          <tr><td><code>!=</code></td><td>Not equal to</td><td><code>a != b</code></td><td>1</td></tr>
+        </tbody>
+      </table>
+      <div class="callout trap"><span class="lbl">Assignment is not comparison</span><p><code>if (x = 5)</code> stores 5 in <code>x</code> and is therefore always true. <code>if (x == 5)</code> tests <code>x</code>. Section 16 returns to this.</p></div>
+
+      <h3>Logical operators</h3>
+      <p>These treat any nonzero operand as true and zero as false, and they always produce exactly <code>1</code> or <code>0</code>.</p>
+      <table>
+        <thead><tr><th>Operator</th><th>Meaning</th><th>Arity</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>&amp;&amp;</code></td><td>Logical AND</td><td>binary</td><td><code>(a &gt; 0) &amp;&amp; (b &gt; 0)</code></td></tr>
+          <tr><td><code>||</code></td><td>Logical OR</td><td>binary</td><td><code>(a &gt; 0) || (b &gt; 0)</code></td></tr>
+          <tr><td><code>!</code></td><td>Logical NOT</td><td>unary</td><td><code>!(a &gt; 0)</code></td></tr>
+        </tbody>
+      </table>
+      <p>Together with <code>?:</code> and the comma operator, <code>&amp;&amp;</code> and <code>||</code> are the only operators with a guaranteed left-to-right evaluation order. Section 14 covers what this buys you.</p>
+
+      <h3>Assignment operators</h3>
+      <table>
+        <thead><tr><th>Operator</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>=</code></td><td>Simple assignment</td></tr>
+          <tr><td><code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code></td><td>Arithmetic compound assignment</td></tr>
+          <tr><td><code>&amp;=</code> <code>|=</code> <code>^=</code> <code>&lt;&lt;=</code> <code>&gt;&gt;=</code></td><td>Bitwise compound assignment</td></tr>
+        </tbody>
+      </table>
+      <p>Assignment is an expression, not merely a statement. The value of <code>a = b</code> is the value stored in <code>a</code>, which is exactly why a chain such as <code>a = b = c = 0</code> works. Section 11 explains the grouping. The left operand cannot be any expression at all: it must be a <a href="#lvalues">modifiable lvalue</a>, which is the subject of Section 03.</p>
+
+      <h3>Increment, decrement, conditional, comma, and sizeof</h3>
+      <table>
+        <thead><tr><th>Operator</th><th>Meaning</th><th>Covered in</th></tr></thead>
+        <tbody>
+          <tr><td><code>++x</code> / <code>x++</code></td><td>Pre-increment and post-increment</td><td>Section 05</td></tr>
+          <tr><td><code>--x</code> / <code>x--</code></td><td>Pre-decrement and post-decrement</td><td>Section 06</td></tr>
+          <tr><td><code>?:</code></td><td>Choose between two values</td><td>Section 07</td></tr>
+          <tr><td><code>,</code></td><td>Evaluate both, produce the second</td><td>Section 08</td></tr>
+          <tr><td><code>sizeof</code></td><td>Size in bytes of a type or expression</td><td>Section 09</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Bitwise operators</h3>
+      <p>These act on the individual bits of integer operands.</p>
+      <table>
+        <thead><tr><th>Operator</th><th>Meaning</th><th>Example with a = 12 (1100), b = 10 (1010)</th></tr></thead>
+        <tbody>
+          <tr><td><code>&amp;</code></td><td>Bitwise AND</td><td><code>a &amp; b</code> gives 8 (1000)</td></tr>
+          <tr><td><code>|</code></td><td>Bitwise OR</td><td><code>a | b</code> gives 14 (1110)</td></tr>
+          <tr><td><code>^</code></td><td>Bitwise XOR</td><td><code>a ^ b</code> gives 6 (0110)</td></tr>
+          <tr><td><code>~</code></td><td>Bitwise NOT</td><td><code>~a</code> gives −13 on two's-complement machines</td></tr>
+          <tr><td><code>&lt;&lt;</code></td><td>Left shift</td><td><code>a &lt;&lt; 1</code> gives 24</td></tr>
+          <tr><td><code>&gt;&gt;</code></td><td>Right shift</td><td><code>a &gt;&gt; 1</code> gives 6</td></tr>
+        </tbody>
+      </table>
+      <div class="callout trap"><span class="lbl">Keep the two families apart</span><p><code>&amp;</code> and <code>|</code> are bitwise operators that always evaluate both operands. <code>&amp;&amp;</code> and <code>||</code> are logical operators that stop early. A single missing character changes both the meaning and the safety of a condition.</p></div>
+
+      <h3>Pointer, member access, and miscellaneous</h3>
+      <table>
+        <thead><tr><th>Operator</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>unary <code>&amp;</code></td><td>Address-of</td></tr>
+          <tr><td>unary <code>*</code></td><td>Dereference, also called indirection</td></tr>
+          <tr><td><code>[]</code></td><td>Array subscript</td></tr>
+          <tr><td><code>.</code></td><td>Structure or union member access</td></tr>
+          <tr><td><code>-&gt;</code></td><td>Member access through a pointer</td></tr>
+          <tr><td><code>(type)</code></td><td>Cast: convert a value to another type</td></tr>
+          <tr><td><code>()</code></td><td>Function call</td></tr>
+        </tbody>
+      </table>
+
+      <h3>The cast operator in practice</h3>
+      <p>Because integer division truncates, a cast is what rescues an average or a ratio.</p>
+      <div class="code" data-label="c"><pre>int sum = 17, n = 5;
+
+float wrong = sum / n;         /* 3.0 — integer division happened first */
+float right = (float)sum / n;  /* 3.4 — sum becomes float, so does the
+                                  whole division                        */</pre></div>
+      <div class="callout"><span class="lbl">Why the cast must come first</span><p>In <code>(float)(sum / n)</code> the truncation already happened before the conversion, so the result is still 3.0. Cast one <strong>operand</strong>, not the finished result.</p></div>
+    </section>
+
+    <section id="lvalues">
+      <h2><span class="sec-n">03</span>Lvalues and rvalues</h2>
+      <p>Some operators need more than a value. <code>=</code>, <code>++</code>, and <code>&amp;</code> need to know <strong>where</strong> a value lives, because they must store into that place or take its address. C splits expressions into two categories to express this.</p>
+      <div class="grid">
+        <div class="card"><h3>Lvalue</h3><p>An expression that <strong>designates an object</strong>, meaning a named region of storage. It has a location, so it can be read from and, usually, written to.</p></div>
+        <div class="card"><h3>Rvalue</h3><p>An expression that produces only a <strong>value</strong>, with no storage location you can name. It can be read, and nothing more.</p></div>
+      </div>
+      <div class="callout tip"><span class="lbl">Where the names come from</span><p>Historically, an lvalue is what may appear on the <strong>left</strong> of an assignment and an rvalue is what may appear on the <strong>right</strong>. Treat that as a mnemonic only. The accurate reading of the <em>l</em> is <strong>locator</strong>: an lvalue locates an object. Every lvalue can also be used on the right-hand side, so the two categories are not symmetric.</p></div>
+
+      <h3>Modifiable and non-modifiable lvalues</h3>
+      <p>Having a location is not the same as being writable. An lvalue is <strong>modifiable</strong> unless it is <code>const</code>-qualified or has array type.</p>
+      <table>
+        <thead><tr><th>Expression</th><th>Lvalue?</th><th>Modifiable?</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td><code>x</code>, an <code>int</code> variable</td><td>Yes</td><td>Yes</td><td>A named object in storage</td></tr>
+          <tr><td><code>a[i]</code></td><td>Yes</td><td>Yes</td><td>Subscripting designates one element</td></tr>
+          <tr><td><code>*p</code></td><td>Yes</td><td>Yes, unless <code>p</code> points to <code>const</code></td><td>Dereferencing designates the pointed-to object</td></tr>
+          <tr><td><code>s.count</code>, <code>p-&gt;count</code></td><td>Yes</td><td>Yes</td><td>Member access designates one member</td></tr>
+          <tr><td><code>(x)</code></td><td>Yes</td><td>Yes</td><td>Parentheses never change lvalue status</td></tr>
+          <tr><td><code>c</code>, declared <code>const int c = 5;</code></td><td>Yes</td><td><strong>No</strong></td><td><code>const</code> forbids the store</td></tr>
+          <tr><td><code>arr</code>, an array name</td><td>Yes</td><td><strong>No</strong></td><td>Array type; a whole array cannot be assigned</td></tr>
+          <tr><td><code>"text"</code></td><td>Yes</td><td><strong>No</strong></td><td>A string literal is an array whose contents must not be written</td></tr>
+          <tr><td><code>5</code>, <code>a + b</code>, <code>f()</code>, <code>(int)x</code>, <code>sizeof x</code>, <code>x++</code></td><td><strong>No</strong></td><td>—</td><td>Rvalues: a computed value with no designated object</td></tr>
+        </tbody>
+      </table>
+      <div class="equation">Every modifiable lvalue is an lvalue.<br>Not every lvalue is modifiable.</div>
+
+      <h3>Which operators care</h3>
+      <table>
+        <thead><tr><th>Requirement</th><th>Operators</th><th>Consequence</th></tr></thead>
+        <tbody>
+          <tr><td>Requires a <strong>modifiable lvalue</strong></td><td><code>=</code>, all ten compound forms, <code>++</code> and <code>--</code> in both positions</td><td>They store a new value, so they need a writable location</td></tr>
+          <tr><td>Requires an <strong>lvalue</strong>, modifiable or not</td><td>unary <code>&amp;</code>, the address-of operator</td><td>Only something with a location has an address</td></tr>
+          <tr><td><strong>Produces</strong> an lvalue</td><td><code>*</code>, <code>[]</code>, <code>.</code>, <code>-&gt;</code>, and parentheses around an lvalue</td><td>Their results can be assigned to, so <code>*p = 3;</code> and <code>a[i]++</code> are valid</td></tr>
+          <tr><td>Produces an <strong>rvalue</strong></td><td>Everything else, including <code>=</code> itself</td><td>The result cannot be assigned to or have its address taken</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><span class="lbl">Assignment yields a value, not a place</span><p>In C the result of <code>a = b</code> is an rvalue: the value that was stored. This is why <code>(a = b) = c</code> and <code>&amp;(a = b)</code> are both errors. C++ made assignment produce an lvalue instead, which is a common source of confusion when reading code from the other language.</p></div>
+
+      <h3>The errors this explains</h3>
+      <div class="code" data-label="c — none of these compile"><pre>5 = x;          /* 5 has no location to store into      */
+(a + b) = 10;   /* the sum is a value, not an object     */
+f() = 3;        /* the returned value has no location    */
+5++;            /* nothing to increment                  */
+(a + b)++;      /* same reason                           */
+++x++;          /* x++ produces a value, so the outer ++
+                   has no object to work on              */
+arr = other;    /* array names are non-modifiable        */
+&amp;(a + b);       /* a computed value has no address       */</pre></div>
+      <p>The two major compilers describe the same fault in different words, so learn to recognise both.</p>
+      <table>
+        <thead><tr><th>Mistake</th><th>GCC wording</th><th>Clang wording</th></tr></thead>
+        <tbody>
+          <tr><td>Rvalue on the left of <code>=</code></td><td>lvalue required as left operand of assignment</td><td>expression is not assignable</td></tr>
+          <tr><td><code>++</code> or <code>--</code> on an rvalue</td><td>lvalue required as increment operand</td><td>expression is not assignable</td></tr>
+          <tr><td><code>&amp;</code> applied to an rvalue</td><td>lvalue required as unary '&amp;' operand</td><td>cannot take the address of an rvalue</td></tr>
+          <tr><td>Assigning a whole array</td><td>assignment to expression with array type</td><td>array type 'int[3]' is not assignable</td></tr>
+          <tr><td>Assigning to a <code>const</code></td><td>assignment of read-only variable</td><td>cannot assign to variable with const-qualified type</td></tr>
+        </tbody>
+      </table>
+      <div class="callout trap"><span class="lbl">The classic typo has an lvalue explanation</span><p>Writing <code>if (x = 5)</code> instead of <code>if (x == 5)</code> compiles because <code>x</code> is a modifiable lvalue, so the assignment is legal. Reversing the operands as <code>if (5 == x)</code> turns the same typo into <code>5 = x</code>, which is an immediate lvalue error. That is the entire reason behind the so-called Yoda condition style in Section 16.</p></div>
+
+      <h3>Reading an lvalue converts it to a value</h3>
+      <p>In most contexts an lvalue is immediately read, and what the surrounding expression sees is the value stored there. This step is called <strong>lvalue conversion</strong>.</p>
+      <div class="code" data-label="c"><pre>int a = 3, b = 4, c;
+
+c = a + b;   /* a and b are lvalues, but each is read for its value.
+                c stays an lvalue, because '=' stores into it.       */</pre></div>
+      <p>The four contexts that do <strong>not</strong> perform this conversion are precisely the ones that need the location itself: the left operand of an assignment, the operand of <code>&amp;</code>, the operand of <code>++</code> or <code>--</code>, and the operand of <code>sizeof</code>.</p>
+      <div class="callout tip"><span class="lbl">Carry this into the next sections</span><p>Every rule about <code>op=</code> in Section 04, about <code>++</code> and <code>--</code> in Sections 05 and 06, and about side effects in Section 15 rests on this one idea: those operators act on an <strong>object</strong>, and an expression that merely produces a value has no object for them to act on.</p></div>
+    </section>
+
+    <section id="compound">
+      <h2><span class="sec-n">04</span>Compound assignment operators</h2>
+      <p>A compound assignment merges a binary operation with an assignment.</p>
+      <div class="equation">lhs op= rhs is almost the same as lhs = lhs op (rhs)</div>
+      <p>There are ten of them: <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>, <code>&amp;=</code>, <code>|=</code>, <code>^=</code>, <code>&lt;&lt;=</code>, <code>&gt;&gt;=</code>.</p>
+      <div class="code" data-label="c"><pre>int i = 10;
+
+i += 5;   /* i = i + 5  →  15 */
+i -= 3;   /* i = i - 3  →  12 */
+i *= 2;   /* i = i * 2  →  24 */
+i /= 5;   /* i = i / 5  →  4, integer division */
+i %= 3;   /* i = i % 3  →  1  */</pre></div>
+
+      <h3>Why it is more than a shorthand</h3>
+      <p>The word "almost" in the equivalence above hides two real guarantees.</p>
+      <div class="compare">
+        <div class="card good"><h3>The left side is evaluated once</h3><div class="code" data-label="c"><pre>a[f()] += 1;</pre></div><p><code>f()</code> is called exactly once, so exactly one element is read and updated.</p></div>
+        <div class="card bad"><h3>The long form evaluates it twice</h3><div class="code" data-label="c"><pre>a[f()] = a[f()] + 1;</pre></div><p><code>f()</code> is called twice and may return two different indexes, updating the wrong element.</p></div>
+      </div>
+      <p>This matters whenever the left side has a side effect or is expensive to compute.</p>
+
+      <h3>The right side is implicitly parenthesised</h3>
+      <div class="code" data-label="c"><pre>int x = 10;
+x *= 3 + 2;   /* x = x * (3 + 2) = 50,  NOT (x * 3) + 2 = 32 */</pre></div>
+      <p>The whole right-hand expression is computed first, and only then combined with the left side.</p>
+
+      <h3>Type conversion still applies</h3>
+      <p>The result is converted to the type of the left operand, exactly as in a simple assignment.</p>
+      <div class="code" data-label="c"><pre>int i = 7;
+i /= 2.0;    /* computed as 7 / 2.0 = 3.5 in double,
+                then truncated on storage: i is 3 */
+
+char c = 100;
+c += 50;     /* the arithmetic happens in int and produces 150,
+                which is then stored back into a char           */</pre></div>
+
+      <h3>A compound assignment is an expression</h3>
+      <div class="code" data-label="c"><pre>int x = 3, y;
+y = (x += 5);   /* x becomes 8, and y also becomes 8 */</pre></div>
+      <div class="callout tip"><span class="lbl">Style</span><p>Prefer <code>count += step;</code> over <code>count = count + step;</code>. It states the intent, adjust in place, and removes the risk of retyping the wrong variable name. Keep compound assignments as standalone statements rather than burying them inside larger expressions.</p></div>
+    </section>
+
+    <section id="increment">
+      <h2><span class="sec-n">05</span>Prefix versus postfix increment</h2>
+      <p>Both <code>++x</code> and <code>x++</code> add 1 to <code>x</code>. They differ only in <strong>the value the expression itself produces</strong>.</p>
+      <table>
+        <thead><tr><th>Form</th><th>Value of the expression</th><th>Side effect</th></tr></thead>
+        <tbody>
+          <tr><td><code>++x</code>, pre-increment</td><td>The value of <code>x</code> <strong>after</strong> the increment</td><td><code>x</code> increases by 1</td></tr>
+          <tr><td><code>x++</code>, post-increment</td><td>The value of <code>x</code> <strong>before</strong> the increment</td><td><code>x</code> increases by 1</td></tr>
+        </tbody>
+      </table>
+      <div class="equation">The position of ++ tells you when it happens: before the variable means change then use, after the variable means use then change.</div>
+
+      <h3>Side-by-side</h3>
+      <div class="code" data-label="c"><pre>int x, y;
+
+x = 5;
+y = ++x;   /* x becomes 6 first, then y = 6.  Now x == 6, y == 6 */
+
+x = 5;
+y = x++;   /* y takes the old value 5, then x becomes 6.  x == 6, y == 5 */</pre></div>
+
+      <h3>Alone, the two forms are identical</h3>
+      <p>When the value of the expression is discarded, nothing distinguishes them.</p>
+      <div class="code" data-label="c"><pre>i++;                              /* same net effect */
+++i;                              /* same net effect */
+
+for (i = 0; i &lt; 10; i++) { ... }  /* identical loop behavior */
+for (i = 0; i &lt; 10; ++i) { ... }  /* identical loop behavior */</pre></div>
+
+      <h3>Inside a larger expression, the difference decides the answer</h3>
+      <div class="code" data-label="c"><pre>int a = 3, b = 3;
+
+int p = 10 * a++;   /* p = 10 * 3 = 30; afterwards a == 4 */
+int q = 10 * ++b;   /* b becomes 4 first, so q = 10 * 4 = 40 */</pre></div>
+      <p>The same distinction appears in the classic array idiom.</p>
+      <div class="code" data-label="c"><pre>int arr[5] = {10, 20, 30, 40, 50};
+int i = 1;
+
+int v1 = arr[i++];   /* v1 = arr[1] = 20, then i becomes 2 */
+int v2 = arr[++i];   /* i becomes 3 first, so v2 = arr[3] = 40 */</pre></div>
+      <div class="memory" role="img" aria-label="Array of five elements with the two indexes reached by the postfix and prefix forms">
+        <div class="memory-row">
+          <div class="cell"><span class="index">arr[0]</span><span class="value">10</span><span class="address">&nbsp;</span></div>
+          <div class="cell"><span class="index">arr[1]</span><span class="value">20</span><span class="address">i++ reads here</span></div>
+          <div class="cell"><span class="index">arr[2]</span><span class="value">30</span><span class="address">&nbsp;</span></div>
+          <div class="cell"><span class="index">arr[3]</span><span class="value">40</span><span class="address">++i reads here</span></div>
+          <div class="cell"><span class="index">arr[4]</span><span class="value">50</span><span class="address">&nbsp;</span></div>
+        </div>
+        <p class="memory-note">Starting from <code>i == 1</code>, the postfix form subscripts with the old index while the prefix form subscripts with the new one.</p>
+      </div>
+
+      <h3>What the operand is allowed to be</h3>
+      <ul>
+        <li>The operand must be a <a href="#lvalues">modifiable lvalue</a>: a variable, an array element, a dereferenced pointer, or a structure member. <code>5++</code> and <code>(a + b)++</code> are compile errors because neither designates an object.</li>
+        <li><code>++</code> cannot be stacked: <code>++x++</code> is illegal because <code>x++</code> produces a value rather than an object, so the outer <code>++</code> has nothing to increment.</li>
+      </ul>
+      <div class="callout"><span class="lbl">A more precise statement of timing</span><p>Formally, <code>x++</code> produces the old value and the increment is applied at some point before the next sequence point, not necessarily the instant the value is read. That looseness is exactly why <code>x++ + x++</code> is undefined, as Section 16 shows. For a single, isolated use, the simple "use then increment" picture is safe.</p></div>
+    </section>
+
+    <section id="decrement">
+      <h2><span class="sec-n">06</span>Prefix versus postfix decrement</h2>
+      <p>The decrement operator mirrors <code>++</code> exactly, subtracting 1 instead of adding it.</p>
+      <table>
+        <thead><tr><th>Form</th><th>Value of the expression</th><th>Side effect</th></tr></thead>
+        <tbody>
+          <tr><td><code>--x</code>, pre-decrement</td><td>The value of <code>x</code> <strong>after</strong> subtracting 1</td><td><code>x</code> decreases by 1</td></tr>
+          <tr><td><code>x--</code>, post-decrement</td><td>The value of <code>x</code> <strong>before</strong> subtracting 1</td><td><code>x</code> decreases by 1</td></tr>
+        </tbody>
+      </table>
+      <div class="code" data-label="c"><pre>int x, y;
+
+x = 5;
+y = --x;   /* x becomes 4 first, so y == 4 and x == 4 */
+
+x = 5;
+y = x--;   /* y takes the old value 5, then x becomes 4 */</pre></div>
+
+      <h3>Countdown loops make the difference visible</h3>
+      <div class="code" data-label="c"><pre>int n = 5;
+while (n &gt; 0) {
+    printf("%d ", n--);   /* prints the old value, then decrements */
+}
+printf("\n");
+
+int m = 5;
+while (m &gt; 0) {
+    printf("%d ", --m);   /* decrements first, then prints */
+}
+printf("\n");</pre></div>
+      <div class="out">5 4 3 2 1
+4 3 2 1 0</div>
+      <p>Both loops terminate correctly, yet the choice of form changed the observable output.</p>
+
+      <h3>A combined trace</h3>
+      <div class="code" data-label="c"><pre>int a = 8, b = 3, result;
+result = a-- - --b;</pre></div>
+      <table>
+        <thead><tr><th>Step</th><th>What happens</th><th>Contributes</th><th>State after</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><code>--b</code> subtracts first</td><td>2</td><td><code>b == 2</code></td></tr>
+          <tr><td>2</td><td><code>a--</code> supplies the old value</td><td>8</td><td><code>a == 7</code></td></tr>
+          <tr><td>3</td><td>subtraction</td><td><code>8 - 2</code></td><td><code>result == 6</code></td></tr>
+        </tbody>
+      </table>
+      <p>The two operands here are <strong>different variables</strong>, so this expression is completely well defined. Section 16 shows what goes wrong when they are the same variable.</p>
+      <div class="callout trap"><span class="lbl">Whitespace is not optional here</span><p><code>a-- - --b</code> is correct, but <code>a-----b</code> is a syntax error. The tokenizer takes the longest operator it can at each step and reads <code>a-- -- -b</code>, and <code>a--</code> cannot be decremented again. Always separate consecutive operator characters with a space.</p></div>
+    </section>
+
+    <section id="conditional">
+      <h2><span class="sec-n">07</span>The conditional operator</h2>
+      <p>The conditional operator is C's only ternary operator. It packs an if/else <strong>choice of values</strong> into a single expression.</p>
+      <div class="equation">condition ? value_if_true : value_if_false</div>
+      <p>Evaluation follows a guaranteed order:</p>
+      <ol>
+        <li>The condition is evaluated.</li>
+        <li>If it is nonzero, <strong>only</strong> the true branch is evaluated and its value becomes the result.</li>
+        <li>If it is zero, <strong>only</strong> the false branch is evaluated and its value becomes the result.</li>
+      </ol>
+      <p>Exactly one branch ever runs. Side effects prove it.</p>
+      <div class="code" data-label="c"><pre>int i = 0, j = 0;
+
+int x = (1 ? i++ : j++);   /* condition true, so only i++ runs  */
+printf("%d %d\n", i, j);
+
+int y = (0 ? i++ : j++);   /* condition false, so only j++ runs */
+printf("%d %d\n", i, j);</pre></div>
+      <div class="out">1 0
+1 1</div>
+      <p>That guarantee is what makes the operator safe as a guard.</p>
+      <div class="code" data-label="c"><pre>int    len = (p != NULL) ? p-&gt;length : 0;
+double avg = (n != 0) ? (double)sum / n : 0.0;</pre></div>
+
+      <h3>Basic examples</h3>
+      <div class="code" data-label="c"><pre>int a = 10, b = 25;
+int max = (a &gt; b) ? a : b;        /* max == 25 */
+
+int n = -7;
+int abs_n = (n &lt; 0) ? -n : n;     /* abs_n == 7 */
+
+printf("You have %d item%s\n", k, (k == 1) ? "" : "s");</pre></div>
+
+      <h3>Relationship to if/else</h3>
+      <div class="compare">
+        <div class="card"><h3>Conditional expression</h3><div class="code" data-label="c"><pre>max = (a &gt; b) ? a : b;</pre></div></div>
+        <div class="card"><h3>Equivalent statement</h3><div class="code" data-label="c"><pre>if (a &gt; b)
+    max = a;
+else
+    max = b;</pre></div></div>
+      </div>
+      <p>The difference is that <code>?:</code> is an <strong>expression</strong>, so it can appear in places where a statement cannot: initializers, function arguments, array subscripts, and inside other expressions.</p>
+      <div class="code" data-label="c"><pre>int table_size = (n &gt; 100) ? 211 : 47;
+printf("%d\n", (x % 2 == 0) ? x / 2 : 3 * x + 1);</pre></div>
+
+      <h3>Nesting reads like an else-if ladder</h3>
+      <p>The conditional operator associates right to left, which makes a cascade possible.</p>
+      <div class="code" data-label="c"><pre>grade = (score &gt;= 90) ? 'A'
+      : (score &gt;= 80) ? 'B'
+      : (score &gt;= 70) ? 'C'
+      : (score &gt;= 60) ? 'D'
+      :                 'F';</pre></div>
+      <p>This layout is good style. A one-line version such as <code>a?b?c:d:e?f:g</code> is legal but unreadable and should be avoided.</p>
+
+      <h3>Precedence and the type of the result</h3>
+      <p><code>?:</code> has very low precedence, just above assignment and comma, so surrounding arithmetic usually groups as expected. Assignments inside the branches are the exception.</p>
+      <div class="code" data-label="c"><pre>x = (a &gt; b) ? a : b;         /* fine: ?: binds tighter than = */
+
+(a &gt; b) ? x = a : (x = b);   /* legal but awkward; the parentheses on
+                               the last branch are required          */</pre></div>
+      <p>Both branches are converted to a common type by the usual arithmetic conversions.</p>
+      <div class="code" data-label="c"><pre>double d = (flag) ? 1 : 2.5;   /* branches are int and double, so the
+                                  result type is double: 1.0 or 2.5   */</pre></div>
+      <div class="callout tip"><span class="lbl">Rule of thumb</span><p>Use <code>?:</code> to <strong>select a value</strong>. If both branches are assignments or function calls, write an <code>if</code> statement instead.</p></div>
+    </section>
+
+    <section id="comma">
+      <h2><span class="sec-n">08</span>The comma operator</h2>
+      <p>The comma operator evaluates two expressions in order and produces the value of the <strong>second</strong>.</p>
+      <div class="equation">expr1 , expr2 → evaluate expr1 and discard it, then evaluate expr2</div>
+      <p>It has the lowest precedence of every C operator, and it guarantees left-to-right order with a sequence point between the operands, so all side effects of <code>expr1</code> finish before <code>expr2</code> begins.</p>
+
+      <h3>Its value, and a precedence surprise</h3>
+      <div class="code" data-label="c"><pre>int x;
+
+x = (3, 5);   /* x == 5: 3 is evaluated and thrown away */
+x = 3, 5;     /* x == 3: parsed as (x = 3), 5 because the comma
+                 has lower precedence than assignment        */</pre></div>
+
+      <h3>Where the comma operator belongs: for headers</h3>
+      <p>Its natural home is a loop that must advance two variables inside the three slots of a <code>for</code> header.</p>
+      <div class="code" data-label="c"><pre>/* Reverse an array in place with two indexes moving toward each other */
+for (i = 0, j = n - 1; i &lt; j; i++, j--) {
+    int tmp = a[i];
+    a[i] = a[j];
+    a[j] = tmp;
+}</pre></div>
+
+      <h3>Operator versus separator</h3>
+      <p>The same character plays two unrelated roles, and only one of them is the operator.</p>
+      <table>
+        <thead><tr><th>Code</th><th>Role of the comma</th></tr></thead>
+        <tbody>
+          <tr><td><code>int a, b, c;</code></td><td>Separator in a declaration</td></tr>
+          <tr><td><code>f(x, y, z);</code></td><td>Separator between arguments</td></tr>
+          <tr><td><code>f((x, y), z);</code></td><td>The inner comma <strong>is</strong> the operator: <code>f</code> receives the value of <code>y</code> and then <code>z</code></td></tr>
+          <tr><td><code>int arr[3] = {1, 2, 3};</code></td><td>Separators in an initializer list</td></tr>
+        </tbody>
+      </table>
+      <div class="callout trap"><span class="lbl">The guarantee does not transfer</span><p>Because argument commas are separators and not the operator, the order in which <code>f(g(), h())</code> evaluates <code>g()</code> and <code>h()</code> is unspecified. The left-to-right promise belongs to the comma <em>operator</em> only.</p></div>
+      <p class="mini">Outside <code>for</code> headers and the occasional compact macro, the comma operator hurts readability. <code>x = 1, y = 2, z = 3;</code> is legal, but three separate statements are clearer.</p>
+    </section>
+
+    <section id="sizeof">
+      <h2><span class="sec-n">09</span>The <code>sizeof</code> operator</h2>
+      <p><code>sizeof</code> is a unary, <strong>compile-time</strong> operator that produces the size in bytes of a type or of an expression's type. Its result has the unsigned type <code>size_t</code>, declared in <code>&lt;stddef.h&gt;</code> and printed with <code>%zu</code>.</p>
+
+      <h3>Two syntactic forms</h3>
+      <div class="code" data-label="c"><pre>sizeof (type-name)   /* parentheses are REQUIRED around a type name */
+sizeof expression    /* parentheses are optional around an expression */
+
+sizeof (int);        /* first form  */
+sizeof x;            /* second form, legal without parentheses */
+sizeof (x);          /* also legal; many programmers always parenthesize */</pre></div>
+
+      <h3>Typical sizes, which are implementation-dependent</h3>
+      <p>The standard fixes only minimums and relationships. Real sizes vary by machine and compiler. On a typical 64-bit desktop system:</p>
+      <table>
+        <thead><tr><th>Type</th><th>Typical size in bytes</th></tr></thead>
+        <tbody>
+          <tr><td><code>char</code></td><td>1, and this one is guaranteed</td></tr>
+          <tr><td><code>short</code></td><td>2</td></tr>
+          <tr><td><code>int</code></td><td>4</td></tr>
+          <tr><td><code>long</code></td><td>8, but often 4 on 64-bit Windows</td></tr>
+          <tr><td><code>long long</code></td><td>8</td></tr>
+          <tr><td><code>float</code></td><td>4</td></tr>
+          <tr><td><code>double</code></td><td>8</td></tr>
+          <tr><td>any pointer</td><td>8</td></tr>
+        </tbody>
+      </table>
+      <div class="equation">sizeof(char) ≤ sizeof(short) ≤ sizeof(int) ≤ sizeof(long) ≤ sizeof(long long)</div>
+
+      <h3>The operand is not evaluated</h3>
+      <div class="code" data-label="c"><pre>int i = 5;
+size_t s = sizeof(i++);   /* s is sizeof(int), and i is STILL 5:
+                             the expression is only type-checked */</pre></div>
+      <p>Because only the type is needed, the operand never runs. The single exception, variable-length arrays, is outside the scope of this lesson.</p>
+
+      <h3>The element-count idiom</h3>
+      <p>For a true array, <code>sizeof</code> gives the whole array's byte count.</p>
+      <div class="code" data-label="c"><pre>int data[25];
+
+size_t nbytes    = sizeof data;                  /* 25 * sizeof(int) = 100 */
+size_t nelements = sizeof data / sizeof data[0]; /* 25 elements */</pre></div>
+      <div class="callout trap"><span class="lbl">The idiom stops working inside a function</span><p>When an array is passed to a function it decays to a pointer, so <code>sizeof</code> then reports the pointer's size instead of the array's.</p><div class="code" data-label="c"><pre>void f(int a[]) {
+    /* sizeof a is sizeof(int *), for example 8 — not 100 */
+}</pre></div><p>Always pass the element count as a separate parameter.</p></div>
+
+      <h3>Practical uses</h3>
+      <div class="code" data-label="c"><pre>/* Portable allocation: adapts automatically if p's type changes */
+int *p = malloc(n * sizeof *p);
+
+/* Portable input and clearing */
+fread(buffer, sizeof buffer[0], n, fp);
+memset(&amp;record, 0, sizeof record);</pre></div>
+    </section>
+
+    <section id="precedence">
+      <h2><span class="sec-n">10</span>Operator precedence</h2>
+      <p><strong>Precedence</strong> decides which operator takes its operands first when an expression mixes different operators. It answers <em>how the expression is implicitly parenthesised</em>, and nothing else.</p>
+      <div class="code" data-label="c"><pre>a + b * c   /* means a + (b * c), because * outranks + */
+a * b + c   /* means (a * b) + c */</pre></div>
+
+      <h3>The full table, highest level first</h3>
+      <table class="prec-tbl">
+        <thead><tr><th>Level</th><th>Operators</th><th>Description</th><th>Associativity</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><code>()</code> <code>[]</code> <code>-&gt;</code> <code>.</code> <code>x++</code> <code>x--</code></td><td>Call, subscript, member, postfix forms</td><td>Left to right</td></tr>
+          <tr><td>2</td><td><code>++x</code> <code>--x</code> <code>+</code> <code>-</code> <code>!</code> <code>~</code> <code>*</code> <code>&amp;</code> <code>sizeof</code> <code>(type)</code></td><td>All unary operators</td><td>Right to left</td></tr>
+          <tr><td>3</td><td><code>*</code> <code>/</code> <code>%</code></td><td>Multiplicative</td><td>Left to right</td></tr>
+          <tr><td>4</td><td><code>+</code> <code>-</code></td><td>Additive</td><td>Left to right</td></tr>
+          <tr><td>5</td><td><code>&lt;&lt;</code> <code>&gt;&gt;</code></td><td>Bit shifts</td><td>Left to right</td></tr>
+          <tr><td>6</td><td><code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code></td><td>Relational</td><td>Left to right</td></tr>
+          <tr><td>7</td><td><code>==</code> <code>!=</code></td><td>Equality</td><td>Left to right</td></tr>
+          <tr class="hl"><td>8</td><td><code>&amp;</code></td><td>Bitwise AND</td><td>Left to right</td></tr>
+          <tr class="hl"><td>9</td><td><code>^</code></td><td>Bitwise XOR</td><td>Left to right</td></tr>
+          <tr class="hl"><td>10</td><td><code>|</code></td><td>Bitwise OR</td><td>Left to right</td></tr>
+          <tr><td>11</td><td><code>&amp;&amp;</code></td><td>Logical AND</td><td>Left to right</td></tr>
+          <tr><td>12</td><td><code>||</code></td><td>Logical OR</td><td>Left to right</td></tr>
+          <tr><td>13</td><td><code>?:</code></td><td>Conditional</td><td>Right to left</td></tr>
+          <tr><td>14</td><td><code>=</code> and the ten compound forms</td><td>Assignment</td><td>Right to left</td></tr>
+          <tr><td>15</td><td><code>,</code></td><td>Comma</td><td>Left to right</td></tr>
+        </tbody>
+      </table>
+      <p class="mini">The highlighted rows are the three levels that surprise almost everyone: the bitwise operators bind <strong>more loosely</strong> than the comparisons.</p>
+
+      <h3>Four landmarks worth memorising</h3>
+      <ul>
+        <li>Unary beats binary: <code>-a * b</code> is <code>(-a) * b</code>.</li>
+        <li>Arithmetic beats relational beats logical, so <code>a + 1 &gt; b &amp;&amp; c &lt; d</code> parses as <code>((a + 1) &gt; b) &amp;&amp; (c &lt; d)</code> with no parentheses required.</li>
+        <li>Assignment sits near the bottom, so everything on its right is computed before the store happens.</li>
+        <li>The comma operator is dead last.</li>
+      </ul>
+
+      <h3>Worked evaluations</h3>
+      <div class="code" data-label="c"><pre>int a = 2, b = 3, c = 4, r;
+
+r = a + b * c;        /* a + (b*c)        = 2 + 12  = 14 */
+r = (a + b) * c;      /* (2+3) * 4                  = 20 */
+r = a * b % c;        /* same level, left to right:
+                         (a*b) % c        = 6 % 4   = 2  */
+r = -a * b;           /* (-a) * b                   = -6 */
+r = a &lt; b == c &gt; b;   /* (a&lt;b) == (c&gt;b)  = 1 == 1  = 1  */
+r = a &amp; b == 2;       /* a &amp; (b == 2)    = 2 &amp; 0   = 0  */</pre></div>
+      <p>The last line is the surprise: <code>==</code> is evaluated first, so the mask is ANDed with a truth value rather than with 2.</p>
+
+      <h3>Four precedence traps</h3>
+      <div class="callout trap"><span class="lbl">Trap 1 · Bitwise against equality</span><div class="code" data-label="c"><pre>if (flags &amp; MASK == 0)     /* WRONG: parsed as flags &amp; (MASK == 0) */
+if ((flags &amp; MASK) == 0)   /* RIGHT */</pre></div></div>
+      <div class="callout trap"><span class="lbl">Trap 2 · Shift against addition</span><div class="code" data-label="c"><pre>x &lt;&lt; 2 + 1     /* means x &lt;&lt; 3, because + outranks &lt;&lt; */
+(x &lt;&lt; 2) + 1   /* what was probably intended */</pre></div></div>
+      <div class="callout trap"><span class="lbl">Trap 3 · Assignment inside a condition</span><div class="code" data-label="c"><pre>while ((ch = getchar()) != EOF)   /* the inner parentheses are essential:
+                                     != outranks =, so without them this
+                                     becomes ch = (getchar() != EOF)   */</pre></div></div>
+      <div class="callout trap"><span class="lbl">Trap 4 · Dereference against member access</span><div class="code" data-label="c"><pre>*p.x     /* means *(p.x), which is usually an error */
+(*p).x   /* dereference first, then take the member */
+p-&gt;x     /* the idiomatic form of (*p).x            */</pre></div></div>
+
+      <div class="callout"><span class="lbl">What precedence does not tell you</span><p>Precedence fixes grouping only. In <code>f() + g() * h()</code> it guarantees that the product is added to <code>f()</code>'s result, but the three calls may run in <strong>any order</strong>. Run-time evaluation order is a separate concept, handled in Section 16.</p></div>
+    </section>
+
+    <section id="associativity">
+      <h2><span class="sec-n">11</span>Operator associativity</h2>
+      <p>When two operators from the <strong>same precedence level</strong> compete for the same operand, <strong>associativity</strong> breaks the tie.</p>
+
+      <h3>Left-to-right associativity</h3>
+      <p>Most binary operators group from the left. Subtraction and division make this visible because they are not mathematically associative.</p>
+      <div class="code" data-label="c"><pre>a - b - c        /* means (a - b) - c */
+100 - 20 - 5     /* (100-20)-5 = 75, not 100-(20-5) = 85 */
+
+a / b / c        /* means (a / b) / c */
+100 / 10 / 5     /* (100/10)/5 = 2, not 100/(10/5) = 50 */
+
+a - b + c        /* same level, so (a - b) + c */</pre></div>
+
+      <h3>Right-to-left associativity</h3>
+      <p>Three groups associate from the right: <strong>unary operators</strong>, <strong><code>?:</code></strong>, and <strong>assignments</strong>.</p>
+      <div class="code" data-label="c"><pre>a = b = c = 0;   /* grouped as a = (b = (c = 0));
+                    c gets 0, that expression's value 0 goes to b,
+                    and then to a. All three become 0.            */
+
+x = y += 2;      /* grouped as x = (y += 2) */</pre></div>
+      <p>The chain works because each assignment is an expression whose value is what was stored, and that value feeds the assignment to its left.</p>
+      <div class="code" data-label="c"><pre>!!x           /* !(!x) — turns any nonzero value into exactly 1 */
+- -x          /* -(-x) == x; note the space, since --x is decrement */
+*&amp;a           /* *(&amp;a) == a */
+(int)(float)n /* casts apply right to left */</pre></div>
+      <p>Conditional chains follow the same rule: <code>a ? b : c ? d : e</code> means <code>a ? b : (c ? d : e)</code>, which is what makes the else-if cascade of Section 07 read correctly.</p>
+
+      <h3>Why mixed-direction expressions still parse</h3>
+      <div class="code" data-label="c"><pre>x = a + b + c;
+
+/* '+' groups from the left:  (a + b) + c
+   '=' groups from the right: x = ((a+b)+c)
+   The two never conflict, because associativity only
+   arbitrates within a single precedence level.        */</pre></div>
+      <div class="callout"><span class="lbl">Associativity is still not evaluation order</span><p><code>a() + b() + c()</code> groups as <code>(a() + b()) + c()</code>, yet the compiler is free to call <code>c()</code> first. Like precedence, associativity fixes the parse tree, not the run-time schedule. Only <code>&amp;&amp;</code>, <code>||</code>, <code>?:</code>, and <code>,</code> fix the schedule.</p></div>
+    </section>
+
+    <section id="parentheses">
+      <h2><span class="sec-n">12</span>Parentheses and explicit grouping</h2>
+      <p>Parentheses override precedence and associativity. Whatever is inside is grouped as a unit first.</p>
+      <div class="code" data-label="c"><pre>2 + 3 * 4        /* 14 */
+(2 + 3) * 4      /* 20 */
+
+a = 100 / 10 * 2;      /* (100/10)*2 = 20 */
+a = 100 / (10 * 2);    /* 100/20     = 5  */</pre></div>
+      <p>The classic temperature conversion shows why this matters in real code.</p>
+      <div class="code" data-label="c"><pre>fahr = 9 / 5 * c + 32;       /* BUG: 9/5 is 1 in integer arithmetic */
+fahr = 9.0 / 5.0 * c + 32;   /* fixed with floating constants       */
+fahr = (9 * c) / 5 + 32;     /* fixed by regrouping: multiply first */</pre></div>
+
+      <h3>Nesting, and where parentheses are mandatory</h3>
+      <p>Innermost pairs group first, and there is no practical limit on depth.</p>
+      <div class="code" data-label="c"><pre>result = ((a + b) * (c - d)) / (e + 1);</pre></div>
+      <p>Some contexts require parentheses no matter what the precedence table says: the controlling expression of <code>if</code>, <code>while</code>, <code>for</code>, and <code>switch</code>; function-call argument lists; <code>sizeof(type)</code>; and casts written as <code>(type)expr</code>.</p>
+
+      <h3>Parentheses written for the reader</h3>
+      <div class="compare">
+        <div class="card bad"><h3>Correct but demanding</h3><div class="code" data-label="c"><pre>if (a &gt; 0 &amp;&amp; b &gt; 0 || c &gt; 0 &amp;&amp; d &gt; 0)</pre></div><p>The reader has to recall three precedence levels to be sure what this means.</p></div>
+        <div class="card good"><h3>Same meaning, immediately clear</h3><div class="code" data-label="c"><pre>if ((a &gt; 0 &amp;&amp; b &gt; 0) || (c &gt; 0 &amp;&amp; d &gt; 0))</pre></div><p>The grouping is stated instead of implied.</p></div>
+      </div>
+      <ul>
+        <li>Parenthesize whenever <code>&amp;&amp;</code> and <code>||</code> appear together.</li>
+        <li>Parenthesize every bitwise sub-expression that meets a comparison.</li>
+        <li>Parenthesize the condition of a <code>?:</code> used inside a larger expression.</li>
+        <li>Do not parenthesize into noise. <code>((a) + (b))</code> helps nobody.</li>
+      </ul>
+      <div class="callout trap"><span class="lbl">What parentheses cannot do</span><p>They control grouping, never run-time order. In <code>(f() + g()) + h()</code> the compiler may still call <code>h()</code> before <code>f()</code> or <code>g()</code>. To force an order, use separate statements.</p></div>
+    </section>
+
+    <section id="compound-conditions">
+      <h2><span class="sec-n">13</span>Compound conditions</h2>
+      <p>Real programs rarely test one thing at a time. A <strong>compound condition</strong> joins relational tests with <code>&amp;&amp;</code>, <code>||</code>, and <code>!</code>.</p>
+      <table>
+        <thead><tr><th>p</th><th>q</th><th>p &amp;&amp; q</th><th>p || q</th><th>!p</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Building them</h3>
+      <div class="code" data-label="c"><pre>/* Is x inside the range [low, high]? */
+if (x &gt;= low &amp;&amp; x &lt;= high) ...
+
+/* Is x outside it? */
+if (x &lt; low || x &gt; high) ...
+
+/* Leap year: divisible by 4, except centuries, except every 400th year */
+if ((year % 4 == 0 &amp;&amp; year % 100 != 0) || (year % 400 == 0))
+    printf("%d is a leap year\n", year);
+
+/* Do three lengths form a valid triangle? */
+if (a + b &gt; c &amp;&amp; b + c &gt; a &amp;&amp; a + c &gt; b) ...
+
+/* Character classification by hand */
+if ((ch &gt;= 'a' &amp;&amp; ch &lt;= 'z') || (ch &gt;= 'A' &amp;&amp; ch &lt;= 'Z')) ...</pre></div>
+
+      <h3>The mathematics-notation trap</h3>
+      <div class="callout trap"><span class="lbl">Chained comparison</span><div class="code" data-label="c"><pre>if (0 &lt;= x &amp;&amp; x &lt;= 10)   /* correct */
+if (0 &lt;= x &lt;= 10)         /* compiles, but is ALWAYS TRUE */</pre></div><p>The second line parses as <code>(0 &lt;= x) &lt;= 10</code>. The left half produces 0 or 1, and both are less than or equal to 10, so the test can never fail.</p></div>
+
+      <h3>Negating a compound condition</h3>
+      <div class="equation">!(p &amp;&amp; q) is !p || !q · !(p || q) is !p &amp;&amp; !q</div>
+      <div class="code" data-label="c"><pre>if (!(x &gt;= 0 &amp;&amp; x &lt; n))   /* "not a valid index" */
+if (x &lt; 0 || x &gt;= n)       /* the same test, usually clearer */</pre></div>
+      <p>Every relational test also has a direct negation: <code>!(a &lt; b)</code> is <code>a &gt;= b</code>, and <code>!(a == b)</code> is <code>a != b</code>. Prefer the direct form over a leading <code>!</code>.</p>
+
+      <h3>Precedence inside conditions</h3>
+      <p>Relational operators outrank <code>&amp;&amp;</code>, which outranks <code>||</code>.</p>
+      <div class="code" data-label="c"><pre>a &lt; b &amp;&amp; c &lt; d || e &lt; f
+/* parses as ((a &lt; b) &amp;&amp; (c &lt; d)) || (e &lt; f) */</pre></div>
+      <p>AND binds more tightly than OR, just as multiplication binds more tightly than addition in algebra.</p>
+
+      <h3>Truth values are ordinary integers</h3>
+      <p>Because a comparison yields 0 or 1, comparisons can be counted.</p>
+      <div class="code" data-label="c"><pre>int passes = (s1 &gt;= 60) + (s2 &gt;= 60) + (s3 &gt;= 60);   /* 0 to 3 */</pre></div>
+      <p class="mini">Occasionally useful, and worth recognising when reading other people's code.</p>
+    </section>
+
+    <section id="short-circuit">
+      <h2><span class="sec-n">14</span>Short-circuit evaluation</h2>
+      <p><code>&amp;&amp;</code> and <code>||</code> are special. They evaluate left to right and they <strong>stop as soon as the answer is known</strong>.</p>
+      <table>
+        <thead><tr><th>Expression</th><th>Behavior</th></tr></thead>
+        <tbody>
+          <tr><td><code>p &amp;&amp; q</code></td><td>Evaluate <code>p</code>. If it is 0, the result is 0 and <code>q</code> is <strong>never evaluated</strong>.</td></tr>
+          <tr><td><code>p || q</code></td><td>Evaluate <code>p</code>. If it is nonzero, the result is 1 and <code>q</code> is <strong>never evaluated</strong>.</td></tr>
+        </tbody>
+      </table>
+      <p>There is a sequence point after the left operand, so all of its side effects finish before the right operand starts, if it starts at all.</p>
+      <div class="code" data-label="c"><pre>int i = 0, j = 0;
+
+if (i &gt; 0 &amp;&amp; ++j &gt; 0) { }   /* i &gt; 0 is false, so ++j never runs */
+printf("%d\n", j);
+
+i = 1; j = 0;
+if (i &gt; 0 || ++j &gt; 0) { }   /* the left side is true, so ++j never runs */
+printf("%d\n", j);</pre></div>
+      <div class="out">0
+0</div>
+
+      <h3>The guard idiom</h3>
+      <p>The most important practical use is to make the <strong>left</strong> operand a safety check that protects the <strong>right</strong> one.</p>
+      <div class="code" data-label="c"><pre>/* Divide only when the divisor is nonzero */
+if (n != 0 &amp;&amp; total / n &gt; threshold) ...
+
+/* Dereference only a valid pointer */
+if (p != NULL &amp;&amp; p-&gt;count &gt; 0) ...
+
+/* Check the index before using it */
+if (i &gt;= 0 &amp;&amp; i &lt; n &amp;&amp; a[i] == key) ...</pre></div>
+      <div class="callout"><span class="lbl">Order is part of the meaning</span><p>Reversing the operands in any of the three lines above would risk a division by zero, a null dereference, or an out-of-bounds read. In a short-circuit expression, put the guard first.</p></div>
+      <p>When both operands are safe, put the cheaper or more decisive test first for speed.</p>
+      <div class="code" data-label="c"><pre>if (count &gt; 0 &amp;&amp; expensive_lookup(key)) ...   /* skips the lookup when count is 0 */</pre></div>
+
+      <h3>The flip side: skipped side effects</h3>
+      <div class="code" data-label="c"><pre>if (x &gt; 0 &amp;&amp; y++ &gt; 5) ...   /* y++ happens ONLY when x &gt; 0.
+                               Is that really what was intended? */</pre></div>
+      <p>Keep the operands of <code>&amp;&amp;</code> and <code>||</code> free of side effects, except for well-known idioms where the effect is the whole point of the call.</p>
+      <div class="callout trap"><span class="lbl">The bitwise forms do not short-circuit</span><div class="code" data-label="c"><pre>if ((p != NULL) &amp; (p-&gt;len &gt; 0))    /* DANGER: both sides always run,
+                                      so this crashes when p is NULL */
+if ((p != NULL) &amp;&amp; (p-&gt;len &gt; 0))   /* safe */</pre></div><p>One missing character changes a safe guard into a crash.</p></div>
+    </section>
+
+    <section id="side-effects">
+      <h2><span class="sec-n">15</span>Side effects inside expressions</h2>
+      <p>A <strong>side effect</strong> is any change to program state that happens while an expression is being evaluated: modifying a variable with <code>=</code>, <code>op=</code>, <code>++</code>, or <code>--</code>; performing input or output; or calling a function that does either.</p>
+      <div class="code" data-label="c"><pre>y = (x = 5) + 2;        /* effect: x becomes 5. Value of (x=5) is 5, so y == 7 */
+n = i++;                /* effect: i is incremented. Value: the old i */
+m = printf("hello\n");  /* effect: output. Value: the number of characters, 6 */</pre></div>
+
+      <h3>Idioms that are built on side effects</h3>
+      <p>Some C idioms exploit expression side effects deliberately, and they are good style precisely because every C programmer recognises them.</p>
+      <div class="code" data-label="c"><pre>/* Read and test in one condition */
+while ((ch = getchar()) != EOF)
+    process(ch);
+
+/* Copy a string, the classic loop */
+while ((*dst++ = *src++) != '\0')
+    ;
+
+/* Allocate and check together */
+if ((p = malloc(size)) == NULL)
+    handle_error();</pre></div>
+
+      <h3>When side effects turn toxic</h3>
+      <p>Trouble begins when one expression contains <strong>two side effects on the same variable</strong>, or a side effect on a variable <strong>plus a separate read of that same variable</strong>.</p>
+      <div class="code" data-label="c"><pre>i = 5;
+
+k = i++ + i;   /* does the second i see 5 or 6?  UNDEFINED BEHAVIOR */
+a[i] = i++;    /* which element is assigned?      UNDEFINED BEHAVIOR */
+x = x++;       /* two unsequenced writes to x:    UNDEFINED BEHAVIOR */</pre></div>
+      <div class="callout trap"><span class="lbl">Undefined is stronger than unpredictable</span><p>These are not merely compiler-dependent. The standard says such a program has <strong>undefined behavior</strong>, which permits any result at all, including a crash or silent corruption elsewhere in the program.</p></div>
+
+      <h3>Sequence points: where effects are settled</h3>
+      <p>A <strong>sequence point</strong> is a moment at which every earlier side effect is complete and no later one has begun. The ones you need are:</p>
+      <ol>
+        <li>The end of a full expression, that is, the semicolon.</li>
+        <li>After the <strong>left operand</strong> of <code>&amp;&amp;</code>, <code>||</code>, and the comma operator.</li>
+        <li>After the <strong>condition</strong> of <code>?:</code>.</li>
+        <li>After all arguments of a function call are evaluated, before the body runs.</li>
+        <li>At the end of each initializer and each controlling expression of <code>if</code>, <code>while</code>, or a <code>for</code> clause.</li>
+      </ol>
+      <div class="equation">Between two sequence points a variable may be modified at most once,<br>and if it is modified, its old value may be read only to compute the new one.</div>
+      <p>Breaking either half of that rule is undefined behavior.</p>
+
+      <h3>Practical discipline</h3>
+      <ul>
+        <li>One side effect per statement is a robust default.</li>
+        <li>Let <code>++</code> and <code>--</code> stand alone, as in <code>i++;</code>, or appear once in a simple idiom such as <code>a[i++] = v;</code>.</li>
+        <li>Never mention a variable elsewhere in an expression that increments it.</li>
+        <li>Reserve assignment-inside-a-condition for the classic idioms above, always parenthesised and compared explicitly.</li>
+      </ul>
+    </section>
+
+    <section id="pitfalls">
+      <h2><span class="sec-n">16</span>Evaluation-order pitfalls</h2>
+      <p>This section gathers the sharp edges of Sections 10 through 15 into one safety briefing.</p>
+
+      <h3>Three concepts that must stay separate</h3>
+      <table>
+        <thead><tr><th>Concept</th><th>Question it answers</th><th>Example guarantee</th></tr></thead>
+        <tbody>
+          <tr><td>Precedence</td><td>Which operator binds more tightly?</td><td><code>a + b*c</code> is <code>a + (b*c)</code></td></tr>
+          <tr><td>Associativity</td><td>How do equal-precedence operators group?</td><td><code>a-b-c</code> is <code>(a-b)-c</code></td></tr>
+          <tr><td>Evaluation order</td><td><strong>When</strong> is each operand actually computed?</td><td>Mostly unspecified</td></tr>
+        </tbody>
+      </table>
+      <p>For most operators C deliberately leaves operand order to the compiler so it can optimise. Only <code>&amp;&amp;</code>, <code>||</code>, <code>?:</code>, and the comma operator promise left-to-right evaluation.</p>
+
+      <h3>Unspecified order: calls and subexpressions</h3>
+      <div class="code" data-label="c"><pre>int f(void) { printf("f "); return 1; }
+int g(void) { printf("g "); return 2; }
+
+int r = f() + g();             /* may print "f g " or "g f " */
+printf("%d %d\n", f(), g());   /* argument order is also unspecified */</pre></div>
+      <p>The <em>value</em> of <code>f() + g()</code> is a well-defined 3. The <em>output order</em> is not. When order matters, sequence the calls yourself.</p>
+      <div class="code" data-label="c"><pre>int x = f();
+int y = g();
+int r = x + y;   /* the order is now explicit and guaranteed */</pre></div>
+
+      <h3>Undefined behavior: the modify-and-read family</h3>
+      <p>These are the classic exam traps. None of them has an answer to work out.</p>
+      <div class="code" data-label="c"><pre>i = i++ + ++i;             /* undefined */
+printf("%d %d", i, i++);   /* undefined: i is read and modified, unsequenced */
+a[i] = i++;                /* undefined */
+f(i++, i);                 /* undefined */
+x = x++ + 1;               /* undefined */</pre></div>
+      <div class="callout trap"><span class="lbl">There is no correct answer to compute</span><p>Different compilers, and even the same compiler at different optimisation levels, legitimately produce different results. If a quiz asks what <code>i++ + ++i</code> prints, the only correct response is that the program is invalid. Contrast this with <code>k = a-- - --b;</code> from Section 06, which modifies two <strong>different</strong> variables and is perfectly well defined.</p></div>
+
+      <h3>Checklist of related pitfalls</h3>
+      <table>
+        <thead><tr><th>Pitfall</th><th>Broken</th><th>Fixed</th></tr></thead>
+        <tbody>
+          <tr><td>Assignment used as equality</td><td><code>if (x = 5)</code></td><td><code>if (x == 5)</code></td></tr>
+          <tr><td>Chained comparison</td><td><code>if (0 &lt; x &lt; 10)</code></td><td><code>if (0 &lt; x &amp;&amp; x &lt; 10)</code></td></tr>
+          <tr><td>Bitwise against equality</td><td><code>flags &amp; M == 0</code></td><td><code>(flags &amp; M) == 0</code></td></tr>
+          <tr><td>Bitwise where logical was meant</td><td><code>p != NULL &amp; p-&gt;n</code></td><td><code>p != NULL &amp;&amp; p-&gt;n</code></td></tr>
+          <tr><td>Integer division surprise</td><td><code>avg = sum / n</code> with ints</td><td><code>avg = (double)sum / n</code></td></tr>
+          <tr><td>Truncated fraction</td><td><code>9/5 * c + 32</code></td><td><code>9.0/5.0 * c + 32</code></td></tr>
+          <tr><td>Side effect on the right of <code>&amp;&amp;</code></td><td><code>if (a &amp;&amp; b++)</code></td><td>lift <code>b++</code> out of the condition</td></tr>
+          <tr><td>Side effect in a macro argument</td><td><code>SQR(i++)</code></td><td>pass an argument with no side effect</td></tr>
+          <tr><td>Stray semicolon</td><td><code>if (x &gt; 0);</code></td><td><code>if (x &gt; 0)</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Why the macro row deserves its own warning</h3>
+      <div class="code" data-label="c"><pre>#define SQUARE(x) ((x) * (x))
+
+int i = 3;
+int s = SQUARE(i++);   /* expands to ((i++) * (i++)) — undefined, and i
+                          advances twice even when the result "looks right" */</pre></div>
+      <p>Function-like macros silently duplicate their arguments. Never feed them an expression with a side effect.</p>
+
+      <h3>Rules for writing unambiguous expressions</h3>
+      <ol>
+        <li>One side effect per statement. Split anything more complex.</li>
+        <li>Never modify and separately read the same variable in one expression.</li>
+        <li>Never let two function calls with observable effects share one expression when their order matters. Sequence them as separate statements.</li>
+        <li>Parenthesize whenever <code>&amp;&amp;</code> meets <code>||</code>, whenever a bitwise operator meets a comparison, and whenever a shift meets arithmetic.</li>
+        <li>Put the guard first in a short-circuit condition and keep the right side free of side effects.</li>
+        <li>Use <code>==</code> consciously. Some programmers write <code>if (5 == x)</code> so that a missing character becomes a compile error rather than a silent bug.</li>
+        <li>Prefer clarity over cleverness. <code>i++; j = a[i];</code> costs nothing over <code>j = a[++i];</code> and can never be misread.</li>
+        <li>Turn compiler warnings on. With GCC or Clang, <code>-Wall -Wextra</code> flags assignments inside conditions, unparenthesised precedence hazards, and many sequencing bugs.</li>
+      </ol>
+    </section>
+
+    <section id="summary">
+      <h2><span class="sec-n">17</span>Quick reference</h2>
+      <h3>Operator families at a glance</h3>
+      <table>
+        <thead><tr><th>Family</th><th>Operators</th><th>Result type</th><th>Order guaranteed?</th></tr></thead>
+        <tbody>
+          <tr><td>Arithmetic</td><td><code>+ - * / %</code>, unary <code>+ -</code></td><td>numeric</td><td>No</td></tr>
+          <tr><td>Relational</td><td><code>&lt; &lt;= &gt; &gt;=</code></td><td><code>int</code>, 0 or 1</td><td>No</td></tr>
+          <tr><td>Equality</td><td><code>== !=</code></td><td><code>int</code>, 0 or 1</td><td>No</td></tr>
+          <tr><td>Logical</td><td><code>&amp;&amp; || !</code></td><td><code>int</code>, 0 or 1</td><td><strong>Yes</strong>, left to right with short-circuiting</td></tr>
+          <tr><td>Assignment</td><td><code>=</code> and ten compound forms</td><td>type of the left side</td><td>No</td></tr>
+          <tr><td>Increment / decrement</td><td><code>++ --</code>, prefix and postfix</td><td>old or new value</td><td>Effect lands by the next sequence point</td></tr>
+          <tr><td>Conditional</td><td><code>?:</code></td><td>common type of the branches</td><td><strong>Yes</strong>, condition first, one branch only</td></tr>
+          <tr><td>Comma</td><td><code>,</code></td><td>the right operand</td><td><strong>Yes</strong>, left to right</td></tr>
+          <tr><td><code>sizeof</code></td><td><code>sizeof</code></td><td><code>size_t</code></td><td>The operand is never evaluated</td></tr>
+          <tr><td>Bitwise</td><td><code>&amp; | ^ ~ &lt;&lt; &gt;&gt;</code></td><td>integer</td><td>No, and no short-circuiting</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Prefix and postfix in one box</h3>
+      <div class="code" data-label="c"><pre>x = 5;  y = ++x;   /* y == 6, x == 6 : change, then use */
+x = 5;  y = x++;   /* y == 5, x == 6 : use, then change */
+x = 5;  y = --x;   /* y == 4, x == 4 */
+x = 5;  y = x--;   /* y == 5, x == 4 */</pre></div>
+
+      <h3>Eight rules to carry away</h3>
+      <ol>
+        <li><code>=</code>, <code>op=</code>, <code>++</code>, and <code>--</code> need a modifiable lvalue; <code>&amp;</code> needs an lvalue. Everything else works on values.</li>
+        <li>Precedence is grouping. Associativity is tie-breaking. Neither is run-time order.</li>
+        <li>Only <code>&amp;&amp;</code>, <code>||</code>, <code>?:</code>, and <code>,</code> promise an evaluation order.</li>
+        <li>Modify a variable at most once per expression, and do not read it elsewhere in that expression.</li>
+        <li>Parentheses cost nothing. Spend them at the boundaries between operator families.</li>
+        <li><code>sizeof</code> is resolved at compile time and its operand never runs.</li>
+        <li>Integer arithmetic truncates. Cast one operand before dividing when you want a fraction.</li>
+        <li><code>=</code> assigns and <code>==</code> compares; <code>&amp;</code> masks bits and <code>&amp;&amp;</code> guards logic.</li>
+      </ol>
+    </section>
+
+    <section id="practice">
+      <h2><span class="sec-n">18</span>Practice and quick checks</h2>
+      <p>Work each problem on paper before opening the solution.</p>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 1</span> With <code>int a = 10, b = 3;</code> evaluate <code>a / b</code>, <code>a % b</code>, <code>a / b * b + a % b</code>, and <code>(float)a / b</code>.</p>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <p><code>a / b</code> is <code>3</code> because integer division truncates. <code>a % b</code> is <code>1</code>. The third expression is <code>3 * 3 + 1</code>, which is <code>10</code>: the division identity recovers <code>a</code>. The fourth is <code>3.333…</code> because the cast forces real division.</p>
+        </div></details>
+      </div>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 2</span> What are <code>x</code>, <code>y</code>, and <code>z</code> after this fragment?</p>
+        <div class="code" data-label="c"><pre>int x = 4, y, z;
+y = x++ * 2;
+z = ++x * 2;</pre></div>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <p><code>x++</code> supplies 4, so <code>y = 8</code> and <code>x</code> becomes 5. Then <code>++x</code> makes <code>x</code> 6 before the multiplication, so <code>z = 12</code>. Final state: <code>x == 6</code>, <code>y == 8</code>, <code>z == 12</code>.</p>
+        </div></details>
+      </div>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 3</span> Parenthesize according to C's rules, without evaluating: <code>a = b &lt; c &amp;&amp; d == e || !f</code></p>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <div class="code" data-label="c"><pre>a = ((((b &lt; c) &amp;&amp; (d == e))) || (!f))</pre></div>
+          <p>Unary <code>!</code> binds first, then <code>&lt;</code>, then <code>==</code>, then <code>&amp;&amp;</code>, then <code>||</code>, with the assignment last.</p>
+        </div></details>
+      </div>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 4</span> With <code>int i = 3, j = 8;</code> what does <code>k = (i &gt; j) ? i-- : j--;</code> leave in <code>i</code>, <code>j</code>, and <code>k</code>?</p>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <p>The condition is false, so only <code>j--</code> is evaluated. <code>k</code> receives the old value 8 and <code>j</code> becomes 7. <code>i</code> is never touched. Final state: <code>i == 3</code>, <code>j == 7</code>, <code>k == 8</code>.</p>
+        </div></details>
+      </div>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 5</span> How many times does <code>check()</code> run, and what is printed?</p>
+        <div class="code" data-label="c"><pre>int check(void);   /* returns 0 or 1 */
+
+if (0 &amp;&amp; check()) puts("A");
+if (1 || check()) puts("B");</pre></div>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <p>Zero times. The left operand of <code>&amp;&amp;</code> is false, so its right side is skipped; the left operand of <code>||</code> is true, so its right side is skipped. The output is <code>B</code>.</p>
+        </div></details>
+      </div>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 6</span> What is printed, and why is no increment performed?</p>
+        <div class="code" data-label="c"><pre>int n = 10;
+printf("%zu %d\n", sizeof(n++), n);</pre></div>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <p>The operand of <code>sizeof</code> is not evaluated, only type-checked. The line prints the size of <code>int</code>, typically <code>4</code>, followed by <code>10</code>.</p>
+        </div></details>
+      </div>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 7</span> Explain the bug in <code>if (grade = 100) printf("Perfect!");</code></p>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <p><code>=</code> assigns. <code>grade</code> is overwritten with 100, the expression's value is 100, which is true, so the message always prints and the original grade is lost. The intended test is <code>grade == 100</code>.</p>
+        </div></details>
+      </div>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 8</span> With <code>int i = 2, j = 5, k;</code> classify each as well defined or undefined, and give the values where they are defined.</p>
+        <div class="code" data-label="c"><pre>(a) k = i++ + j++;
+(b) k = i++ + i;
+(c) k = (i++, i + j);
+(d) i = i + 1;</pre></div>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <p>(a) Defined, because the two side effects hit different variables: <code>k = 2 + 5 = 7</code>, then <code>i == 3</code> and <code>j == 6</code>.</p>
+          <p>(b) <strong>Undefined.</strong> <code>i</code> is modified and independently read in the same expression.</p>
+          <p>(c) Defined. The comma operator places a sequence point between the effects: <code>i</code> becomes 3 first, so <code>k = 3 + 5 = 8</code>.</p>
+          <p>(d) Defined. The read of <code>i</code> exists only to compute its new value, which is exactly what the rule permits: <code>i</code> becomes 3.</p>
+        </div></details>
+      </div>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 9</span> Rewrite without the bug: <code>if (temp &gt;= 60 &lt;= 90) run();</code></p>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <p><code>(temp &gt;= 60)</code> produces 0 or 1, and both are less than or equal to 90, so the condition is always true. The correct test is <code>if (temp &gt;= 60 &amp;&amp; temp &lt;= 90) run();</code></p>
+        </div></details>
+      </div>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 10</span> Using only <code>?:</code>, write an expression for the median of three distinct values <code>a</code>, <code>b</code>, and <code>c</code>.</p>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <div class="code" data-label="c"><pre>mid = (a &gt; b) ? ((b &gt; c) ? b : (a &gt; c) ? c : a)
+               : ((a &gt; c) ? a : (b &gt; c) ? c : b);</pre></div>
+          <p>The outer test orders <code>a</code> against <code>b</code>, and each branch then places <code>c</code> relative to that pair.</p>
+        </div></details>
+      </div>
+
+      <div class="drill">
+        <p><span class="drill-n">Exercise 11</span> Given <code>int a = 1, b = 2, arr[3]; int *p = &amp;a; const int c = 9;</code> mark each expression as a modifiable lvalue, a non-modifiable lvalue, or an rvalue, and say which of them may legally appear on the left of <code>=</code>.</p>
+        <div class="code" data-label="c"><pre>(i)   a
+(ii)  arr
+(iii) arr[1]
+(iv)  *p
+(v)   c
+(vi)  a + b
+(vii) (a)
+(viii) a++</pre></div>
+        <details class="exercise"><summary>Show solution</summary><div class="sol">
+          <p>Modifiable lvalues, all legal on the left of <code>=</code>: (i) <code>a</code>, (iii) <code>arr[1]</code>, (iv) <code>*p</code>, and (vii) <code>(a)</code>, since parentheses never change lvalue status.</p>
+          <p>Non-modifiable lvalues, illegal on the left of <code>=</code> but legal as the operand of <code>&amp;</code>: (ii) <code>arr</code>, because it has array type, and (v) <code>c</code>, because it is <code>const</code>-qualified.</p>
+          <p>Rvalues: (vi) <code>a + b</code> and (viii) <code>a++</code>. Both produce a value with no designated object, so neither can be assigned to, incremented, or given to <code>&amp;</code>.</p>
+        </div></details>
+      </div>
+
+      <div class="callout"><span class="lbl">Final mental model</span><p>An operator combines operands into an expression that has both a <strong>value</strong> and, sometimes, a <strong>side effect</strong>. Precedence and associativity decide only how the expression is grouped. Evaluation order is a separate promise that C makes for just four operators. Write each expression so that its meaning does not depend on the promises C never made.</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="release-footer">
+      <span>Structured Programming Language — C · Operators &amp; Expression Evaluation</span>
+      <span><a href="../updates.html">Version <span data-release-version>1.4.0</span></a> · Updated <time data-release-date datetime="2026-07-26">26 July 2026</time></span>
+      <span>Signed — <span class="signature-name" data-release-author>Mainul Hasan</span></span>
+    </div>
+  </footer>
+</div>
+
+<script src="../site-meta.js?v=1.4.0"></script>
+<script src="../site-nav.js?v=1.4.0"></script>
+</body>
+</html>

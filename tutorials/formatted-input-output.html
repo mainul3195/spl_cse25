@@ -126,7 +126,7 @@
   a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
 </style>
 <link rel="stylesheet" href="../mobile-nav.css">
-<link rel="stylesheet" href="../tutorial-mobile.css?v=1.2.0">
+<link rel="stylesheet" href="../tutorial-mobile.css?v=1.4.0">
 </head>
 <body>
 <header class="site-header">
@@ -153,7 +153,7 @@
     <h1>Formatted Input &amp;<br>Output in C</h1>
     <p class="lede">A systematic guide to <code>printf</code>, <code>scanf</code>, field width, precision, flags, integer and floating-point representation, string formatting, scansets, and string-based formatted I/O.</p>
     <div class="hero-actions">
-      <a class="release-badge" href="../updates.html">Version <span data-release-version>1.2.0</span> · See course updates</a>
+      <a class="release-badge" href="../updates.html">Version <span data-release-version>1.4.0</span> · See course updates</a>
       <a class="verified" href="#verification">Verified with GCC 14.2 &amp; Clang 17 · See tested edge cases</a>
     </div>
   </header>
@@ -170,13 +170,14 @@
 <a href="#strings"><span class="n">08</span>String formatting</a>
 <a href="#char-io"><span class="n">09</span>Character I/O</a>
 <a href="#scanf"><span class="n">10</span>Formatted input</a>
-<a href="#scansets"><span class="n">11</span>Scansets</a>
-<a href="#string-io"><span class="n">12</span>sscanf / snprintf</a>
-<a href="#null"><span class="n">13</span>The null character</a>
-<a href="#pitfalls"><span class="n">14</span>Common mistakes</a>
-<a href="#reference-program"><span class="n">15</span>Consolidated program</a>
-<a href="#quick-reference"><span class="n">16</span>Quick reference</a>
-<a href="#references"><span class="n">17</span>References</a>
+<a href="#eof"><span class="n">11</span>End of input &amp; EOF</a>
+<a href="#scansets"><span class="n">12</span>Scansets</a>
+<a href="#string-io"><span class="n">13</span>sscanf / snprintf</a>
+<a href="#null"><span class="n">14</span>The null character</a>
+<a href="#pitfalls"><span class="n">15</span>Common mistakes</a>
+<a href="#reference-program"><span class="n">16</span>Consolidated program</a>
+<a href="#quick-reference"><span class="n">17</span>Quick reference</a>
+<a href="#references"><span class="n">18</span>References</a>
   </nav>
 
   <main>
@@ -556,24 +557,200 @@ if (scanf("%d", &amp;x) == 1) {
 } else {
     printf("Invalid integer input.\n");
 }</pre></div>
-<p><code>scanf</code> reports the number of successful assignments. Input failure before the first conversion may produce <code>EOF</code>.</p>
+<p><code>scanf</code> reports the number of successful assignments. Input failure before the first conversion may produce <code>EOF</code>. Section 11 turns that single sentence into a complete rule.</p>
+</section>
+<section id="eof">
+<h2><span class="sec-n">11</span>End of input and <code>EOF</code></h2>
+<p>Every input function needs a way to report “there is nothing left to read.” In C that report is the macro <code>EOF</code>, defined in <code>&lt;stdio.h&gt;</code>.</p>
+
+<h3>11.1 What <code>EOF</code> actually is</h3>
+<ul>
+<li>It is a <strong>macro</strong>, not a keyword, and it expands to a negative <code>int</code> constant. On virtually every implementation that value is <code>-1</code>.</li>
+<li>It is <strong>not a character</strong>. No byte in a file is “the EOF byte.” It is a sentinel that input functions return <em>in place of</em> a character.</li>
+<li>It signals two different situations: the input is exhausted, or a read error occurred. Section 11.6 separates them.</li>
+</ul>
+<div class="callout tip"><span class="lbl">Why the result must be stored in <code>int</code></span><p><code>getchar</code> returns any of the 256 possible unsigned-character values <strong>plus</strong> the distinct sentinel <code>EOF</code>. That is 257 outcomes, which cannot fit in a type holding 256 values. Storing the result in <code>char</code> breaks the loop in one of two ways: where <code>char</code> is signed, a legitimate byte <code>0xFF</code> becomes <code>-1</code> and ends the loop early on binary data; where <code>char</code> is unsigned, the value can never equal a negative <code>EOF</code> and the loop never ends.</p></div>
+<div class="compare">
+<div class="card bad"><h3>Broken</h3><div class="code" data-label="c"><pre>char ch;
+while ((ch = getchar()) != EOF)</pre></div></div>
+<div class="card good"><h3>Correct</h3><div class="code" data-label="c"><pre>int ch;
+while ((ch = getchar()) != EOF)</pre></div></div>
+</div>
+
+<h3>11.2 Producing end of input at a terminal</h3>
+<p>When a program reads from the keyboard, nothing ends the input until you say so.</p>
+<table>
+<thead><tr><th>Situation</th><th>How to signal end of input</th></tr></thead>
+<tbody>
+<tr><td>Linux and macOS terminal</td><td>Press <code>Ctrl</code>+<code>D</code> at the start of an empty line</td></tr>
+<tr><td>Windows console</td><td>Press <code>Ctrl</code>+<code>Z</code>, then <code>Enter</code></td></tr>
+<tr><td>Redirected file</td><td><code>./program &lt; data.txt</code> — end of file arrives automatically</td></tr>
+<tr><td>Piped input</td><td><code>printf 'hi\n' | ./program</code> — end of input arrives when the writer closes</td></tr>
+</tbody>
+</table>
+<p class="mini">Pressing <code>Ctrl</code>+<code>D</code> in the middle of a typed line flushes what is buffered instead of ending the stream, which is why the convention is to press it on a fresh line.</p>
+
+<h3>11.3 The character-counting loop</h3>
+<div class="code" data-label="c"><pre>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int  ch;
+    long chars = 0, lines = 0;
+
+    while ((ch = getchar()) != EOF) {
+        chars++;
+        if (ch == '\n') {
+            lines++;
+        }
+    }
+
+    printf("%ld characters, %ld lines\n", chars, lines);
+    return 0;
+}</pre></div>
+<p>Run against a two-line file containing <code>hi</code> and <code>there</code>:</p>
+<div class="out">9 characters, 2 lines</div>
+<p>Nine characters, because both newline characters are counted. The assignment inside the condition is deliberate and idiomatic: read, store, and test in one step. The inner parentheses are required, since <code>!=</code> binds more tightly than <code>=</code>.</p>
+
+<h3>11.4 The three possible <code>scanf</code> return values</h3>
+<p><code>scanf</code> does not return the value it read. It returns a count, and the count has three distinct cases that must not be confused.</p>
+<table>
+<thead><tr><th>Return value</th><th>Name</th><th>Meaning</th><th>State of the input</th></tr></thead>
+<tbody>
+<tr><td>A positive number</td><td>Success</td><td>That many conversions were assigned</td><td>Consumed</td></tr>
+<tr><td><code>0</code></td><td>Matching failure</td><td>Input arrived but did not fit the conversion, for example letters for <code>%d</code></td><td><strong>Not consumed</strong> — the offending text is still waiting</td></tr>
+<tr><td><code>EOF</code></td><td>Input failure</td><td>End of input, or a read error, before the first conversion completed</td><td>Nothing left</td></tr>
+</tbody>
+</table>
+<div class="callout trap"><span class="lbl">Zero is not end of input</span><p>Treating <code>0</code> and <code>EOF</code> as the same condition is the classic cause of a program that hangs. On a matching failure the bad characters stay in the buffer, so a loop that simply retries <code>scanf</code> reads the same bad characters forever.</p></div>
+<div class="code" data-label="c"><pre>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int x, r;
+
+    while ((r = scanf("%d", &amp;x)) == 1) {
+        printf("read %d\n", x);
+    }
+
+    if (r == 0) {
+        printf("stopped: input was not a number\n");
+    } else {
+        printf("stopped: end of input\n");
+    }
+    return 0;
+}</pre></div>
+<p>With the input <code>10 20 abc</code>:</p>
+<div class="out">read 10
+read 20
+stopped: input was not a number</div>
+<p>With the input <code>10 20</code> followed by end of input:</p>
+<div class="out">read 10
+read 20
+stopped: end of input</div>
+
+<h3>11.5 Recovering from a matching failure</h3>
+<p>To keep reading after bad input, discard the offending text yourself before trying again.</p>
+<div class="code" data-label="c"><pre>int x, r;
+
+while ((r = scanf("%d", &amp;x)) != EOF) {
+    if (r == 1) {
+        printf("read %d\n", x);
+    } else {
+        int junk;
+        while ((junk = getchar()) != '\n' &amp;&amp; junk != EOF) {
+            ;   /* throw away the rest of the offending line */
+        }
+        printf("skipped invalid entry\n");
+    }
+}
+printf("end of input\n");</pre></div>
+<p>Given the input lines <code>10</code>, <code>zz</code>, and <code>30</code>:</p>
+<div class="out">read 10
+skipped invalid entry
+read 30
+end of input</div>
+<p>The loop now terminates on <code>EOF</code> alone, and the matching-failure branch guarantees forward progress by consuming at least the rest of the line.</p>
+
+<h3>11.6 Telling end of input apart from a read error</h3>
+<p><code>EOF</code> answers “why did you stop?” with a single value covering two causes. Two predicates separate them after the loop ends.</p>
+<table>
+<thead><tr><th>Function</th><th>Returns nonzero when</th></tr></thead>
+<tbody>
+<tr><td><code>feof(stream)</code></td><td>The stream reached its end</td></tr>
+<tr><td><code>ferror(stream)</code></td><td>A read or write error occurred on the stream</td></tr>
+</tbody>
+</table>
+<div class="code" data-label="c"><pre>while ((ch = getchar()) != EOF) {
+    /* ... */
+}
+
+if (feof(stdin)) {
+    printf("reached end of input\n");
+}
+if (ferror(stdin)) {
+    printf("a read error occurred\n");
+}</pre></div>
+<div class="out">reached end of input</div>
+
+<h3>11.7 Why <code>while (!feof(fp))</code> is the wrong loop</h3>
+<p>Both flags are <strong>reported after the fact</strong>. <code>feof</code> becomes true only once a read has already failed, never in advance. Testing it before reading therefore always grants one extra iteration, and that iteration processes stale data.</p>
+<div class="code" data-label="c"><pre>char line[100];
+FILE *fp = fopen("lines.txt", "r");
+
+/* WRONG */
+while (!feof(fp)) {
+    fgets(line, sizeof line, fp);
+    printf("%s", line);
+}
+
+rewind(fp);
+
+/* RIGHT: test the read itself */
+while (fgets(line, sizeof line, fp) != NULL) {
+    printf("%s", line);
+}</pre></div>
+<p>For a file containing <code>alpha</code>, <code>beta</code>, and <code>gamma</code>:</p>
+<div class="out">--- broken ---
+alpha
+beta
+gamma
+gamma
+--- correct ---
+alpha
+beta
+gamma</div>
+<p>The final line appears twice because the last <code>fgets</code> failed, left <code>line</code> untouched, and its stale contents were printed before the loop condition was tested again.</p>
+<div class="equation">Test the result of the read.<br>Use feof and ferror only afterwards, to explain why it stopped.</div>
+
+<h3>11.8 <code>EOF</code> across the input functions</h3>
+<table>
+<thead><tr><th>Function</th><th>Value on end of input</th><th>Correct loop test</th></tr></thead>
+<tbody>
+<tr><td><code>getchar</code>, <code>fgetc</code>, <code>getc</code></td><td><code>EOF</code></td><td><code>while ((ch = getchar()) != EOF)</code></td></tr>
+<tr><td><code>scanf</code>, <code>fscanf</code>, <code>sscanf</code></td><td><code>EOF</code></td><td><code>while (scanf("%d", &amp;x) == 1)</code></td></tr>
+<tr><td><code>fgets</code></td><td><code>NULL</code>, not <code>EOF</code></td><td><code>while (fgets(buf, sizeof buf, fp) != NULL)</code></td></tr>
+<tr><td><code>fread</code></td><td>A short item count</td><td><code>while (fread(&amp;rec, sizeof rec, 1, fp) == 1)</code></td></tr>
+</tbody>
+</table>
+<div class="callout"><span class="lbl">One habit covers all four</span><p>Never test for end of input separately from the read. Capture what the input function returned, compare it against that function's own failure value, and let the comparison drive the loop.</p></div>
 </section>
 <section id="scansets">
-<h2><span class="sec-n">11</span>String pattern matching with scansets</h2>
+<h2><span class="sec-n">12</span>String pattern matching with scansets</h2>
 <p>A scanset uses <code>%[...]</code>. It reads a consecutive sequence of characters selected by the set and then appends a null terminator to the destination array.</p>
 
-<h3>11.1 Positive scanset</h3>
+<h3>12.1 Positive scanset</h3>
 <div class="code" data-label="c"><pre>char s[100];
 scanf("%99[a-z]", s);</pre></div>
 <p>This accepts up to 99 consecutive lowercase letters. Width 99 leaves one byte for <code>'\0'</code>.</p>
 
-<h3>11.2 Negated scanset</h3>
+<h3>12.2 Negated scanset</h3>
 <div class="code" data-label="c"><pre>char s[100];
 sscanf("sfsad RRRG;", "%99[^a-d]", s);</pre></div>
 <div class="out">sfs</div>
 <p>The leading <code>^</code> means “accept anything except the listed set.” Reading stops immediately before the first <code>a</code>, <code>b</code>, <code>c</code>, or <code>d</code>.</p>
 
-<h3>11.3 The exact chained scanset experiment</h3>
+<h3>12.3 The exact chained scanset experiment</h3>
 <p>Starting with:</p>
 <div class="out">sfsad RRRG; -  dkdfjalkds</div>
 <p>The first conversion:</p>
@@ -586,17 +763,17 @@ ss = :ad RRRG; -  d:
 remaining input begins with :kdfjalkds:</div>
 <p>This exact result was confirmed under both tested runtimes.</p>
 
-<h3>11.4 Scansets do not skip leading whitespace automatically</h3>
+<h3>12.4 Scansets do not skip leading whitespace automatically</h3>
 <p>If the next unread character is a space and space is not in the scanset, the conversion fails immediately. Add a space before the conversion in the format string when you intentionally want to skip input whitespace first:</p>
 <div class="code" data-label="c"><pre>scanf(" %99[a-z]", s);</pre></div>
 
-<h3>11.5 Why <code>%[]</code> is malformed</h3>
+<h3>12.5 Why <code>%[]</code> is malformed</h3>
 <p>Both GCC and Clang warn that <code>"%[]"</code> has no closing <code>]</code> for a valid scanset specification. In the local experiment it returned zero assignments and left the destination unchanged, but malformed format specifications must not be used as a programming technique.</p>
 <div class="callout trap"><span class="lbl">Practical rule</span><p>Always give string and scanset input a width that leaves room for the terminating null byte: <code>%99s</code> or <code>%99[...]</code> for a 100-byte array.</p></div>
 </section>
 <section id="string-io">
-<h2><span class="sec-n">12</span>Formatted I/O with strings: <code>sscanf</code>, <code>sprintf</code>, and <code>snprintf</code></h2>
-<h3>12.1 <code>sscanf</code>: parse text already stored in memory</h3>
+<h2><span class="sec-n">13</span>Formatted I/O with strings: <code>sscanf</code>, <code>sprintf</code>, and <code>snprintf</code></h2>
+<h3>13.1 <code>sscanf</code>: parse text already stored in memory</h3>
 <div class="code" data-label="c"><pre>char text[] = "ID=42 CGPA=3.75";
 int id;
 double cgpa;
@@ -607,7 +784,7 @@ id = 42
 cgpa = 3.75</div>
 <p>The source is a string instead of <code>stdin</code>, but conversion and return-value rules follow the formatted-input family.</p>
 
-<h3>12.2 Pointer arithmetic lets parsing begin in the middle</h3>
+<h3>13.2 Pointer arithmetic lets parsing begin in the middle</h3>
 <div class="code" data-label="c"><pre>char s[] = "Something going to happen, but who knows!\0Oh!";
 char word[100];
 
@@ -615,20 +792,20 @@ sscanf(s + 37, "%99s", word);</pre></div>
 <div class="out">word = ows!</div>
 <p><code>s + 37</code> points directly at the <code>o</code> in <code>ows!</code>.</p>
 
-<h3>12.3 <code>sprintf</code>: format into a character array</h3>
+<h3>13.3 <code>sprintf</code>: format into a character array</h3>
 <div class="code" data-label="c"><pre>char buffer[100];
 int count = sprintf(buffer, "x = %d", 203);</pre></div>
 <div class="out">buffer = x = 203
 count = 7</div>
 <p>The return value is the number of characters written before the terminating null character. <code>sprintf</code> itself has no destination-size limit.</p>
 
-<h3>12.4 Prefer <code>snprintf</code> when capacity matters</h3>
+<h3>13.4 Prefer <code>snprintf</code> when capacity matters</h3>
 <div class="code" data-label="c"><pre>char buffer[8];
 int needed = snprintf(buffer, sizeof buffer, "value=%d", 12345);</pre></div>
 <p>At most seven visible characters plus the null terminator fit in <code>buffer</code>. The return value reports how many characters would have been produced with unlimited space, which lets you detect truncation by checking whether <code>needed &gt;= sizeof buffer</code>.</p>
 </section>
 <section id="null">
-<h2><span class="sec-n">13</span>Embedded null characters, array capacity, and stale bytes</h2>
+<h2><span class="sec-n">14</span>Embedded null characters, array capacity, and stale bytes</h2>
 <p>Consider the exact reference array:</p>
 <div class="code" data-label="c"><pre>char s[] = "Something going to happen, but who knows!\0Oh!";</pre></div>
 <p>There are two null bytes in the initialized content: the explicit <code>\0</code> after the exclamation mark and the implicit terminator added after <code>Oh!</code>.</p>
@@ -640,7 +817,7 @@ strlen = 41
 s      = Something going to happen, but who knows!</div>
 <p><code>sizeof</code> measures the complete array. <code>strlen</code> counts only from the starting address up to the first null byte.</p>
 
-<h3>13.1 Critical indices before overwriting</h3>
+<h3>14.1 Critical indices before overwriting</h3>
 <table><thead><tr><th>Index</th><th>Byte</th><th>Meaning</th></tr></thead><tbody>
 <tr><td>10</td><td><code>'g'</code> / 103 on the tested ASCII system</td><td>Used by <code>x += s[10]</code>, making 100 become 203.</td></tr>
 <tr><td>37</td><td><code>'o'</code></td><td><code>s + 37</code> begins the substring <code>ows!</code>.</td></tr>
@@ -649,7 +826,7 @@ s      = Something going to happen, but who knows!</div>
 <tr><td>45</td><td><code>'\0'</code></td><td>Final implicit terminator.</td></tr>
 </tbody></table>
 
-<h3>13.2 What <code>sprintf</code> overwrites — and what it does not</h3>
+<h3>14.2 What <code>sprintf</code> overwrites — and what it does not</h3>
 <div class="code" data-label="c"><pre>int x = 100;
 x += s[10];              /* 203 on the tested ASCII system */
 sprintf(s, "x = 100+s[10] = %d", x);</pre></div>
@@ -665,11 +842,13 @@ s+20 = :appen, but who knows!:</div>
 <div class="callout tip"><span class="lbl">Core model</span><p>An array is a region of bytes with a capacity. A C string is a view that starts at some byte and ends at the first null byte encountered from that starting point.</p></div>
 </section>
 <section id="pitfalls">
-<h2><span class="sec-n">14</span>Common mistakes and verified corrections</h2>
+<h2><span class="sec-n">15</span>Common mistakes and verified corrections</h2>
 <table>
 <thead><tr><th>Pattern</th><th>What the test/compiler showed</th><th>Teach instead</th></tr></thead>
 <tbody>
 <tr><td><code>char c; (c=getchar()) != EOF</code></td><td>A <code>char</code> is not the correct storage type for the full <code>getchar</code> result domain.</td><td>Use <code>int c</code>.</td></tr>
+<tr><td><code>while (!feof(fp))</code> as a loop condition</td><td>Verified run: a three-line file printed its last line twice.</td><td>Test the read itself, as in <code>while (fgets(...) != NULL)</code>.</td></tr>
+<tr><td>Treating <code>scanf</code> returning <code>0</code> as end of input</td><td>The unmatched text stays in the buffer, so a retry loop never advances.</td><td>Distinguish <code>0</code>, matching failure, from <code>EOF</code>, input failure.</td></tr>
 <tr><td><code>toupper(c)</code> without <code>&lt;ctype.h&gt;</code></td><td>Missing declaration; signed negative character values are also unsafe arguments.</td><td>Include <code>&lt;ctype.h&gt;</code>; after the EOF test, use <code>toupper((unsigned char)c)</code>.</td></tr>
 <tr><td><code>printf("%d", strlen(s))</code></td><td><code>strlen</code> returns <code>size_t</code>.</td><td>Use <code>%zu</code>.</td></tr>
 <tr><td><code>scanf("%o", &amp;a)</code> with <code>int a</code></td><td>Format expects <code>unsigned int *</code>.</td><td>Use an unsigned destination.</td></tr>
@@ -686,7 +865,7 @@ s+20 = :appen, but who knows!:</div>
 </tbody></table>
 </section>
 <section id="reference-program">
-<h2><span class="sec-n">15</span>A consolidated, corrected demonstration program</h2>
+<h2><span class="sec-n">16</span>A consolidated, corrected demonstration program</h2>
 <div id="verification" class="callout"><span class="lbl">Verification environment</span><p>The edge-case programs behind this tutorial were compiled with <code>gcc 14.2.0</code> and <code>clang 17.0.0</code> using <code>-std=c17 -Wall -Wextra -Wpedantic -Wformat=2</code>. The two executables produced identical runtime output for the tested cases. Compiler warnings are treated as part of the lesson: a result that happens to print on one C library is not presented as guaranteed behavior when the format itself is invalid.</p></div>
 <p>This program keeps the spirit of the reference code while making the type usage and bounded string operations suitable for teaching.</p>
 <div class="code" data-label="c"><pre>#include &lt;ctype.h&gt;
@@ -738,7 +917,7 @@ int main(void)
 }</pre></div>
 </section>
 <section id="quick-reference">
-<h2><span class="sec-n">16</span>Quick reference</h2>
+<h2><span class="sec-n">17</span>Quick reference</h2>
 <h3><code>printf</code> pattern</h3>
 <div class="out">% [flags] [width] [.precision] [length] conversion</div>
 <table><thead><tr><th>Goal</th><th>Format</th><th>Example result</th></tr></thead><tbody>
@@ -765,7 +944,7 @@ int main(void)
 </ul>
 </section>
 <section id="references">
-<h2><span class="sec-n">17</span>References and further reading</h2>
+<h2><span class="sec-n">18</span>References and further reading</h2>
 <ul>
 <li><strong>ISO/IEC 9899:2023 working draft N3096</strong>, §7.23.6 — Formatted input/output functions, especially <code>fprintf</code>/<code>printf</code>, <code>fscanf</code>/<code>scanf</code>, <code>snprintf</code>, <code>sprintf</code>, and <code>sscanf</code>. <a href="https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf" rel="noopener" target="_blank">Open the WG14 draft</a>.</li>
 <li><strong>GNU C Library Manual</strong> — Formatted Output and Formatted Input. <a href="https://sourceware.org/glibc/manual/latest/html_node/Formatted-Output.html" rel="noopener" target="_blank">Formatted Output</a> · <a href="https://sourceware.org/glibc/manual/latest/html_node/Formatted-Input.html" rel="noopener" target="_blank">Formatted Input</a>.</li>
@@ -779,12 +958,12 @@ int main(void)
   <footer>
     <p>Formatting becomes much easier once you read a conversion specification as a small grammar: flags control style, width controls the field, precision controls detail, and the final conversion determines how the value is interpreted.</p>
     <div class="release-footer">
-      <span><a href="../updates.html">Version <span data-release-version>1.2.0</span></a> · Verified edge-case edition · Updated <time data-release-date datetime="2026-07-22">22 July 2026</time></span>
+      <span><a href="../updates.html">Version <span data-release-version>1.4.0</span></a> · Verified edge-case edition · Updated <time data-release-date datetime="2026-07-26">26 July 2026</time></span>
       <span>Signed — <span class="signature-name" data-release-author>Mainul Hasan</span></span>
     </div>
   </footer>
 </div>
-<script src="../site-meta.js?v=1.2.0"></script>
-<script src="../site-nav.js?v=1.2.0"></script>
+<script src="../site-meta.js?v=1.4.0"></script>
+<script src="../site-nav.js?v=1.4.0"></script>
 </body>
 </html>

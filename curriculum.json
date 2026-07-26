@@ -1,7 +1,7 @@
 {
   "course": "Structured Programming Language — C",
-  "version": "1.2.0",
-  "last_updated": "2026-07-22",
+  "version": "1.4.0",
+  "last_updated": "2026-07-26",
   "maintainer": "Mainul Hasan",
   "primary_reference": {
     "title": "Schaum's Outline of Programming with C",
@@ -180,7 +180,12 @@
           "Basic increment and decrement use, especially in loop updates",
           "Combining variables, constants, and operators to form simple expressions"
         ],
-        "slug": "basic-operators-and-expression-building"
+        "slug": "basic-operators-and-expression-building",
+        "tutorial": {
+          "title": "Operators & Expression Evaluation in C",
+          "href": "tutorials/operators-and-expressions.html#basics",
+          "covered_topics": ["Basic arithmetic operators used in calculations", "Division and remainder in simple integer expressions", "Assignment operator in simple expressions", "Basic relational operators used for comparisons", "Basic logical operators used to combine or negate conditions", "Equality comparison versus assignment: == and =", "Basic increment and decrement use, especially in loop updates", "Combining variables, constants, and operators to form simple expressions"]
+        }
       },
       {
         "n": 10,
@@ -359,6 +364,7 @@
         "ref": "Schaum Ch. 3 — Operators and Expressions",
         "topics": [
           "Complete classification of C operators by purpose and arity",
+          "Lvalues, rvalues, and which operators require a modifiable operand",
           "Compound assignment operators",
           "Prefix versus postfix increment semantics",
           "Prefix versus postfix decrement semantics",
@@ -373,7 +379,12 @@
           "Side effects inside expressions",
           "Order-of-evaluation pitfalls and writing unambiguous expressions"
         ],
-        "slug": "operator-system-and-expression-evaluation-in-detail"
+        "slug": "operator-system-and-expression-evaluation-in-detail",
+        "tutorial": {
+          "title": "Operators & Expression Evaluation in C",
+          "href": "tutorials/operators-and-expressions.html#classification",
+          "covered_topics": ["Complete classification of C operators by purpose and arity", "Lvalues, rvalues, and which operators require a modifiable operand", "Compound assignment operators", "Prefix versus postfix increment semantics", "Prefix versus postfix decrement semantics", "Conditional operator", "Comma operator", "sizeof operator", "Operator precedence", "Operator associativity", "Parentheses and explicit grouping", "Compound conditions built from multiple logical expressions", "Short-circuit evaluation", "Side effects inside expressions", "Order-of-evaluation pitfalls and writing unambiguous expressions"]
+        }
       },
       {
         "n": 2,
@@ -431,7 +442,7 @@
         "tutorial": {
           "title": "Formatted Input & Output in C",
           "href": "tutorials/formatted-input-output.html#width-precision",
-          "covered_topics": ["Formatted output field width", "Precision control", "Output flags", "Formatted input field width"]
+          "covered_topics": ["Formatted output field width", "Precision control", "Output flags", "Formatted input field width", "Character input with getchar", "Character output with putchar", "Return values of input functions", "Checking input success and handling invalid input"]
         }
       },
       {
@@ -641,7 +652,12 @@
           "Random-access file positioning",
           "fseek, ftell, and rewind"
         ],
-        "slug": "data-files-and-persistent-storage"
+        "slug": "data-files-and-persistent-storage",
+        "tutorial": {
+          "title": "Formatted Input & Output in C",
+          "href": "tutorials/formatted-input-output.html#eof",
+          "covered_topics": ["EOF and end-of-file handling", "File error detection"]
+        }
       },
       {
         "n": 14,
