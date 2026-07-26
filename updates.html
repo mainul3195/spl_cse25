@@ -58,6 +58,14 @@
         </ul>
       </section>
       <section class="change-group">
+        <h3>Tutorial 02 — missing source for the floating-point experiment</h3>
+        <ul>
+          <li>Section 7.1 showed only the output of the reference experiment. Added the sixteen <code>printf</code> calls that produce it, re-verified to match the published output exactly.</li>
+          <li>Explained the doubled <code>%%</code> that prints the literal label at the start of each line.</li>
+          <li>Noted why <code>%-020.10f</code> and <code>%-020.10e</code> draw a compiler warning, and what to write instead.</li>
+        </ul>
+      </section>
+      <section class="change-group">
         <h3>Code sample legibility</h3>
         <ul>
           <li>Turned off the JetBrains Mono programming ligatures, which were drawing <code>!=</code> as a slashed equals, <code>&gt;=</code> as a single glyph, and <code>-&gt;</code> as an arrow. The source characters were always correct; only the rendering was misleading.</li>

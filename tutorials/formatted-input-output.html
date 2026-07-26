@@ -390,6 +390,26 @@ float t = 78565465e-14f;</pre></div>
 
 <h3>7.1 Exact reference experiment — verified on the test platform</h3>
 <p class="verified">GCC 14.2 and Clang 17 produced identical output on this Linux environment</p>
+<p>Each line prints the same four variables through one more demanding conversion than the last. The leading <code>%%</code> in every format string is what writes the literal <code>%</code> that labels the line.</p>
+<div class="code" data-label="c"><pre>printf("%%lf   p=:%lf: q=:%lf: r=:%lf: t=:%lf:\n", p, q, r, t);
+printf("%%f    p=:%f: q=:%f: r=:%f: t=:%f:\n", p, q, r, t);
+printf("%%10f  p=:%10f: q=:%10f: r=:%10f: t=:%10f:\n", p, q, r, t);
+printf("%%e    p=:%e: q=:%e: r=:%e: t=:%e:\n", p, q, r, t);
+printf("%%.0f  p=:%.0f: q=:%.0f: r=:%.0f: t=:%.0f:\n", p, q, r, t);
+printf("%%#.0f p=:%#.0f: q=:%#.0f: r=:%#.0f: t=:%#.0f:\n", p, q, r, t);
+printf("%%10.0f p=:%10.0f: q=:%10.0f: r=:%10.0f: t=:%10.0f:\n", p, q, r, t);
+printf("%%20.10f p=:%20.10f: q=:%20.10f: r=:%20.10f: t=:%20.10f:\n", p, q, r, t);
+
+/* the signed and left-aligned forms are split so each fits one line */
+printf("%%+020.10f p=:%+020.10f: q=:%+020.10f: r=:%+020.10f:\n", p, q, r);
+printf("%%-020.10f t=:%-020.10f:\n", t);
+printf("%%+020.10e p=:%+020.10e: q=:%+020.10e: r=:%+020.10e:\n", p, q, r);
+printf("%%-020.10e t=:%-020.10e:\n", t);
+
+printf("%%.0e  p=:%.0e: q=:%.0e: r=:%.0e: t=:%.0e:\n", p, q, r, t);
+printf("%%.1f  p=:%.1f: q=:%.1f: r=:%.1f: t=:%.1f:\n", p, q, r, t);
+printf("%%10.1f p=:%10.1f: q=:%10.1f: r=:%10.1f: t=:%10.1f:\n", p, q, r, t);
+printf("%%.1e/E p=:%.1e: q=:%.1E: r=:%.1e: t=:%.1e:\n", p, q, r, t);</pre></div>
 <div class="out">%lf   p=:4.490000: q=:-0.000000: r=:100005.210938: t=:0.000001:
 %f    p=:4.490000: q=:-0.000000: r=:100005.210938: t=:0.000001:
 %10f  p=:  4.490000: q=: -0.000000: r=:100005.210938: t=:  0.000001:
@@ -406,6 +426,8 @@ float t = 78565465e-14f;</pre></div>
 %.1f  p=:4.5: q=:-0.0: r=:100005.2: t=:0.0:
 %10.1f p=:       4.5: q=:      -0.0: r=:  100005.2: t=:       0.0:
 %.1e/E p=:4.5e+00: q=:-5.0E-08: r=:1.0e+05: t=:7.9e-07:</div>
+
+<div class="callout tip"><span class="lbl">Two of those lines draw a warning</span><p>The <code>%-020.10f</code> and <code>%-020.10e</code> forms combine <code>-</code> with <code>0</code>. Both compilers report <code>flag '0' is ignored when flag '-' is present</code>, which is exactly the behavior shown above: <code>t</code> is left-aligned and padded with spaces, not zeros. The combination is kept here because the reference experiment includes it; write <code>%-20.10f</code> in your own code.</p></div>
 
 <h3>7.2 Why the stored value may surprise you</h3>
 <p>The literal <code>100005.21454</code> is converted to <code>float</code> when assigned to <code>r</code>. On the tested platform, the nearest stored value prints as <code>100005.2109375000</code> with enough decimal places. Formatting does not create that error; it merely reveals the approximation already stored.</p>
