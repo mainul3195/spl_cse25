@@ -1,3 +1,28 @@
+/* Disable JetBrains Mono programming ligatures.
+   Without this the font draws != as a slashed equals, >= as a single
+   glyph, and -> as an arrow. The source characters are correct, but a
+   learner reading the page sees symbols that are not on the keyboard. */
+code,
+pre,
+.code,
+.code pre,
+.out,
+.equation,
+.anatomy,
+.memory,
+.cell .index,
+.cell .value,
+.cell .address,
+.plot-fig,
+.drill-n,
+h2 .sec-n,
+thead th,
+.toc .n,
+nav.toc a .n {
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0, "calt" 0;
+}
+
 /* Shared overflow protection for long-form tutorial pages. */
 html,
 body {

@@ -82,3 +82,38 @@
   if (desktopQuery.addEventListener) desktopQuery.addEventListener('change', handleDesktop);
   else desktopQuery.addListener(handleDesktop);
 })();
+
+(() => {
+  const button = document.createElement('button');
+  button.className = 'back-to-top';
+  button.type = 'button';
+  button.title = 'Back to top';
+  button.setAttribute('aria-label', 'Back to top');
+  button.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  document.body.append(button);
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let ticking = false;
+
+  const update = () => {
+    button.classList.toggle('is-visible', window.scrollY > 400);
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }, { passive: true });
+
+  button.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: reduced.matches ? 'instant' : 'smooth' });
+    const heading = document.querySelector('h1');
+    if (heading) {
+      heading.setAttribute('tabindex', '-1');
+      heading.focus({ preventScroll: true });
+    }
+  });
+
+  update();
+})();

@@ -126,7 +126,7 @@
   a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
 </style>
 <link rel="stylesheet" href="../mobile-nav.css">
-<link rel="stylesheet" href="../tutorial-mobile.css?v=1.4.0">
+<link rel="stylesheet" href="../tutorial-mobile.css?v=1.4.2">
 </head>
 <body>
 <header class="site-header">
@@ -153,7 +153,7 @@
     <h1>Formatted Input &amp;<br>Output in C</h1>
     <p class="lede">A systematic guide to <code>printf</code>, <code>scanf</code>, field width, precision, flags, integer and floating-point representation, string formatting, scansets, and string-based formatted I/O.</p>
     <div class="hero-actions">
-      <a class="release-badge" href="../updates.html">Version <span data-release-version>1.4.0</span> · See course updates</a>
+      <a class="release-badge" href="../updates.html">Version <span data-release-version>1.4.2</span> · See course updates</a>
       <a class="verified" href="#verification">Verified with GCC 14.2 &amp; Clang 17 · See tested edge cases</a>
     </div>
   </header>
@@ -567,7 +567,7 @@ if (scanf("%d", &amp;x) == 1) {
 <ul>
 <li>It is a <strong>macro</strong>, not a keyword, and it expands to a negative <code>int</code> constant. On virtually every implementation that value is <code>-1</code>.</li>
 <li>It is <strong>not a character</strong>. No byte in a file is “the EOF byte.” It is a sentinel that input functions return <em>in place of</em> a character.</li>
-<li>It signals two different situations: the input is exhausted, or a read error occurred. Section 11.6 separates them.</li>
+<li>It signals two different situations: the input is exhausted, or a read error occurred. For keyboard and redirected input the first is what you will see in practice.</li>
 </ul>
 <div class="callout tip"><span class="lbl">Why the result must be stored in <code>int</code></span><p><code>getchar</code> returns any of the 256 possible unsigned-character values <strong>plus</strong> the distinct sentinel <code>EOF</code>. That is 257 outcomes, which cannot fit in a type holding 256 values. Storing the result in <code>char</code> breaks the loop in one of two ways: where <code>char</code> is signed, a legitimate byte <code>0xFF</code> becomes <code>-1</code> and ends the loop early on binary data; where <code>char</code> is unsigned, the value can never equal a negative <code>EOF</code> and the loop never ends.</p></div>
 <div class="compare">
@@ -672,68 +672,74 @@ read 30
 end of input</div>
 <p>The loop now terminates on <code>EOF</code> alone, and the matching-failure branch guarantees forward progress by consuming at least the rest of the line.</p>
 
-<h3>11.6 Telling end of input apart from a read error</h3>
-<p><code>EOF</code> answers “why did you stop?” with a single value covering two causes. Two predicates separate them after the loop ends.</p>
-<table>
-<thead><tr><th>Function</th><th>Returns nonzero when</th></tr></thead>
-<tbody>
-<tr><td><code>feof(stream)</code></td><td>The stream reached its end</td></tr>
-<tr><td><code>ferror(stream)</code></td><td>A read or write error occurred on the stream</td></tr>
-</tbody>
-</table>
-<div class="code" data-label="c"><pre>while ((ch = getchar()) != EOF) {
-    /* ... */
-}
+<h3>11.6 Reading words until the input ends</h3>
+<p>The same <code>EOF</code> test drives a string loop. <code>%s</code> reads one whitespace-delimited word, so the loop below consumes the entire input one word at a time regardless of how the words are spread across lines.</p>
+<div class="code" data-label="c"><pre>#include &lt;stdio.h&gt;
 
-if (feof(stdin)) {
-    printf("reached end of input\n");
-}
-if (ferror(stdin)) {
-    printf("a read error occurred\n");
+int main(void)
+{
+    char word[100];
+    int  count = 0;
+
+    while (scanf("%99s", word) != EOF) {
+        count++;
+        printf("word %d: %s\n", count, word);
+    }
+
+    printf("total %d words\n", count);
+    return 0;
 }</pre></div>
-<div class="out">reached end of input</div>
+<p>Given the two lines <code>alpha beta</code> and <code>gamma</code>:</p>
+<div class="out">word 1: alpha
+word 2: beta
+word 3: gamma
+total 3 words</div>
+<div class="callout tip"><span class="lbl">Two details in that format string</span><p>The width <code>99</code> is not optional: <code>word</code> holds 100 characters, so at most 99 may be read to leave room for <code>'\0'</code>. A leading space, as in <code>" %99s"</code>, is harmless but unnecessary — <code>%s</code> already skips leading whitespace on its own, including the newlines between lines.</p></div>
 
-<h3>11.7 Why <code>while (!feof(fp))</code> is the wrong loop</h3>
-<p>Both flags are <strong>reported after the fact</strong>. <code>feof</code> becomes true only once a read has already failed, never in advance. Testing it before reading therefore always grants one extra iteration, and that iteration processes stale data.</p>
-<div class="code" data-label="c"><pre>char line[100];
-FILE *fp = fopen("lines.txt", "r");
+<h3>11.7 Reading a whole line, spaces included</h3>
+<p><code>%s</code> stops at the first space, so it cannot read a full sentence. The negated scanset <code>%[^\n]</code> reads everything up to, but not including, the next newline.</p>
+<div class="code" data-label="c"><pre>#include &lt;stdio.h&gt;
 
-/* WRONG */
-while (!feof(fp)) {
-    fgets(line, sizeof line, fp);
-    printf("%s", line);
-}
+int main(void)
+{
+    char line[100];
 
-rewind(fp);
+    while (scanf(" %99[^\n]", line) != EOF) {
+        printf("[%s]\n", line);
+    }
 
-/* RIGHT: test the read itself */
-while (fgets(line, sizeof line, fp) != NULL) {
-    printf("%s", line);
+    printf("done\n");
+    return 0;
 }</pre></div>
-<p>For a file containing <code>alpha</code>, <code>beta</code>, and <code>gamma</code>:</p>
-<div class="out">--- broken ---
-alpha
-beta
-gamma
-gamma
---- correct ---
-alpha
-beta
-gamma</div>
-<p>The final line appears twice because the last <code>fgets</code> failed, left <code>line</code> untouched, and its stale contents were printed before the loop condition was tested again.</p>
-<div class="equation">Test the result of the read.<br>Use feof and ferror only afterwards, to explain why it stopped.</div>
+<p>Given three lines of input:</p>
+<div class="out">[first line here]
+[second line]
+[third]
+done</div>
+<div class="callout trap"><span class="lbl">The leading space is mandatory here</span><p>A scanset does <strong>not</strong> skip leading whitespace, unlike <code>%s</code> and the numeric conversions. Without the space, <code>%[^\n]</code> stops at the first newline and leaves it in the buffer; the next call then finds that newline waiting, matches nothing, and returns <code>0</code> forever. Because the loop tests against <code>EOF</code> rather than <code>1</code>, it never exits.</p>
+<div class="code" data-label="c — infinite loop"><pre>while (scanf("%99[^\n]", line) != EOF)   /* no leading space */
+    printf("[%s]\n", line);</pre></div>
+<p>A verified run prints the first line once, then repeats it endlessly because <code>line</code> is never updated again:</p>
+<div class="out">r=1 [first line here]
+r=0 [first line here]
+r=0 [first line here]
+r=0 [first line here]
+...</div>
+<p>The leading space consumes the pending newline before the scanset starts, which fixes it. Testing <code>== 1</code> instead of <code>!= EOF</code> would also stop the loop, though it would stop on a blank line too.</p></div>
+<p class="mini">Section 12 covers scansets in full, including positive sets, negated sets, and the whitespace behavior described here.</p>
 
 <h3>11.8 <code>EOF</code> across the input functions</h3>
 <table>
-<thead><tr><th>Function</th><th>Value on end of input</th><th>Correct loop test</th></tr></thead>
+<thead><tr><th>Function</th><th>Value when the input ends</th><th>Correct loop test</th></tr></thead>
 <tbody>
-<tr><td><code>getchar</code>, <code>fgetc</code>, <code>getc</code></td><td><code>EOF</code></td><td><code>while ((ch = getchar()) != EOF)</code></td></tr>
-<tr><td><code>scanf</code>, <code>fscanf</code>, <code>sscanf</code></td><td><code>EOF</code></td><td><code>while (scanf("%d", &amp;x) == 1)</code></td></tr>
-<tr><td><code>fgets</code></td><td><code>NULL</code>, not <code>EOF</code></td><td><code>while (fgets(buf, sizeof buf, fp) != NULL)</code></td></tr>
-<tr><td><code>fread</code></td><td>A short item count</td><td><code>while (fread(&amp;rec, sizeof rec, 1, fp) == 1)</code></td></tr>
+<tr><td><code>getchar</code></td><td><code>EOF</code></td><td><code>while ((ch = getchar()) != EOF)</code></td></tr>
+<tr><td><code>scanf</code> reading numbers</td><td><code>EOF</code></td><td><code>while (scanf("%d", &amp;x) == 1)</code></td></tr>
+<tr><td><code>scanf</code> reading words</td><td><code>EOF</code></td><td><code>while (scanf("%99s", word) != EOF)</code></td></tr>
+<tr><td><code>scanf</code> reading lines</td><td><code>EOF</code></td><td><code>while (scanf(" %99[^\n]", line) != EOF)</code></td></tr>
 </tbody>
 </table>
-<div class="callout"><span class="lbl">One habit covers all four</span><p>Never test for end of input separately from the read. Capture what the input function returned, compare it against that function's own failure value, and let the comparison drive the loop.</p></div>
+<div class="callout"><span class="lbl">One habit covers all of them</span><p>Never test for end of input separately from the read. Capture what the input function returned, compare it against that function's own failure value, and let that comparison drive the loop.</p></div>
+<div class="callout tip"><span class="lbl">Coming later in the course</span><p><code>EOF</code> reports either a genuine end of input or a read error, and the two library predicates that tell them apart, <code>feof</code> and <code>ferror</code>, take a stream argument. They belong with data files, later in the learning path, along with the reason <code>while (!feof(...))</code> is the wrong shape for a read loop.</p></div>
 </section>
 <section id="scansets">
 <h2><span class="sec-n">12</span>String pattern matching with scansets</h2>
@@ -847,7 +853,7 @@ s+20 = :appen, but who knows!:</div>
 <thead><tr><th>Pattern</th><th>What the test/compiler showed</th><th>Teach instead</th></tr></thead>
 <tbody>
 <tr><td><code>char c; (c=getchar()) != EOF</code></td><td>A <code>char</code> is not the correct storage type for the full <code>getchar</code> result domain.</td><td>Use <code>int c</code>.</td></tr>
-<tr><td><code>while (!feof(fp))</code> as a loop condition</td><td>Verified run: a three-line file printed its last line twice.</td><td>Test the read itself, as in <code>while (fgets(...) != NULL)</code>.</td></tr>
+<tr><td><code>scanf("%99[^\n]", s)</code> in a loop without a leading space</td><td>Verified run: the pending newline is never consumed, so every later call matches nothing, returns <code>0</code>, and the loop spins on stale data.</td><td>Write <code>" %99[^\n]"</code>, or test <code>== 1</code> instead of <code>!= EOF</code>.</td></tr>
 <tr><td>Treating <code>scanf</code> returning <code>0</code> as end of input</td><td>The unmatched text stays in the buffer, so a retry loop never advances.</td><td>Distinguish <code>0</code>, matching failure, from <code>EOF</code>, input failure.</td></tr>
 <tr><td><code>toupper(c)</code> without <code>&lt;ctype.h&gt;</code></td><td>Missing declaration; signed negative character values are also unsafe arguments.</td><td>Include <code>&lt;ctype.h&gt;</code>; after the EOF test, use <code>toupper((unsigned char)c)</code>.</td></tr>
 <tr><td><code>printf("%d", strlen(s))</code></td><td><code>strlen</code> returns <code>size_t</code>.</td><td>Use <code>%zu</code>.</td></tr>
@@ -958,12 +964,12 @@ int main(void)
   <footer>
     <p>Formatting becomes much easier once you read a conversion specification as a small grammar: flags control style, width controls the field, precision controls detail, and the final conversion determines how the value is interpreted.</p>
     <div class="release-footer">
-      <span><a href="../updates.html">Version <span data-release-version>1.4.0</span></a> · Verified edge-case edition · Updated <time data-release-date datetime="2026-07-26">26 July 2026</time></span>
+      <span><a href="../updates.html">Version <span data-release-version>1.4.2</span></a> · Verified edge-case edition · Updated <time data-release-date datetime="2026-07-26">26 July 2026</time></span>
       <span>Signed — <span class="signature-name" data-release-author>Mainul Hasan</span></span>
     </div>
   </footer>
 </div>
-<script src="../site-meta.js?v=1.4.0"></script>
-<script src="../site-nav.js?v=1.4.0"></script>
+<script src="../site-meta.js?v=1.4.2"></script>
+<script src="../site-nav.js?v=1.4.2"></script>
 </body>
 </html>

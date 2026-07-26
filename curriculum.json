@@ -1,6 +1,6 @@
 {
   "course": "Structured Programming Language — C",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "last_updated": "2026-07-26",
   "maintainer": "Mainul Hasan",
   "primary_reference": {
@@ -652,12 +652,7 @@
           "Random-access file positioning",
           "fseek, ftell, and rewind"
         ],
-        "slug": "data-files-and-persistent-storage",
-        "tutorial": {
-          "title": "Formatted Input & Output in C",
-          "href": "tutorials/formatted-input-output.html#eof",
-          "covered_topics": ["EOF and end-of-file handling", "File error detection"]
-        }
+        "slug": "data-files-and-persistent-storage"
       },
       {
         "n": 14,

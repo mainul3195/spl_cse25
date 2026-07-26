@@ -33,15 +33,74 @@
     <p class="eyebrow">Course history</p>
     <h1>See what changed and when.</h1>
     <p class="hero-copy">Use the version number to check whether topic lists, tutorials, or course materials have changed since your last visit.</p>
-    <a class="release-badge" href="#v1-4-0">Current version <span data-release-version>1.4.0</span> · Updated <time data-release-date datetime="2026-07-26">26 July 2026</time></a>
+    <a class="release-badge" href="#v1-4-2">Current version <span data-release-version>1.4.2</span> · Updated <time data-release-date datetime="2026-07-26">26 July 2026</time></a>
   </div>
 </section>
 
 <main class="updates-page">
-  <article class="release-card" id="v1-4-0">
+  <article class="release-card" id="v1-4-2">
     <div class="release-head">
       <div>
         <p class="eyebrow">Current release</p>
+        <h2>Version 1.4.2</h2>
+      </div>
+      <time class="release-date" datetime="2026-07-26">26 July 2026</time>
+    </div>
+    <div class="change-groups">
+      <section class="change-group">
+        <h3>Tutorial 02 — end-of-input section kept within the current syllabus</h3>
+        <ul>
+          <li>Removed the file-stream material from the new end-of-input section, since data files come later in the learning path.</li>
+          <li>Replaced it with keyboard and redirected-input examples: reading words with <code>while (scanf("%99s", word) != EOF)</code>, and reading whole lines with <code>while (scanf(" %99[^\n]", line) != EOF)</code>.</li>
+          <li>Documented why the leading space is mandatory in the scanset form, with a verified run of the infinite loop that results without it.</li>
+          <li>Left <code>feof</code> and <code>ferror</code> as a short forward pointer to the data-files topic rather than a worked example.</li>
+          <li>Removed the D13 Data Files tutorial link added in 1.4.0, since file error detection is no longer taught in that section.</li>
+        </ul>
+      </section>
+      <section class="change-group">
+        <h3>Code sample legibility</h3>
+        <ul>
+          <li>Turned off the JetBrains Mono programming ligatures, which were drawing <code>!=</code> as a slashed equals, <code>&gt;=</code> as a single glyph, and <code>-&gt;</code> as an arrow. The source characters were always correct; only the rendering was misleading.</li>
+          <li>Replaced the remaining non-ASCII characters inside code samples so that everything a reader copies is plain, portable C source.</li>
+        </ul>
+      </section>
+      <section class="change-group">
+        <h3>Back-to-top control</h3>
+        <ul>
+          <li>Added a floating back-to-top button to every page, appearing once the reader scrolls past 400 pixels.</li>
+          <li>Gave it an accessible label, keyboard focus styling, and focus movement to the page heading after scrolling.</li>
+          <li>Hid it while the mobile navigation drawer is open, and made it respect the reduced-motion preference.</li>
+        </ul>
+      </section>
+    </div>
+  </article>
+
+  <article class="release-card" id="v1-4-1">
+    <div class="release-head">
+      <div>
+        <p class="eyebrow">Previous release</p>
+        <h2>Version 1.4.1</h2>
+      </div>
+      <time class="release-date" datetime="2026-07-26">26 July 2026</time>
+    </div>
+    <div class="change-groups">
+      <section class="change-group">
+        <h3>Tutorial 04 — shift-count rules</h3>
+        <ul>
+          <li>Documented the valid range of a shift count: <code>0</code> up to one less than the bit width of the promoted left operand.</li>
+          <li>Recorded that a negative count, or one at or beyond that width, is undefined behavior, with verified evidence that the results are silently wrong rather than diagnosed.</li>
+          <li>Separated the two related rules: a negative left operand of <code>&lt;&lt;</code> is undefined, while a negative left operand of <code>&gt;&gt;</code> is implementation-defined.</li>
+          <li>Noted that integer promotion sets the width, so a <code>short</code> operand is limited by <code>int</code> rather than by its own type.</li>
+          <li>Added a checklist row, a quick-reference note, and Exercise 12 on classifying shift expressions.</li>
+        </ul>
+      </section>
+    </div>
+  </article>
+
+  <article class="release-card" id="v1-4-0">
+    <div class="release-head">
+      <div>
+        <p class="eyebrow">Previous release</p>
         <h2>Version 1.4.0</h2>
       </div>
       <time class="release-date" datetime="2026-07-26">26 July 2026</time>
@@ -262,10 +321,10 @@
 
 <footer class="site-footer">
   <span>Structured Programming Language · C · Course update history</span>
-  <span class="release-line"><a href="updates.html">Version <span data-release-version>1.4.0</span></a> · Updated <time data-release-date datetime="2026-07-26">26 July 2026</time></span>
+  <span class="release-line"><a href="updates.html">Version <span data-release-version>1.4.2</span></a> · Updated <time data-release-date datetime="2026-07-26">26 July 2026</time></span>
   <span>Signed — <span class="signature-name" data-release-author>Mainul Hasan</span></span>
 </footer>
-<script src="site-meta.js?v=1.4.0"></script>
-<script src="site-nav.js?v=1.4.0"></script>
+<script src="site-meta.js?v=1.4.2"></script>
+<script src="site-nav.js?v=1.4.2"></script>
 </body>
 </html>
