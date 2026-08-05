@@ -1,8 +1,8 @@
 (() => {
   const release = Object.freeze({
-    version: '1.4.2',
-    updatedISO: '2026-07-26',
-    updatedDisplay: '26 July 2026',
+    version: '1.4.3',
+    updatedISO: '2026-08-05',
+    updatedDisplay: '5 August 2026',
     author: 'Mainul Hasan'
   });
 

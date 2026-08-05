@@ -33,15 +33,45 @@
     <p class="eyebrow">Course history</p>
     <h1>See what changed and when.</h1>
     <p class="hero-copy">Use the version number to check whether topic lists, tutorials, or course materials have changed since your last visit.</p>
-    <a class="release-badge" href="#v1-4-2">Current version <span data-release-version>1.4.2</span> · Updated <time data-release-date datetime="2026-07-26">26 July 2026</time></a>
+    <a class="release-badge" href="#v1-4-3">Current version <span data-release-version>1.4.3</span> · Updated <time data-release-date datetime="2026-08-05">5 August 2026</time></a>
   </div>
 </section>
 
 <main class="updates-page">
-  <article class="release-card" id="v1-4-2">
+  <article class="release-card" id="v1-4-3">
     <div class="release-head">
       <div>
         <p class="eyebrow">Current release</p>
+        <h2>Version 1.4.3</h2>
+      </div>
+      <time class="release-date" datetime="2026-08-05">5 August 2026</time>
+    </div>
+    <div class="change-groups">
+      <section class="change-group">
+        <h3>Tutorial 03 — corrected the lvalue conversion example</h3>
+        <ul>
+          <li>The commentary on <code>c = a + b;</code> said that <code>c</code> is an lvalue <em>because</em> <code>=</code> stores into it. That reverses cause and effect: <code>c</code> designates an object regardless of any operator, and <code>=</code> is the side that <em>requires</em> a modifiable lvalue.</li>
+          <li>Dropped the phrase &ldquo;stays an lvalue&rdquo;, which suggested that being an lvalue is a state a variable holds over time rather than a property of an expression.</li>
+          <li>Added the point the example was missing: <code>a + b</code> is itself not an lvalue, which is the contrast the section is building toward.</li>
+        </ul>
+      </section>
+      <section class="change-group">
+        <h3>Tutorial 03 — new expandable note on what becomes an rvalue</h3>
+        <ul>
+          <li>Added an <em>Explore more</em> panel, collapsed by default, beneath the lvalue conversion example.</li>
+          <li>Corrects the common reading that two operands &ldquo;combine into an rvalue&rdquo;: each operand is read on its own, and <code>+</code> produces a new value that was never an lvalue. Includes a flow diagram and a table classifying every sub-expression of <code>c = a + b</code>.</li>
+          <li>Shows with <code>*p = 5;</code> why the lvalue category is recomputed for each expression rather than inherited from the operands.</li>
+          <li>Explains why the section says <em>designates an object</em> rather than <em>has an address</em>, using <code>f().x = 5;</code> as storage without an lvalue and <code>register int r;</code> as an lvalue whose address may not be taken.</li>
+          <li>Notes that <em>rvalue</em> is an informal term in C, where the standard says only <em>the value of an expression</em>.</li>
+        </ul>
+      </section>
+    </div>
+  </article>
+
+  <article class="release-card" id="v1-4-2">
+    <div class="release-head">
+      <div>
+        <p class="eyebrow">Previous release</p>
         <h2>Version 1.4.2</h2>
       </div>
       <time class="release-date" datetime="2026-07-26">26 July 2026</time>
@@ -329,10 +359,10 @@
 
 <footer class="site-footer">
   <span>Structured Programming Language · C · Course update history</span>
-  <span class="release-line"><a href="updates.html">Version <span data-release-version>1.4.2</span></a> · Updated <time data-release-date datetime="2026-07-26">26 July 2026</time></span>
+  <span class="release-line"><a href="updates.html">Version <span data-release-version>1.4.3</span></a> · Updated <time data-release-date datetime="2026-08-05">5 August 2026</time></span>
   <span>Signed — <span class="signature-name" data-release-author>Mainul Hasan</span></span>
 </footer>
-<script src="site-meta.js?v=1.4.2"></script>
-<script src="site-nav.js?v=1.4.2"></script>
+<script src="site-meta.js?v=1.4.3"></script>
+<script src="site-nav.js?v=1.4.3"></script>
 </body>
 </html>
